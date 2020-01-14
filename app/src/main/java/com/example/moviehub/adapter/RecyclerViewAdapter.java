@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.moviehub.Network.NetworkConstraint;
+import com.example.moviehub.Network.TrendingRequest;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Trending;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -34,14 +37,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View view=layoutInflater.inflate(R.layout.view,parent,false);
         return new RecyclerViewHolder(view);
 
-
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
 
         Log.i("csccc", "onBindViewHolder: ");
+
+        Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL+list.get(position).getPosterPath()).into(holder.image);
+        Log.i("sczczc", "onBindViewHolder: "+NetworkConstraint.BASE_URL+list.get(position).getPosterPath());
+
+
+        Log.i("csccc", "onBindViewHolder: "+list.get(position).getTitle());
+
+        if(list.get(position).getTitle()==null){
+            holder.name.setText(list.get(position).getName());
+        }
+        else{
+            holder.name.setText(list.get(position).getTitle());
+        }
+
+
 
     }
 
@@ -51,8 +67,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder{
-
         ImageView image;
+
+
         TextView name;
 
         public RecyclerViewHolder(@NonNull View itemView) {

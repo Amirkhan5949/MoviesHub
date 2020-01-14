@@ -10,4 +10,17 @@ public interface TrendingRequest {
 
     @GET("trending/movie/day")
     Call<Trending> getTrending(@Query("api_key") String key);
+
+    @GET("trending/tv/day")
+    Call<Trending>getTrendingTvShow(@Query("api_key")String Key);
+
+
 }
+
+
+
+
+
+
+
+

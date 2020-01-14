@@ -68,6 +68,18 @@ public static class Result {
     @SerializedName("title")
     @Expose
     private String title;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
