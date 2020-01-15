@@ -16,7 +16,7 @@ import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
 import com.example.moviehub.Network.TrendingRequest;
-import com.example.moviehub.adapter.RecyclerViewAdapter;
+import com.example.moviehub.adapter.FrontPageAdapter;
 import com.example.moviehub.model.Trending;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.i("dadacc", "onResponse: " + response.body().getResults());
                         Log.i("dadacc", "onResponse: " + response.toString());
-                        recycler.setAdapter(new RecyclerViewAdapter(MainActivity.this, response.body().getResults()));
+                        recycler.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
 
                     }
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.i("adadczc", "onResponse: " + response.toString());
                         Log.i("adadczc", "onResponse: " + response.body());
-                        resque.setAdapter(new RecyclerViewAdapter(MainActivity.this, response.body().getResults()));
+                        resque.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
 
 
                     }
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.i("adadczc", "onResponse: " + response.toString());
                         Log.i("adadczc", "onResponse: " + response.body());
-                        upcoming.setAdapter(new RecyclerViewAdapter(MainActivity.this, response.body().getResults()));
+                        upcoming.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
 
                     }
 
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("dscsc", "onResponse: " + response.body());
                         Log.i("dscsc", "onResponse: " + response.toString());
 
-                        popular.setAdapter(new RecyclerViewAdapter(MainActivity.this, response.body().getResults()));
+                        popular.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
                     }
 
 
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<Trending> call, Response<Trending> response) {
                         Log.i("fxczc", "onResponse: " + response.toString());
                         Log.i("fxczc", "onResponse: " + response.body());
-                        toprated.setAdapter(new RecyclerViewAdapter(MainActivity.this, response.body().getResults()));
+                        toprated.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
                     }
 
                     @Override

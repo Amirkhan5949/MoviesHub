@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.moviehub.Network.NetworkConstraint;
-import com.example.moviehub.Network.TrendingRequest;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Trending;
 import com.squareup.picasso.Picasso;
@@ -19,11 +18,11 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
+public class FrontPageAdapter extends RecyclerView.Adapter<FrontPageAdapter.RecyclerViewHolder> {
     Context  context;
     List<Trending.Result>list;
 
-    public RecyclerViewAdapter(Context context, List<Trending.Result>list){
+    public FrontPageAdapter(Context context, List<Trending.Result>list){
         this.context=context;
         this.list=list;
 
@@ -57,6 +56,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.name.setText(list.get(position).getTitle());
         }
 
+        holder.id.setText(list.get(position).getVoteAverage().toString());
+
 
 
     }
@@ -68,6 +69,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
+        TextView id;
 
 
         TextView name;
@@ -76,6 +78,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             image=itemView.findViewById(R.id.image);
             name=itemView.findViewById(R.id.name);
+            id=itemView.findViewById(R.id.id);
         }
     }
 }
