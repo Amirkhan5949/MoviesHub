@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
         resque.setLayoutManager(new LinearLayoutManager(this));
-        resque.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        resque.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         upcoming.setLayoutManager(new LinearLayoutManager(this));
-        upcoming.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        upcoming.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(TrendingRequest.class)
                 .getTrending(NetworkConstraint.key)

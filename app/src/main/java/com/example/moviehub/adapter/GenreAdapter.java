@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.moviehub.R;
 import com.example.moviehub.model.MovieInfo;
@@ -34,17 +35,21 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreViewHol
 
     @Override
     public void onBindViewHolder(@NonNull GenreViewHolder holder, int position) {
+        holder.crime.setText(list.get(position).getName());
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class GenreViewHolder extends RecyclerView.ViewHolder {
-        public GenreViewHolder(@NonNull View itemView) {
+        TextView  crime;
+        public GenreViewHolder(@NonNull View itemView)
+        {
             super(itemView);
+            crime=itemView.findViewById(R.id.crime);
         }
     }
 }

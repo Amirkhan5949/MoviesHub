@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
     tools:context=".Fragments.InfoFragment">
 
     <ScrollView
@@ -17,156 +17,264 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/genre"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/recycler"/>
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
+                android:id="@+id/review"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Aamirkhan"
-                android:textSize="20sp"
                 android:textColor="@color/light_gray"
-                android:id="@+id/review"/>
+                android:textSize="20sp" />
 
             <View
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:background="@color/white"/>
+                android:layout_marginTop="20dp"
+                android:background="@color/colorAccent" />
 
             <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Crew"
-                    android:textSize="24sp"
-                    android:textColor="@color/white"/>
 
                 <TextView
-                    android:layout_marginRight="10dp"
-                    android:gravity="end"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Crew"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/showall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
                     android:text="Show all"
-                    android:textSize="20sp"
-                    android:textColor="@color/pink"/>
+                    android:textColor="@color/pink"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_margin="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/crew"/>
-
-            <View
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:background="@color/white"/>
-
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
+                android:id="@+id/crew"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorAccent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Trailors"
-                android:textSize="24sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="24sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_margin="10dp"
+                android:id="@+id/trailor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/trailor"/>
+                android:layout_margin="10dp" />
 
             <View
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:background="@color/white"/>
+                android:layout_marginTop="20dp"
+                android:background="@color/colorAccent" />
 
             <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Media"
-                android:textSize="24sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="24sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_margin="10dp"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/media"/>
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="0.3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <ImageView
+                            android:id="@+id/smallimage"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/avni" />
+
+
+
+                        <LinearLayout
+                            android:gravity="bottom"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="200dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="123"
+                                android:textColor="@color/white"
+                                android:textSize="16dp" />
+
+
+                            <TextView
+                                android:id="@+id/poster"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="poster"
+                                android:textColor="@color/white"
+                                android:textSize="16dp" />
+
+
+                        </LinearLayout>
+
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="0.7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp">
+
+                    <ImageView
+                        android:id="@+id/largeimage"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avni" />
+
+                    <LinearLayout
+                        android:layout_width="123dp"
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="123"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+
+                        <TextView
+                            android:id="@+id/backdrops"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="backdrops"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
 
             <View
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:background="@color/white"/>
-
+                android:layout_marginTop="20dp"
+                android:background="@color/white" />
 
 
             <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Fact"
                 android:textColor="@color/white"
-                android:textSize="24sp"/>
+                android:textSize="24sp" />
 
             <TextView
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Original Title"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_marginLeft="10dp"
+                android:id="@+id/moviename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="moviename"
-                android:id="@+id/moviename"
-                android:textColor="@color/light_gray"
-                android:textSize="20sp"/>
-            <LinearLayout
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:text="moviename"
+                android:textColor="@color/light_gray"
+                android:textSize="20sp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
-                <TextView
 
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="37dp"
                     android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="Status"
                     android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
+
                 <TextView
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:text="Runtime"
                     android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -178,49 +286,52 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/released"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="Released"
-                    android:id="@+id/released"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
+
+
 
                 <TextView
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
+                    android:id="@+id/runtime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="123"
-                    android:id="@+id/runtime"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+
                 <TextView
 
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Release Date"
                     android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
+
                 <TextView
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:text="Original Language"
                     android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -231,49 +342,50 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="Date"
-                    android:id="@+id/date"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
+                    android:id="@+id/language"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Hindi"
-                    android:id="@+id/language"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+
                 <TextView
 
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Budget"
                     android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
+
                 <TextView
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:text="Revenue"
                     android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -284,75 +396,56 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/inwest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="inwest"
-                    android:id="@+id/money"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
+                    android:id="@+id/earn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Earn"
-                    android:id="@+id/earn"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <View
-                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:background="@color/white"/>
-            <TextView
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="30dp"
+                android:background="@color/white" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
                 android:text="Production Companies"
-                android:textSize="20sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/production"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="production"
                 android:textColor="@color/light_gray"
-                android:textSize="20sp"
-                android:layout_marginLeft="10dp"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
+                android:textSize="20sp" />
 
 
 
         </LinearLayout>
 
 
-
-
-
-
     </ScrollView>
-
-
 
 
 </FrameLayout>
