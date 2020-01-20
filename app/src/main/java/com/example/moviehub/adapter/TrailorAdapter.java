@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.R;
-import com.example.moviehub.model.MovieInfo;
+import com.example.moviehub.model.YoutubeConnect;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TrailorAdapter extends RecyclerView.Adapter<TrailorAdapter.TrailorViewHolder>{
     Context context;
-    List<MovieInfo>list;
+    List<YoutubeConnect.Result>list;
 
-    public  TrailorAdapter(Context context, List<MovieInfo>list){
+    public  TrailorAdapter(Context context, List<YoutubeConnect.Result>list){
         this.context=context;
         this.list=list;
     }
@@ -36,8 +36,9 @@ public class TrailorAdapter extends RecyclerView.Adapter<TrailorAdapter.TrailorV
 
     @Override
     public void onBindViewHolder(@NonNull TrailorViewHolder holder, int position) {
-        Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL+list.get(position)).into(holder.image);
-        holder.name.setText(list.get(position).toString());
+
+        Picasso.get().load("https://i.ytimg.com/vi/"+list.get(position).getKey()+"/hqdefault.jpg").into(holder.image);
+         holder.name.setText(list.get(position).getName());
 
     }
 

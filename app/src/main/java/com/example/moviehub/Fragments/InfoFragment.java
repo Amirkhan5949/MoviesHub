@@ -18,18 +18,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.moviehub.Network.CrewRequest;
 import com.example.moviehub.Network.MovieInfoRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
+import com.example.moviehub.Network.YoutubeRequest;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.CrewAdapter;
 import com.example.moviehub.adapter.GenreAdapter;
 import com.example.moviehub.adapter.TrailorAdapter;
 import com.example.moviehub.model.Credit;
 import com.example.moviehub.model.MovieInfo;
+import com.example.moviehub.model.YoutubeConnect;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -62,6 +65,7 @@ public class InfoFragment extends Fragment {
        crew.setLayoutManager(new GridLayoutManager(getContext(),2));
 
 
+       trailor.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
 
 
         smallimage=view.findViewById(R.id.smallimage);
@@ -140,6 +144,23 @@ public class InfoFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Credit> call, Throwable t) {
+
+                    }
+                });
+
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(YoutubeRequest.class)
+                .getYoutubeRequest(NetworkConstraint.key)
+                .enqueue(new Callback<YoutubeConnect>() {
+                    @Override
+                    public void onResponse(Call<YoutubeConnect> call, Response<YoutubeConnect> response) {
+                        TrailorAdapter adapter=new TrailorAdapter(getContext(),response.body().getResults());
+                        trailor.setAdapter(adapter);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<YoutubeConnect> call, Throwable t) {
 
                     }
                 });
