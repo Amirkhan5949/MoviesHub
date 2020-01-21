@@ -260,8 +260,8 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="37dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Status"
                     android:textColor="@color/white"
@@ -271,7 +271,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     android:text="Runtime"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
@@ -302,6 +301,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
                     android:text="123"
                     android:textColor="@color/light_gray"
                     android:textSize="20sp" />
@@ -328,7 +328,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     android:text="Original Language"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
@@ -356,6 +355,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
                     android:text="Hindi"
                     android:textColor="@color/light_gray"
                     android:textSize="20sp" />
@@ -382,7 +382,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     android:text="Revenue"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
@@ -406,6 +405,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:layout_marginLeft="5dp"
                     android:id="@+id/earn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

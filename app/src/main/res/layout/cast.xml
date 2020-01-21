@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/background"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".Fragments.CastFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/circleimg"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:src="@drawable/avni"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aamir"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:id="@+id/name"/>
+
+            <TextView
+                 android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nicknamae"
+                android:textSize="14sp"
+                android:textColor="@color/light_gray"
+                android:id="@+id/nickname"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray"/>
+
+
+
+
+
+</LinearLayout>
