@@ -16,12 +16,12 @@
     <androidx.cardview.widget.CardView
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:layout_width="140dp"
-        android:layout_height="180dp"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
         app:cardCornerRadius="10dp">
         <ImageView
-            android:layout_width="140dp"
-            android:layout_height="180dp"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
             android:src="@drawable/avni"
             android:scaleType="centerCrop"
             android:id="@+id/image"/>
@@ -72,6 +72,7 @@
     </LinearLayout>
 
     <View
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"

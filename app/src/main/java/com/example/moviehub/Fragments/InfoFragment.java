@@ -35,14 +35,17 @@ import com.example.moviehub.model.MovieInfo;
 import com.example.moviehub.model.YoutubeConnect;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class InfoFragment extends Fragment {
     View view;
-    RecyclerView genre,crew,trailor;
-    ImageView smallimage,largeimage;
-    TextView review,showall,number,poster,no,backdrops,moviename,released,runtime,date,language,inwest,earn,production;
+    RecyclerView genre, crew, trailor;
+    ImageView smallimage, largeimage;
+    TextView year,timing,review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
 
 
     public InfoFragment() {
@@ -54,39 +57,39 @@ public class InfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.fragment_info, container, false);
+        view = inflater.inflate(R.layout.fragment_info, container, false);
 
-        genre=view.findViewById(R.id.genre);
-        crew=view.findViewById(R.id.crew);
-        trailor=view.findViewById(R.id.trailor);
-
-
-       genre.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-       crew.setLayoutManager(new GridLayoutManager(getContext(),2));
+        genre = view.findViewById(R.id.genre);
+        crew = view.findViewById(R.id.crew);
+        trailor = view.findViewById(R.id.trailor);
 
 
-       trailor.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        genre.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        crew.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
 
-        smallimage=view.findViewById(R.id.smallimage);
-        largeimage=view.findViewById(R.id.largeimage);
+        trailor.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
-        review=view.findViewById(R.id.review);
-        showall=view.findViewById(R.id.showall);
-        number=view.findViewById(R.id.number);
-        poster=view.findViewById(R.id.poster);
-        no=view.findViewById(R.id.no);
-        backdrops=view.findViewById(R.id.backdrops);
+        smallimage = view.findViewById(R.id.smallimage);
+        largeimage = view.findViewById(R.id.largeimage);
 
-        moviename=view.findViewById(R.id.moviename);
-        released=view.findViewById(R.id.released);
-        runtime=view.findViewById(R.id.runtime);
-        date=view.findViewById(R.id.date);
-        language=view.findViewById(R.id.language);
-        inwest=view.findViewById(R.id.inwest);
-        earn=view.findViewById(R.id.earn);
-        production=view.findViewById(R.id.production);
+
+        review = view.findViewById(R.id.review);
+        showall = view.findViewById(R.id.showall);
+        number = view.findViewById(R.id.number);
+        poster = view.findViewById(R.id.poster);
+        no = view.findViewById(R.id.no);
+        backdrops = view.findViewById(R.id.backdrops);
+
+        moviename = view.findViewById(R.id.moviename);
+        released = view.findViewById(R.id.released);
+        runtime = view.findViewById(R.id.runtime);
+        date = view.findViewById(R.id.date);
+        language = view.findViewById(R.id.language);
+        inwest = view.findViewById(R.id.inwest);
+        earn = view.findViewById(R.id.earn);
+        production = view.findViewById(R.id.production);
 
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
@@ -94,38 +97,51 @@ public class InfoFragment extends Fragment {
                 .getmovierequest(NetworkConstraint.key)
                 .enqueue(new Callback<MovieInfo>() {
                     @Override
-                    public void onResponse(Call<MovieInfo> call, Response<MovieInfo> response) {{
+                    public void onResponse(Call<MovieInfo> call, Response<MovieInfo> response) {
+                        {
 
-                        Log.i("adadczc", "onResponse: " + response.toString());
-                        Log.i("adadczc", "onResponse: " + response.body());
-                        review.setText(response.body().getOverview());
-                        moviename.setText(response.body().getOriginalTitle());
-                         language.setText(response.body().getOriginalLanguage());
-                         released.setText(response.body().getStatus());
-                         runtime.setText(response.body().getRuntime().toString());
-                         date.setText(response.body().getReleaseDate());
-                         inwest.setText(response.body().getBudget().toString());
-                         earn.setText(response.body().getRevenue().toString());
-                         production.setText(response.body().getProductionCompanies().toString());
-                        Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL+response.body().getPosterPath()).into(smallimage);
-                        Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL+response.body().getBackdropPath()).into(largeimage);
-                        Log.i("xaxxxxad", "onResponse: "+response.body().getOverview());
+                            Log.i("adadczc", "onResponse: " + response.toString());
+                            Log.i("adadczc", "onResponse: " + response.body());
+                            review.setText(response.body().getOverview());
+                            moviename.setText(response.body().getOriginalTitle());
+                            language.setText(response.body().getOriginalLanguage());
+                            released.setText(response.body().getStatus());
+                            runtime.setText(response.body().getRuntime().toString());
+                            date.setText(response.body().getReleaseDate());
+                            inwest.setText(response.body().getBudget().toString());
+                            earn.setText(response.body().getRevenue().toString());
+                            Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL + response.body().getPosterPath()).into(smallimage);
+                            Picasso.get().load(NetworkConstraint.Image_URL + response.body().getBackdropPath()).into(largeimage);
+                            Log.i("xaxxxxad", "onResponse: " +response.body().getBackdropPath()) ;
 
-                        GenreAdapter adapter=new GenreAdapter(getContext(),response.body().getGenres());
-                        genre.setAdapter(adapter);
-
-//                        TrailorAdapter trailorAdapter=new TrailorAdapter(getContext(),response.body().)
+                            GenreAdapter adapter = new GenreAdapter(getContext(), response.body().getGenres());
+                            genre.setAdapter(adapter);
 
 
+                            String s[] = {"asdad", "asdasd", "ASDas"};
+                            String y = "";
 
+                            for (String x : s) {
+                                y = y + "," + x;
+                            }
 
-                    }
+                            // ,asdad,asdasd,ASDas
+
+                            String name = "";
+                            for (MovieInfo.ProductionCompany x : response.body().getProductionCompanies()) {
+                                name = name + x.getName() + ",";
+                                Log.i("adsfs", "onResponse: " + name);
+                            }
+
+                            production.setText(name.substring(0, name.length() - 1) + ".");
+
+                        }
 
                     }
 
                     @Override
                     public void onFailure(Call<MovieInfo> call, Throwable t) {
-                        Log.i("adadczc", "onFailure: "+t.getMessage());
+                        Log.i("adadczc", "onFailure: " + t.getMessage());
 
                     }
                 });
@@ -136,10 +152,10 @@ public class InfoFragment extends Fragment {
                 .enqueue(new Callback<Credit>() {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
-                        CrewAdapter adapter=new CrewAdapter(getContext(),response.body().getCrew());
+                        CrewAdapter adapter = new CrewAdapter(getContext(), response.body().getCrew());
                         crew.setAdapter(adapter);
 
-                        Log.i("dadada", "onResponse: "+response.body().getCrew());
+                        Log.i("dadada", "onResponse: " + response.body().getCrew());
                     }
 
                     @Override
@@ -154,7 +170,7 @@ public class InfoFragment extends Fragment {
                 .enqueue(new Callback<YoutubeConnect>() {
                     @Override
                     public void onResponse(Call<YoutubeConnect> call, Response<YoutubeConnect> response) {
-                        TrailorAdapter adapter=new TrailorAdapter(getContext(),response.body().getResults());
+                        TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
                         trailor.setAdapter(adapter);
 
                     }
@@ -164,10 +180,6 @@ public class InfoFragment extends Fragment {
 
                     }
                 });
-
-
-
-
 
 
         // Inflate the layout for this fragment
