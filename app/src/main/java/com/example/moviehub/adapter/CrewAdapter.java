@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewRecyclerView>{
+//   Context mContext;
     Context context;
     List<Credit.Crew>list;
 
@@ -25,6 +26,12 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewRecyclerVi
         this.list=list;
 
     }
+
+//    public CrewAdapter (Context mContext) {
+//        super();
+//        this.mContext = mContext;
+//    }
+
     @NonNull
     @Override
     public CrewRecyclerView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

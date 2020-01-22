@@ -30,9 +30,11 @@ import com.example.moviehub.model.Credit;
 public class CastFragment extends Fragment {
     RecyclerView castrecyclerView;
     View view;
+    String s="";
 
 
-    public CastFragment() {
+    public CastFragment(String s) {
+        this.s=s;
         // Required empty public constructor
     }
 
@@ -49,7 +51,7 @@ public class CastFragment extends Fragment {
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(CrewRequest.class)
-                .getCrewRequest(NetworkConstraint.key)
+                .getCrewRequest(s,NetworkConstraint.key)
                 .enqueue(new Callback<Credit>() {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {

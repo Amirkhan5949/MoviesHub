@@ -12,27 +12,38 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.moviehub.Network.DiscoverRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
 import com.example.moviehub.Network.SimilarMovieRequest;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.SimilarMovieAdapter;
+import com.example.moviehub.model.DiscoverGenre;
 import com.example.moviehub.model.SimilarMovie;
+import com.example.moviehub.utils.Type;
+
+import static com.example.moviehub.utils.Type.MixListType.GENRE;
+import static com.example.moviehub.utils.Type.MixListType.SIMILAR;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SimilarFragment extends Fragment {
+public class MixListFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
+    String s="";
+
+    Type.MixListType type;
 
 
-    public SimilarFragment() {
-        // Required empty public constructor
+    public MixListFragment(String s, Type.MixListType type) {
+        this.s=s;
+        this.type = type;
     }
 
 
@@ -46,9 +57,44 @@ public class SimilarFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         // Inflate the layout for this fragment
 
+
+        switch (type){
+            case GENRE :
+                getGenerMovie();
+                break;
+            case SIMILAR:
+                getSimilarMovie();
+                break;
+        }
+
+
+
+
+        return view;
+    }
+
+    private void getGenerMovie() {
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(DiscoverRequest.class)
+                .getDiscover(NetworkConstraint.key,s)
+                .enqueue(new Callback<DiscoverGenre>() {
+                    @Override
+                    public void onResponse(Call<DiscoverGenre> call, Response<DiscoverGenre> response) {
+                        SimilarMovieAdapter adapter=new SimilarMovieAdapter(getContext(),response.body().getResults());
+                        recyclerView.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onFailure(Call<DiscoverGenre> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void getSimilarMovie() {
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(SimilarMovieRequest.class)
-                .getsimilarmovie(NetworkConstraint.key)
+                .getsimilarmovie(s,NetworkConstraint.key)
                 .enqueue(new Callback<SimilarMovie>() {
                     @Override
                     public void onResponse(Call<SimilarMovie> call, Response<SimilarMovie> response) {
@@ -61,7 +107,6 @@ public class SimilarFragment extends Fragment {
 
                     }
                 });
-        return view;
     }
 
 }

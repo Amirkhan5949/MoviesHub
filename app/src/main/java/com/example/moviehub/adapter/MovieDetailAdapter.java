@@ -1,27 +1,28 @@
 package com.example.moviehub.adapter;
 
-import android.view.View;
-import android.widget.Switch;
-
 import com.example.moviehub.Fragments.CastFragment;
 import com.example.moviehub.Fragments.InfoFragment;
 import com.example.moviehub.Fragments.ReviewFragment;
-import com.example.moviehub.Fragments.SimilarFragment;
+import com.example.moviehub.Fragments.MixListFragment;
+import com.example.moviehub.utils.Type;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
- public class MovieDetailAdapter extends FragmentPagerAdapter {
-     public MovieDetailAdapter(@NonNull FragmentManager fm) {
+
+public class MovieDetailAdapter extends FragmentPagerAdapter {
+
+     private String s;
+
+     public MovieDetailAdapter(String s,@NonNull FragmentManager fm) {
          super(fm);
+         this.s=s;
      }
 
-     public MovieDetailAdapter(@NonNull FragmentManager fm, int behavior) {
-         super(fm, behavior);
-     }
+
+
 
      @NonNull
      @Override
@@ -29,16 +30,17 @@ import androidx.viewpager.widget.PagerAdapter;
          switch(position){
 
              case 0:
-                 return new InfoFragment();
+
+                 return new InfoFragment(s);
 
              case 1:
-                 return new CastFragment();
+                 return new CastFragment(s);
 
              case 2:
-                 return new ReviewFragment();
+                 return new ReviewFragment(s);
 
              case 3:
-                 return new SimilarFragment();
+                 return new MixListFragment(s, Type.MixListType.SIMILAR);
              default:
                  return null;
 

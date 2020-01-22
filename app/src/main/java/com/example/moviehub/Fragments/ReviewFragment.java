@@ -29,9 +29,11 @@ import com.example.moviehub.model.Reviews;
 public class ReviewFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
+    String s="";
 
 
-    public ReviewFragment() {
+    public ReviewFragment(String s) {
+        this.s=s;
         // Required empty public constructor
     }
 
@@ -47,7 +49,7 @@ public class ReviewFragment extends Fragment {
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(ReviewRequest.class)
-                .getreviews(NetworkConstraint.key)
+                .getreviews(s,NetworkConstraint.key)
                 .enqueue(new Callback<Reviews>() {
                     @Override
                     public void onResponse(Call<Reviews> call, Response<Reviews> response) {

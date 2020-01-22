@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.R;
+import com.example.moviehub.model.Result;
 import com.example.moviehub.model.SimilarMovie;
 import com.squareup.picasso.Picasso;
 
@@ -19,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapter.SimlarMovieRecyclerView> {
     Context context;
-    List<SimilarMovie.Result>list;
+    List<Result>list;
 
-    public SimilarMovieAdapter(Context context,List<SimilarMovie.Result>list){
+    public SimilarMovieAdapter(Context context,List<Result>list){
         this.context=context;
         this.list=list;
     }
@@ -36,7 +37,17 @@ public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapte
     @Override
     public void onBindViewHolder(@NonNull SimlarMovieRecyclerView holder, int position) {
         Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL+list.get(position).getPosterPath()).into(holder.image);
-        holder.year.setText(list.get(position).getReleaseDate());
+
+        String a=list.get(position).getReleaseDate();
+        String b=a.substring(0,4);
+        holder.year.setText(b);
+
+//        Intent intent = new Intent(context, InfoFragment.class);
+//        intent.putExtra("year",list.get(position).getReleaseDate()+"");
+//        context.startActivity(intent);
+
+
+
         holder.name.setText(list.get(position).getTitle());
         holder.rating.setText(list.get(position).getVoteAverage().toString());
     }

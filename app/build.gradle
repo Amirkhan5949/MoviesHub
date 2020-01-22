@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha03'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'de.hdodenhof:circleimageview:3.0.2'
-
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
 
 
 }

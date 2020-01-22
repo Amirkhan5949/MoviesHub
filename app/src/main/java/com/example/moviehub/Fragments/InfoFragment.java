@@ -1,6 +1,8 @@
 package com.example.moviehub.Fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -21,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.moviehub.Activities.CelebritiesActivity;
 import com.example.moviehub.Network.CrewRequest;
 import com.example.moviehub.Network.MovieInfoRequest;
 import com.example.moviehub.Network.NetworkConstraint;
@@ -33,6 +36,8 @@ import com.example.moviehub.adapter.TrailorAdapter;
 import com.example.moviehub.model.Credit;
 import com.example.moviehub.model.MovieInfo;
 import com.example.moviehub.model.YoutubeConnect;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.DialogPlusBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
@@ -46,10 +51,14 @@ public class InfoFragment extends Fragment {
     RecyclerView genre, crew, trailor;
     ImageView smallimage, largeimage;
     TextView year,timing,review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
+    String s = "";
 
 
-    public InfoFragment() {
-        // Required empty public constructor
+
+    public InfoFragment(String s ) {
+         this.s =s;
+
+
     }
 
 
@@ -64,6 +73,8 @@ public class InfoFragment extends Fragment {
         trailor = view.findViewById(R.id.trailor);
 
 
+
+
         genre.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         crew.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
@@ -73,6 +84,8 @@ public class InfoFragment extends Fragment {
 
         smallimage = view.findViewById(R.id.smallimage);
         largeimage = view.findViewById(R.id.largeimage);
+        year=view.findViewById(R.id.year);
+        timing=view.findViewById(R.id.timing);
 
 
         review = view.findViewById(R.id.review);
@@ -92,15 +105,30 @@ public class InfoFragment extends Fragment {
         production = view.findViewById(R.id.production);
 
 
+
+        showall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getContext(), CelebritiesActivity.class);
+                intent.putExtra("id",s);
+                getContext().startActivity(intent);
+
+            }
+        });
+
+
+
+
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(MovieInfoRequest.class)
-                .getmovierequest(NetworkConstraint.key)
+                .getmovierequest(s,NetworkConstraint.key)
                 .enqueue(new Callback<MovieInfo>() {
                     @Override
                     public void onResponse(Call<MovieInfo> call, Response<MovieInfo> response) {
                         {
 
-                            Log.i("adadczc", "onResponse: " + response.toString());
+                            Log.i("adadczc", "onResponse: " + response.body().getOverview());
                             Log.i("adadczc", "onResponse: " + response.body());
                             review.setText(response.body().getOverview());
                             moviename.setText(response.body().getOriginalTitle());
@@ -110,6 +138,9 @@ public class InfoFragment extends Fragment {
                             date.setText(response.body().getReleaseDate());
                             inwest.setText(response.body().getBudget().toString());
                             earn.setText(response.body().getRevenue().toString());
+
+
+                            Log.i("sccccccdscsds", "onResponse: "+response.body().getReleaseDate());
                             Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL + response.body().getPosterPath()).into(smallimage);
                             Picasso.get().load(NetworkConstraint.Image_URL + response.body().getBackdropPath()).into(largeimage);
                             Log.i("xaxxxxad", "onResponse: " +response.body().getBackdropPath()) ;
@@ -118,15 +149,6 @@ public class InfoFragment extends Fragment {
                             genre.setAdapter(adapter);
 
 
-                            String s[] = {"asdad", "asdasd", "ASDas"};
-                            String y = "";
-
-                            for (String x : s) {
-                                y = y + "," + x;
-                            }
-
-                            // ,asdad,asdasd,ASDas
-
                             String name = "";
                             for (MovieInfo.ProductionCompany x : response.body().getProductionCompanies()) {
                                 name = name + x.getName() + ",";
@@ -134,6 +156,24 @@ public class InfoFragment extends Fragment {
                             }
 
                             production.setText(name.substring(0, name.length() - 1) + ".");
+
+                            String a=response.body().getReleaseDate();
+                            String b=a.substring(0,4);
+                            year.setText(b);
+
+                            int t= Integer.parseInt(response.body().getRuntime().toString());
+
+
+                            int hours = t / 60; //since both are ints, you get an int
+                            int minutes = t % 60;
+                            System.out.printf("%d:%02d", hours, minutes);
+
+
+                            timing.setText(hours +" hours "+minutes+" minutes");
+
+
+
+                            Log.i("sdssc", "onResponse: "+b);
 
                         }
 
@@ -148,7 +188,7 @@ public class InfoFragment extends Fragment {
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(CrewRequest.class)
-                .getCrewRequest(NetworkConstraint.key)
+                .getCrewRequest(s,NetworkConstraint.key)
                 .enqueue(new Callback<Credit>() {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
@@ -156,6 +196,7 @@ public class InfoFragment extends Fragment {
                         crew.setAdapter(adapter);
 
                         Log.i("dadada", "onResponse: " + response.body().getCrew());
+
                     }
 
                     @Override
@@ -166,10 +207,13 @@ public class InfoFragment extends Fragment {
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(YoutubeRequest.class)
-                .getYoutubeRequest(NetworkConstraint.key)
+                .getYoutubeRequest(s,NetworkConstraint.key)
                 .enqueue(new Callback<YoutubeConnect>() {
                     @Override
                     public void onResponse(Call<YoutubeConnect> call, Response<YoutubeConnect> response) {
+
+                        Log.i("jhjbjh", "onResponse: ");
+
                         TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
                         trailor.setAdapter(adapter);
 
@@ -182,8 +226,7 @@ public class InfoFragment extends Fragment {
                 });
 
 
-        // Inflate the layout for this fragment
-        return view;
+         return view;
     }
 
 

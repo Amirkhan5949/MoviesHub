@@ -1,13 +1,16 @@
 package com.example.moviehub.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.moviehub.Activities.MovieCatagoryActivity;
 import com.example.moviehub.R;
 import com.example.moviehub.model.MovieInfo;
+import com.example.moviehub.utils.Type;
 
 import java.security.AccessController;
 import java.util.List;
@@ -24,6 +27,8 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreViewHol
         this.context=context;
         this.list=list;
 
+//        https://api.themoviedb.org/3/discover/movie?api_key=bc19b07e368dad62f3388351b5145758&with_genres=878
+
     }
     @NonNull
     @Override
@@ -36,6 +41,18 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreViewHol
     @Override
     public void onBindViewHolder(@NonNull GenreViewHolder holder, int position) {
         holder.crime.setText(list.get(position).getName());
+
+        String a=list.get(position).getId()+"";
+
+        holder.crime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, MovieCatagoryActivity.class);
+                intent.putExtra("id",a);
+                intent.putExtra("type", Type.MixListType.GENRE);
+                context.startActivity(intent);
+             }
+        });
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.moviehub;
+package com.example.moviehub.Activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
 import com.example.moviehub.Network.TrendingRequest;
+import com.example.moviehub.R;
 import com.example.moviehub.adapter.FrontPageAdapter;
 import com.example.moviehub.model.Trending;
 

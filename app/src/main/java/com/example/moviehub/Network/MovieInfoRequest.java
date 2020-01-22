@@ -4,11 +4,12 @@ import com.example.moviehub.model.MovieInfo;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MovieInfoRequest {
 
-    @GET("movie/331482")
-    Call<MovieInfo> getmovierequest(@Query("api_key") String key);
+    @GET("movie/{id}")
+    Call<MovieInfo> getmovierequest(@Path ("id") String id,@Query("api_key") String key);
 
 }

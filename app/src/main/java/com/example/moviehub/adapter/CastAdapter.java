@@ -1,11 +1,14 @@
 package com.example.moviehub.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.moviehub.Activities.ProfileActivity;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Credit;
@@ -40,6 +43,14 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
         holder.name.setText(list.get(position).getName());
         holder.nickname.setText(list.get(position).getCharacter());
 
+        holder.linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, ProfileActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -51,11 +62,13 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
 
         CircleImageView circleimg;
         TextView name,nickname;
+        LinearLayout linear;
      public CastRecyclerView(@NonNull View itemView) {
          super(itemView);
          circleimg=itemView.findViewById(R.id.circleimg);
          name=itemView.findViewById(R.id.name);
          nickname=itemView.findViewById(R.id.nickname);
+         linear=itemView.findViewById(R.id.linear);
 
      }
  }

@@ -5,20 +5,21 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public  class SimilarMovie {
+public class DiscoverGenre {
+
 
     @SerializedName("page")
     @Expose
     private Long page;
-    @SerializedName("results")
-    @Expose
-    private List<Result> results = null;
-    @SerializedName("total_pages")
-    @Expose
-    private Long totalPages;
     @SerializedName("total_results")
     @Expose
     private Long totalResults;
+    @SerializedName("total_pages")
+    @Expose
+    private Long totalPages;
+    @SerializedName("results")
+    @Expose
+    private List<Result> results = null;
 
     public Long getPage() {
         return page;
@@ -26,22 +27,6 @@ public  class SimilarMovie {
 
     public void setPage(Long page) {
         this.page = page;
-    }
-
-    public List<Result> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Result> results) {
-        this.results = results;
-    }
-
-    public Long getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(Long totalPages) {
-        this.totalPages = totalPages;
     }
 
     public Long getTotalResults() {
@@ -52,9 +37,23 @@ public  class SimilarMovie {
         this.totalResults = totalResults;
     }
 
+    public Long getTotalPages() {
+        return totalPages;
+    }
 
+    public void setTotalPages(Long totalPages) {
+        this.totalPages = totalPages;
+    }
 
+    public List<Result> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
 
 
 
 }
+
