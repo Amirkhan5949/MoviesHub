@@ -92,21 +92,21 @@ public class MixListFragment extends Fragment {
     }
 
     private void getSimilarMovie() {
-        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
-                .create(SimilarMovieRequest.class)
-                .getsimilarmovie(s,NetworkConstraint.key)
-                .enqueue(new Callback<SimilarMovie>() {
-                    @Override
-                    public void onResponse(Call<SimilarMovie> call, Response<SimilarMovie> response) {
-                        SimilarMovieAdapter adapter=new SimilarMovieAdapter(getContext(),response.body().getResults());
-                        recyclerView.setAdapter(adapter);
-                    }
-
-                    @Override
-                    public void onFailure(Call<SimilarMovie> call, Throwable t) {
-
-                    }
-                });
+//        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+//                .create(SimilarMovieRequest.class)
+//                .getsimilarmovie(s,NetworkConstraint.key)
+//                .enqueue(new Callback<SimilarMovie>() {
+//                    @Override
+//                    public void onResponse(Call<SimilarMovie> call, Response<SimilarMovie> response) {
+//                                SimilarMovieAdapter adapter=new SimilarMovieAdapter(getContext(),response.body().getResults());
+//                        recyclerView.setAdapter(adapter);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<SimilarMovie> call, Throwable t) {
+//
+//                    }
+//                });
     }
 
 }

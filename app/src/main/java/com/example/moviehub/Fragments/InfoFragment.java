@@ -169,7 +169,7 @@ public class InfoFragment extends Fragment {
                             System.out.printf("%d:%02d", hours, minutes);
 
 
-                            timing.setText(hours +" hours "+minutes+" minutes");
+                            timing.setText(hours +" hour "+minutes+" minute");
 
 
 

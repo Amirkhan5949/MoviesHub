@@ -21,9 +21,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         tablayout=findViewById(R.id.tablayout);
         viewPage=findViewById(R.id.viewpage);
-       String s= getIntent().getStringExtra("id");
+       String a= getIntent().getStringExtra("castid");
 
-        viewPage.setAdapter(new ProfileAdapter(s,getSupportFragmentManager()));
+        viewPage.setAdapter(new ProfileAdapter(a,getSupportFragmentManager()));
         tablayout.setupWithViewPager(viewPage);
     }
 }

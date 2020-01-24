@@ -2,6 +2,7 @@ package com.example.moviehub.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.moviehub.Activities.ProfileActivity;
+import com.example.moviehub.Fragments.CastFragment;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Credit;
@@ -23,7 +25,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerView> {
 
     Context context;
-    List<Credit.Cast>list;
+    List<Credit.Cast> list;
+
 
     public CastAdapter(Context context, List<Credit.Cast>list){
         this.context=context;
@@ -35,7 +38,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
         View view=inflater.inflate(R.layout.cast,parent,false);
         return new CastRecyclerView(view);
-    }
+     }
 
     @Override
     public void onBindViewHolder(@NonNull CastRecyclerView holder, int position) {
@@ -46,8 +49,17 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
         holder.linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("dnsdf", "onClick: "+list.get(position).getId());
+
                 Intent intent=new Intent(context, ProfileActivity.class);
+                intent.putExtra("castid",list.get(position).getId()+"");
                 context.startActivity(intent);
+
+
+
+
+
+
             }
         });
 

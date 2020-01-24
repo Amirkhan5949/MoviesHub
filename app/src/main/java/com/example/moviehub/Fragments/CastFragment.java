@@ -1,6 +1,7 @@
 package com.example.moviehub.Fragments;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.moviehub.Activities.ProfileActivity;
 import com.example.moviehub.Network.CrewRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
@@ -33,8 +35,10 @@ public class CastFragment extends Fragment {
     String s="";
 
 
-    public CastFragment(String s) {
+
+    public CastFragment(String s ) {
         this.s=s;
+
         // Required empty public constructor
     }
 
@@ -55,10 +59,15 @@ public class CastFragment extends Fragment {
                 .enqueue(new Callback<Credit>() {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
+                        String a= response.body().getId().toString();
                         CastAdapter adapter=new CastAdapter(getContext(),response.body().getCast());
                         castrecyclerView.setAdapter(adapter);
                         Log.i("dsscc", "onResponse: "+response.body().toString());
                         Log.i("dsscc", "onResponse: "+response.body().getCast());
+
+
+
+
                     }
 
                     @Override
@@ -66,8 +75,7 @@ public class CastFragment extends Fragment {
 
                     }
                 });
-        // Inflate the layout for this fragment
-        return view;
+         return view;
     }
 
 }

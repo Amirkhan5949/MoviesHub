@@ -1,12 +1,16 @@
 package com.example.moviehub.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.moviehub.Activities.AllDetatilActivity;
+import com.example.moviehub.Fragments.InfoFragment;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Result;
@@ -42,14 +46,18 @@ public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapte
         String b=a.substring(0,4);
         holder.year.setText(b);
 
-//        Intent intent = new Intent(context, InfoFragment.class);
-//        intent.putExtra("year",list.get(position).getReleaseDate()+"");
-//        context.startActivity(intent);
-
-
-
         holder.name.setText(list.get(position).getTitle());
         holder.rating.setText(list.get(position).getVoteAverage().toString());
+
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, AllDetatilActivity.class);
+                intent.putExtra("id",list.get(position).getId()+"");
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -60,12 +68,14 @@ public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapte
     public class SimlarMovieRecyclerView extends RecyclerView.ViewHolder {
         ImageView image;
         TextView year,name,rating;
+        LinearLayout ll;
         public SimlarMovieRecyclerView(@NonNull View itemView) {
             super(itemView);
             image=itemView.findViewById(R.id.image);
             year=itemView.findViewById(R.id.year);
             name=itemView.findViewById(R.id.name);
             rating=itemView.findViewById(R.id.rating);
+            ll=itemView.findViewById(R.id.ll);
         }
     }
 }

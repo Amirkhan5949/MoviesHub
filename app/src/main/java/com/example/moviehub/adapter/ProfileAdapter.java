@@ -1,5 +1,7 @@
 package com.example.moviehub.adapter;
 
+import android.util.Log;
+
 import com.example.moviehub.Fragments.CastFragment;
 import com.example.moviehub.Fragments.InfoFragment;
 import com.example.moviehub.Fragments.MixListFragment;
@@ -26,8 +28,8 @@ public class ProfileAdapter extends FragmentPagerAdapter {
         switch(position){
 
             case 0:
-
-                return new ProfileFragment();
+                Log.i("dwrfs", "getItem: "+s);
+                return new ProfileFragment(s);
 
             case 1:
                 return new MixListFragment(s,Type.MixListType.SIMILAR);

@@ -45,6 +45,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'de.hdodenhof:circleimageview:3.0.2'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation 'com.bogdwellers:pinchtozoom:0.1'
+
+
 
 
 }
