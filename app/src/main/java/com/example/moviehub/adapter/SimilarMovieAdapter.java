@@ -42,9 +42,13 @@ public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapte
     public void onBindViewHolder(@NonNull SimlarMovieRecyclerView holder, int position) {
         Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL+list.get(position).getPosterPath()).into(holder.image);
 
+
         String a=list.get(position).getReleaseDate();
-        String b=a.substring(0,4);
-        holder.year.setText(b);
+        if (a!=null&&a.length()>5){
+            String b=a.substring(0,4);
+            holder.year.setText(b);
+        }
+
 
         holder.name.setText(list.get(position).getTitle());
         holder.rating.setText(list.get(position).getVoteAverage().toString());

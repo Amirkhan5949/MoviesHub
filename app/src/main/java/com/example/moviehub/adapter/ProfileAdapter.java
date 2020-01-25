@@ -32,10 +32,10 @@ public class ProfileAdapter extends FragmentPagerAdapter {
                 return new ProfileFragment(s);
 
             case 1:
-                return new MixListFragment(s,Type.MixListType.SIMILAR);
+                return new MixListFragment(s,Type.MixListType.CREDIT_MOVIE);
 
             case 2:
-                return new MixListFragment(s,Type.MixListType.SIMILAR);
+                return new MixListFragment(s,Type.MixListType.CREDIT_TVSHOW);
 
 
             default:

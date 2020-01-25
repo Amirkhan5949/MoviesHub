@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.moviehub.Network.NetworkConstraint;
@@ -34,6 +36,8 @@ public class ProfileFragment extends Fragment {
     RecyclerView images;
     View view;
     String personid;
+    ImageView fb,twitter,insta,imdb;
+
 
 
 
@@ -55,6 +59,11 @@ public class ProfileFragment extends Fragment {
         knownas=view.findViewById(R.id.knownas);
         bio=view.findViewById(R.id.bio);
         images=view.findViewById(R.id.images);
+
+        fb=view.findViewById(R.id.fb);
+        twitter=view.findViewById(R.id.twitter);
+        insta=view.findViewById(R.id.insta);
+        imdb=view.findViewById(R.id.imdb);
 
 
         images.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
