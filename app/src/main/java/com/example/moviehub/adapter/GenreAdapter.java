@@ -49,7 +49,8 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreViewHol
             public void onClick(View view) {
                 Intent intent=new Intent(context, MovieCatagoryActivity.class);
                 intent.putExtra("id",a);
-                intent.putExtra("type", Type.MixListType.GENRE);
+                intent.putExtra("mixlisttype", Type.MixListType.GENRE);
+                intent.putExtra("type", Type.MovieOrTvshow.MOVIE);
                 context.startActivity(intent);
              }
         });

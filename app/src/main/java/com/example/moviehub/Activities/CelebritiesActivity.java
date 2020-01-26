@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 
 import com.example.moviehub.Fragments.CastFragment;
 import com.example.moviehub.R;
+import com.example.moviehub.utils.Type;
 
 public class CelebritiesActivity extends AppCompatActivity {
 
@@ -20,9 +21,11 @@ public class CelebritiesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_celebrities);
 
        String s= getIntent().getStringExtra("id");
+        Type.MovieOrTvshow type = (Type.MovieOrTvshow) getIntent().getSerializableExtra("mixlisttype");
+
 
         layout=findViewById(R.id.frame);
-        setFragment(new CastFragment(s) );
+        setFragment(new CastFragment(s,type) );
     }
 
     protected void setFragment(Fragment fragment) {

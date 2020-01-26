@@ -15,10 +15,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class MovieDetailAdapter extends FragmentPagerAdapter {
 
      private String s;
+     private Type.MovieOrTvshow type;
 
-     public MovieDetailAdapter(String s,@NonNull FragmentManager fm) {
+     public MovieDetailAdapter(String s,@NonNull FragmentManager fm,Type.MovieOrTvshow type) {
          super(fm);
          this.s=s;
+         this.type = type;
      }
 
 
@@ -30,17 +32,16 @@ public class MovieDetailAdapter extends FragmentPagerAdapter {
          switch(position){
 
              case 0:
-
-                 return new InfoFragment(s);
+                 return new InfoFragment(s,type);
 
              case 1:
-                 return new CastFragment(s);
+                 return new CastFragment(s,type);
 
              case 2:
-                 return new ReviewFragment(s);
+                 return new ReviewFragment(s,type);
 
              case 3:
-                 return new MixListFragment(s, Type.MixListType.SIMILAR);
+                 return new MixListFragment(s, Type.MixListType.SIMILAR,type);
              default:
                  return null;
 

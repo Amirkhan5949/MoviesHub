@@ -15,6 +15,7 @@ import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Result;
 import com.example.moviehub.model.SimilarMovie;
+import com.example.moviehub.utils.Type;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -26,9 +27,12 @@ public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapte
     Context context;
     List<Result>list;
 
-    public SimilarMovieAdapter(Context context,List<Result>list){
+    Type.MovieOrTvshow type;
+
+    public SimilarMovieAdapter(Context context,List<Result>list,Type.MovieOrTvshow type){
         this.context=context;
         this.list=list;
+        this.type=type;
     }
     @NonNull
     @Override
@@ -50,7 +54,12 @@ public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapte
         }
 
 
-        holder.name.setText(list.get(position).getTitle());
+
+        if(type==Type.MovieOrTvshow.MOVIE)
+            holder.name.setText(list.get(position).getTitle());
+        else
+            holder.name.setText(list.get(position).getOriginal_name());
+
         holder.rating.setText(list.get(position).getVoteAverage().toString());
 
         holder.ll.setOnClickListener(new View.OnClickListener() {

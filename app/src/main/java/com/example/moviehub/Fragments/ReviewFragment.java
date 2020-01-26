@@ -16,12 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
-import com.example.moviehub.Network.ReviewRequest;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.ReviewAdapter;
 import com.example.moviehub.model.Reviews;
+import com.example.moviehub.utils.Type;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,10 +31,12 @@ public class ReviewFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
     String s="";
+    Type.MovieOrTvshow type;
 
 
-    public ReviewFragment(String s) {
+    public ReviewFragment(String s, Type.MovieOrTvshow type) {
         this.s=s;
+        this.type=type;
         // Required empty public constructor
     }
 
@@ -48,7 +51,7 @@ public class ReviewFragment extends Fragment {
         // Inflate the layout for this fragment
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
-                .create(ReviewRequest.class)
+                .create(MoviesRequest.class)
                 .getreviews(s,NetworkConstraint.key)
                 .enqueue(new Callback<Reviews>() {
                     @Override

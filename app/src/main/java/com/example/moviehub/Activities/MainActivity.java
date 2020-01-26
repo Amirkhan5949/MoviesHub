@@ -19,6 +19,7 @@ import com.example.moviehub.Network.TrendingRequest;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.FrontPageAdapter;
 import com.example.moviehub.model.Trending;
+import com.example.moviehub.utils.Type;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recycler, resque, upcoming, popular, toprated;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.i("dadacc", "onResponse: " + response.body().getResults());
                         Log.i("dadacc", "onResponse: " + response.toString());
-                        recycler.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
+                        recycler.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults(), Type.MovieOrTvshow.MOVIE));
 
                     }
 
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.i("adadczc", "onResponse: " + response.toString());
                         Log.i("adadczc", "onResponse: " + response.body());
-                        resque.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
+                        resque.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults(), Type.MovieOrTvshow.TVSHOW));
 
 
                     }
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.i("adadczc", "onResponse: " + response.toString());
                         Log.i("adadczc", "onResponse: " + response.body());
-                        upcoming.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
+                        upcoming.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults(), Type.MovieOrTvshow.MOVIE));
 
                     }
 
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("dscsc", "onResponse: " + response.body());
                         Log.i("dscsc", "onResponse: " + response.toString());
 
-                        popular.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
+                        popular.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults(), Type.MovieOrTvshow.MOVIE));
                     }
 
 
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<Trending> call, Response<Trending> response) {
                         Log.i("fxczc", "onResponse: " + response.toString());
                         Log.i("fxczc", "onResponse: " + response.body());
-                        toprated.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults()));
+                        toprated.setAdapter(new FrontPageAdapter(MainActivity.this, response.body().getResults(), Type.MovieOrTvshow.MOVIE));
                     }
 
                     @Override

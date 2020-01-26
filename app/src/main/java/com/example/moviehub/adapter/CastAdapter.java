@@ -14,6 +14,7 @@ import com.example.moviehub.Fragments.CastFragment;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Credit;
+import com.example.moviehub.utils.Type;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -27,10 +28,12 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
     Context context;
     List<Credit.Cast> list;
 
+    Type.MovieOrTvshow type;
 
-    public CastAdapter(Context context, List<Credit.Cast>list){
+    public CastAdapter(Context context, List<Credit.Cast>list,Type.MovieOrTvshow type){
         this.context=context;
         this.list=list;
+        this.type=type;
     }
     @NonNull
     @Override
@@ -53,6 +56,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
 
                 Intent intent=new Intent(context, ProfileActivity.class);
                 intent.putExtra("castid",list.get(position).getId()+"");
+                intent.putExtra("type",type);
                 context.startActivity(intent);
 
 

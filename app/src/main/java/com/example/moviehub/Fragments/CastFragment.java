@@ -19,12 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.moviehub.Activities.ProfileActivity;
-import com.example.moviehub.Network.CrewRequest;
+import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.CastAdapter;
 import com.example.moviehub.model.Credit;
+import com.example.moviehub.utils.Type;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,11 +34,14 @@ public class CastFragment extends Fragment {
     RecyclerView castrecyclerView;
     View view;
     String s="";
+    Type.MovieOrTvshow type;
 
 
 
-    public CastFragment(String s ) {
+
+    public CastFragment(String s , Type.MovieOrTvshow type) {
         this.s=s;
+        this.type=type;
 
         // Required empty public constructor
     }
@@ -54,13 +58,13 @@ public class CastFragment extends Fragment {
         castrecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
-                .create(CrewRequest.class)
+                .create(MoviesRequest.class)
                 .getCrewRequest(s,NetworkConstraint.key)
                 .enqueue(new Callback<Credit>() {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
                         String a= response.body().getId().toString();
-                        CastAdapter adapter=new CastAdapter(getContext(),response.body().getCast());
+                        CastAdapter adapter=new CastAdapter(getContext(),response.body().getCast(),type);
                         castrecyclerView.setAdapter(adapter);
                         Log.i("dsscc", "onResponse: "+response.body().toString());
                         Log.i("dsscc", "onResponse: "+response.body().getCast());

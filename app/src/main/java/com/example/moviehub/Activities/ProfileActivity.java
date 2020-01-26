@@ -8,6 +8,7 @@ import android.widget.TableLayout;
 
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.ProfileAdapter;
+import com.example.moviehub.utils.Type;
 import com.google.android.material.tabs.TabLayout;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -21,9 +22,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         tablayout=findViewById(R.id.tablayout);
         viewPage=findViewById(R.id.viewpage);
-       String a= getIntent().getStringExtra("castid");
+        String a= getIntent().getStringExtra("castid");
+        Type.MovieOrTvshow type = (Type.MovieOrTvshow) getIntent().getSerializableExtra("type");
 
-        viewPage.setAdapter(new ProfileAdapter(a,getSupportFragmentManager()));
+
+        viewPage.setAdapter(new ProfileAdapter(a,getSupportFragmentManager(),type));
         tablayout.setupWithViewPager(viewPage);
     }
 }
