@@ -8,6 +8,11 @@ public class Type{
 
     public static enum MovieOrTvshow{
         MOVIE,TVSHOW
-
     }
+
+    public static enum Credit{
+        CAST,CREW
+    }
+
+
 }

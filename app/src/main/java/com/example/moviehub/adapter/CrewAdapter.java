@@ -17,20 +17,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewRecyclerView>{
-//   Context mContext;
+
     Context context;
     List<Credit.Crew>list;
 
     public CrewAdapter(Context context, List<Credit.Crew>list){
         this.context=context;
         this.list=list;
+        Log.i("nscssknssks", "CrewAdapter: "+list.toString());
 
     }
 
-//    public CrewAdapter (Context mContext) {
-//        super();
-//        this.mContext = mContext;
-//    }
 
     @NonNull
     @Override

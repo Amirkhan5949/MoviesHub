@@ -20,8 +20,7 @@ import android.view.ViewGroup;
 import com.example.moviehub.Network.DiscoverRequest;
 import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
-import com.example.moviehub.Network.PersonMovieRequest;
-import com.example.moviehub.Network.PersonTvshowRequest;
+import com.example.moviehub.Network.PersonRequest;
 import com.example.moviehub.Network.RetrofitClient;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.SimilarMovieAdapter;
@@ -94,7 +93,7 @@ public class MixListFragment extends Fragment {
     private void getCreditTvshow() {
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
-                .create(PersonTvshowRequest.class)
+                .create(PersonRequest.class)
                 .getPersonTvshow(s,NetworkConstraint.key)
                 .enqueue(new Callback<PersonMovies>() {
                     @Override
@@ -131,7 +130,7 @@ public class MixListFragment extends Fragment {
 
     private void getCreditMovie() {
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
-                .create(PersonMovieRequest.class)
+                .create(PersonRequest.class)
                 .getPersonMovieTvshowRequest(s,NetworkConstraint.key)
                 .enqueue(new Callback<PersonMovies>() {
                     @Override

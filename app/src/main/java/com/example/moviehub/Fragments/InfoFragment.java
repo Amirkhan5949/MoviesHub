@@ -27,6 +27,7 @@ import com.example.moviehub.Activities.CelebritiesActivity;
 import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
+import com.example.moviehub.Network.TvShowRequest;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.CrewAdapter;
 import com.example.moviehub.adapter.GenreAdapter;
@@ -41,6 +42,7 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +54,7 @@ public class InfoFragment extends Fragment {
     TextView year, timing, review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
     String s = "";
     Type.MovieOrTvshow type;
+    LinearLayout crewlayout;
 
 
 
@@ -104,6 +107,8 @@ public class InfoFragment extends Fragment {
         earn = view.findViewById(R.id.earn);
         production = view.findViewById(R.id.production);
 
+        crewlayout=view.findViewById(R.id.crewlayout);
+
 
         showall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,16 +117,154 @@ public class InfoFragment extends Fragment {
                 Intent intent = new Intent(getContext(), CelebritiesActivity.class);
                 intent.putExtra("id", s);
                 intent.putExtra("type", type);
+                intent.putExtra("creditType",Type.Credit.CREW );
+
                 getContext().startActivity(intent);
 
             }
         });
 
+         if (type== Type.MovieOrTvshow.MOVIE) getMovie();
+         else getTvShow();
 
-        getMovie();
+
+
 
 
         return view;
+    }
+
+    private void getTvShow() {
+
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(TvShowRequest.class)
+                .gettvrequest(s, NetworkConstraint.key)
+                .enqueue(new Callback<MovieInfo>() {
+                    @Override
+                    public void onResponse(Call<MovieInfo> call, Response<MovieInfo> response) {
+                        {
+                            Log.i("dhsgdhsgfv", "onResponse: " + response.toString());
+                            Log.i("dhsgdhsgfv", "onResponse: " + response.body());
+                            review.setText(response.body().getOverview());
+
+                            if (type == Type.MovieOrTvshow.TVSHOW) {
+                                moviename.setText(response.body().getOriginalTitle());
+                            }
+                            language.setText(response.body().getOriginalLanguage());
+                            released.setText(response.body().getStatus());
+//                            runtime.setText(response.body().getRuntime().toString());
+                            date.setText(response.body().getReleaseDate());
+
+                            Log.i("sccccccdscsds", "onResponse: " + response.body().getReleaseDate());
+                            Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL + response.body().getPosterPath()).into(smallimage);
+                            Picasso.get().load(NetworkConstraint.Image_URL + response.body().getBackdropPath()).into(largeimage);
+                            Log.i("xaxxxxad", "onResponse: " + response.body().getBackdropPath());
+
+                            GenreAdapter adapter = new GenreAdapter(getContext(), response.body().getGenres());
+                            genre.setAdapter(adapter);
+
+
+                            String name = "";
+                            for (MovieInfo.ProductionCompany x : response.body().getProductionCompanies()) {
+                                name = name + x.getName() + ",";
+                                Log.i("sscscsc", "onResponse: " + name);
+                            }
+
+                            production.setText(name.substring(0, name.length() - 1)+"");
+
+                            Log.i("sscscsc", "onResponse: "+name.substring(0, name.length() - 1));
+                            Log.i("sscscsc", "onResponse: "+response.toString());
+
+//                            String a = response.body().getReleaseDate();
+//                            String b = a.substring(0, 4);
+//                            year.setText(b);
+
+                            Log.i("sscscsc", "onResponse: "+response.body().getReleaseDate());
+                            Log.i("sscscsc", "onResponse: "+response.toString());
+
+
+                            List<Integer> runtime = response.body().getEpisode_run_time();
+                            Log.i("dshfhdbs", "onResponse: " + response.body().getEpisode_run_time().size());
+                            if(runtime.size()>0){
+                                int t = response.body().getEpisode_run_time().get(0);
+
+                                int hours = t / 60; //since both are ints, you get an int
+                                int minutes = t % 60;
+                                System.out.printf("%d:%02d", hours, minutes);
+                                Log.i("dshfhdbs", "onResponse: " + response.body().getEpisode_run_time().toString());
+
+                                timing.setText(hours + " hour " + minutes + " minute");
+                                Log.i("dshfhdbs", hours + " hour " + minutes + " minute");
+
+
+                            }
+
+
+
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieInfo> call, Throwable t) {
+                        Log.i("adadczc", "onFailure: " + t.getMessage());
+
+                    }
+                });
+
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(TvShowRequest.class)
+                .getCrewRequest(s, NetworkConstraint.key)
+                .enqueue(new Callback<Credit>() {
+                    @Override
+                    public void onResponse(Call<Credit> call, Response<Credit> response) {
+
+                        if (response.body().getCrew().size()==0){
+                            crewlayout.setVisibility(View.GONE);
+                        }else {
+                            crewlayout.setVisibility(View.VISIBLE);
+                            CrewAdapter adapter = new CrewAdapter(getContext(), response.body().getCrew());
+                            crew.setAdapter(adapter);
+                        }
+
+
+                        Log.i("nscssknssks", "onResponse: " + response.body().getCrew());
+                        Log.i("nscssknssks", "onResponse: " + response.toString());
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Credit> call, Throwable t) {
+                        Log.i("nscssknssks", "onFailure: "+t.getMessage());
+
+                    }
+                });
+
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(TvShowRequest.class)
+                .getYoutubeRequest(s, NetworkConstraint.key)
+                .enqueue(new Callback<YoutubeConnect>() {
+                    @Override
+                    public void onResponse(Call<YoutubeConnect> call, Response<YoutubeConnect> response) {
+
+                        Log.i("jhjbjh", "onResponse: ");
+
+                        TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
+                        trailor.setAdapter(adapter);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<YoutubeConnect> call, Throwable t) {
+
+                    }
+                });
+
+
+
+
+
     }
 
     private void getMovie() {

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,8 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.moviehub.Network.NetworkConstraint;
-import com.example.moviehub.Network.PersonDetailReuest;
-import com.example.moviehub.Network.PersonImagesRequest;
+import com.example.moviehub.Network.PersonRequest;
+
 import com.example.moviehub.Network.RetrofitClient;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.ImagesAdapter;
@@ -69,7 +68,7 @@ public class ProfileFragment extends Fragment {
         images.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
-                .create(PersonDetailReuest.class)
+                .create(PersonRequest.class)
                 .getPersondetail(personid,NetworkConstraint.key)
                 .enqueue(new Callback<PersonDetail>() {
                     @Override
@@ -91,7 +90,7 @@ public class ProfileFragment extends Fragment {
         Log.i("sfseee", "onCreateView: "+personid);
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
-                .create(PersonImagesRequest.class)
+                .create(PersonRequest.class)
                 .getPersonImgRequest(personid,NetworkConstraint.key)
                 .enqueue(new Callback<PersonImages>() {
                     @Override

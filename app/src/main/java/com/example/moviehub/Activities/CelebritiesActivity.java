@@ -21,11 +21,12 @@ public class CelebritiesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_celebrities);
 
        String s= getIntent().getStringExtra("id");
-        Type.MovieOrTvshow type = (Type.MovieOrTvshow) getIntent().getSerializableExtra("mixlisttype");
+        Type.MovieOrTvshow type = (Type.MovieOrTvshow) getIntent().getSerializableExtra("type");
+        Type.Credit creditType = (Type.Credit) getIntent().getSerializableExtra("creditType");
 
 
         layout=findViewById(R.id.frame);
-        setFragment(new CastFragment(s,type) );
+        setFragment(new CastFragment(s,type,creditType) );
     }
 
     protected void setFragment(Fragment fragment) {

@@ -10,6 +10,13 @@ public class MovieInfo {
     @SerializedName("adult")
     @Expose
     private Boolean adult;
+
+
+    @SerializedName("episode_run_time")
+    @Expose
+    private List<Integer> episode_run_time;
+
+
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
@@ -56,6 +63,8 @@ public class MovieInfo {
     @Expose
     private String releaseDate;
     @SerializedName("revenue")
+
+
     @Expose
     private Long revenue;
     @SerializedName("runtime")
@@ -82,6 +91,15 @@ public class MovieInfo {
     @SerializedName("vote_count")
     @Expose
     private Long voteCount;
+
+
+    public List<Integer> getEpisode_run_time() {
+        return episode_run_time;
+    }
+
+    public void setEpisode_run_time(List<Integer> episode_run_time) {
+        this.episode_run_time = episode_run_time;
+    }
 
     public Boolean getAdult() {
         return adult;

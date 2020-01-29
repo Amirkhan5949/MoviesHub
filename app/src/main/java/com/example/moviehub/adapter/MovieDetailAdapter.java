@@ -35,7 +35,7 @@ public class MovieDetailAdapter extends FragmentPagerAdapter {
                  return new InfoFragment(s,type);
 
              case 1:
-                 return new CastFragment(s,type);
+                 return new CastFragment(s,type,Type.Credit.CAST);
 
              case 2:
                  return new ReviewFragment(s,type);

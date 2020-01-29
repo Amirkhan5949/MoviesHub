@@ -22,10 +22,13 @@ import com.example.moviehub.Activities.ProfileActivity;
 import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
+import com.example.moviehub.Network.TvShowRequest;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.CastAdapter;
 import com.example.moviehub.model.Credit;
 import com.example.moviehub.utils.Type;
+
+import static com.example.moviehub.utils.Type.MovieOrTvshow.MOVIE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,13 +38,14 @@ public class CastFragment extends Fragment {
     View view;
     String s="";
     Type.MovieOrTvshow type;
+    Type.Credit creditType;
 
 
 
-
-    public CastFragment(String s , Type.MovieOrTvshow type) {
+    public CastFragment(String s , Type.MovieOrTvshow type,Type.Credit creditType) {
         this.s=s;
         this.type=type;
+        this.creditType=creditType;
 
         // Required empty public constructor
     }
@@ -57,6 +61,56 @@ public class CastFragment extends Fragment {
 
         castrecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
 
+        Log.i("dsffdf", "onCreateView: "+type);
+        if (type == Type.MovieOrTvshow.MOVIE){
+            Log.i("dsffdf", "onCreateView: 1");
+            getMovieRequest();
+
+        }else {
+            Log.i("dsffdf", "onCreateView: 2");
+            getTvshowRequest();
+        }
+
+
+
+
+
+
+
+        return view;
+    }
+
+    private void getTvshowRequest() {
+
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(TvShowRequest.class)
+                .getCrewRequest(s,NetworkConstraint.key)
+                .enqueue(new Callback<Credit>() {
+                    @Override
+                    public void onResponse(Call<Credit> call, Response<Credit> response) {
+                        String a= response.body().getId().toString();
+                        CastAdapter adapter=new CastAdapter(getContext(),response.body(),type,creditType);
+                        castrecyclerView.setAdapter(adapter);
+                        Log.i("dsscc", "onResponse: "+response.toString());
+                        Log.i("dsscc", "onResponse: "+response.body().getCast());
+
+
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Credit> call, Throwable t) {
+
+                    }
+                });
+
+
+    }
+
+
+    private void getMovieRequest() {
+
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(MoviesRequest.class)
                 .getCrewRequest(s,NetworkConstraint.key)
@@ -64,7 +118,7 @@ public class CastFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
                         String a= response.body().getId().toString();
-                        CastAdapter adapter=new CastAdapter(getContext(),response.body().getCast(),type);
+                        CastAdapter adapter=new CastAdapter(getContext(),response.body(),type,creditType);
                         castrecyclerView.setAdapter(adapter);
                         Log.i("dsscc", "onResponse: "+response.body().toString());
                         Log.i("dsscc", "onResponse: "+response.body().getCast());
@@ -79,7 +133,7 @@ public class CastFragment extends Fragment {
 
                     }
                 });
-         return view;
+
     }
 
 }
