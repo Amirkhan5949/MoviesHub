@@ -8,9 +8,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
@@ -23,6 +26,7 @@ import com.example.moviehub.utils.Type;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recycler, resque, upcoming, popular, toprated;
+    TextView trending, tvshow, upcomingmovie, popularmovie, topratedmovie;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -37,16 +41,18 @@ public class MainActivity extends AppCompatActivity {
         toprated = findViewById(R.id.toprated);
 
 
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+        trending = findViewById(R.id.trending);
+        tvshow = findViewById(R.id.tvshow);
+        upcomingmovie = findViewById(R.id.upcomingmovie);
+        popularmovie = findViewById(R.id.popularmovie);
+        topratedmovie = findViewById(R.id.topratedmovie);
+
+
 
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-
-        resque.setLayoutManager(new LinearLayoutManager(this));
         resque.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        upcoming.setLayoutManager(new LinearLayoutManager(this));
         upcoming.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(TrendingRequest.class)
                 .getTrending(NetworkConstraint.key)

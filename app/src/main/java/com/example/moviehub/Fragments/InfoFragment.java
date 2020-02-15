@@ -1,7 +1,6 @@
 package com.example.moviehub.Fragments;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.moviehub.Activities.CelebritiesActivity;
+import com.example.moviehub.Activities.MoviePosterActivity;
+import com.example.moviehub.Network.MoviesPic;
 import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.RetrofitClient;
@@ -33,14 +34,12 @@ import com.example.moviehub.adapter.CrewAdapter;
 import com.example.moviehub.adapter.GenreAdapter;
 import com.example.moviehub.adapter.TrailorAdapter;
 import com.example.moviehub.model.Credit;
+import com.example.moviehub.model.MovieImages;
 import com.example.moviehub.model.MovieInfo;
 import com.example.moviehub.model.YoutubeConnect;
 import com.example.moviehub.utils.Type;
-import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.DialogPlusBuilder;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,8 +53,7 @@ public class InfoFragment extends Fragment {
     TextView year, timing, review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
     String s = "";
     Type.MovieOrTvshow type;
-    LinearLayout crewlayout;
-
+    LinearLayout crewlayout,post,back,layout;
 
 
     public InfoFragment(String s, Type.MovieOrTvshow type) {
@@ -75,6 +73,8 @@ public class InfoFragment extends Fragment {
         genre = view.findViewById(R.id.genre);
         crew = view.findViewById(R.id.crew);
         trailor = view.findViewById(R.id.trailor);
+        post = view.findViewById(R.id.post);
+        back = view.findViewById(R.id.back);
 
 
         genre.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -107,7 +107,8 @@ public class InfoFragment extends Fragment {
         earn = view.findViewById(R.id.earn);
         production = view.findViewById(R.id.production);
 
-        crewlayout=view.findViewById(R.id.crewlayout);
+        crewlayout = view.findViewById(R.id.crewlayout);
+        layout = view.findViewById(R.id.layout);
 
 
         showall.setOnClickListener(new View.OnClickListener() {
@@ -117,22 +118,120 @@ public class InfoFragment extends Fragment {
                 Intent intent = new Intent(getContext(), CelebritiesActivity.class);
                 intent.putExtra("id", s);
                 intent.putExtra("type", type);
-                intent.putExtra("creditType",Type.Credit.CREW );
+                intent.putExtra("creditType", Type.Credit.CREW);
 
                 getContext().startActivity(intent);
 
             }
         });
 
-         if (type== Type.MovieOrTvshow.MOVIE) getMovie();
-         else getTvShow();
+        if (type == Type.MovieOrTvshow.MOVIE) getmoviepics();
+        else gettvpics();
 
 
 
+
+            if (type == Type.MovieOrTvshow.MOVIE) getMovie();
+        else getTvShow();
 
 
         return view;
     }
+
+
+    private void gettvpics(){
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(MoviesPic.class)
+                .getTvpic(s,NetworkConstraint.key)
+                .enqueue(new Callback<MovieImages>() {
+                    @Override
+                    public void onResponse(Call<MovieImages> call, Response<MovieImages> response) {
+
+                        number.setText(response.body().getData().size()+"");
+                        no.setText(response.body().getBackdrops().size()+"");
+                        Log.i("dwdsffd", "onResponse: "+response.toString()+"");
+
+                        back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getContext(), MoviePosterActivity.class);
+                                intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getBackdrops()));
+                                startActivity(intent);
+                            }
+                        });
+
+
+                        post.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getContext(), MoviePosterActivity.class);
+                                intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getData()));
+                                startActivity(intent);
+                            }
+                        });
+                    }
+
+
+                    @Override
+                    public void onFailure(Call<MovieImages> call, Throwable t) {
+                        Log.i("dwdsffd", "onResponse: "+t.toString()+"");
+                    }
+                });
+    }
+
+    private void getmoviepics(){
+
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(MoviesPic.class)
+                .getMoviespic(s,NetworkConstraint.key)
+                .enqueue(new Callback<MovieImages>() {
+                    @Override
+                    public void onResponse(Call<MovieImages> call, Response<MovieImages> response) {
+                        if (response.body()==null)
+                            layout.setVisibility(View.GONE);
+                        else
+                            layout.setVisibility(View.VISIBLE);
+                          number.setText(response.body().getData().size()+"");
+                        no.setText(response.body().getBackdrops().size()+"");
+
+                        post.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getContext(), MoviePosterActivity.class);
+                                intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getData()));
+                                startActivity(intent);
+                            }
+
+                        });
+
+                        back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getContext(), MoviePosterActivity.class);
+                                intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getBackdrops()));
+                                startActivity(intent);
+                                Log.i("cfdffs", "onClick: "+response.body().getBackdrops());
+
+                            }
+                        });
+
+
+
+
+//                        Log.i("djvknv", "onResponse: "+response.body().getData().size());
+                        Log.i("djvknv", "onResponse: "+response.body() );
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieImages> call, Throwable t) {
+                        Log.i("scdd", "onFailure: "+t.getMessage());
+
+                    }
+                });
+
+
+    }
+
 
     private void getTvShow() {
 
@@ -170,24 +269,23 @@ public class InfoFragment extends Fragment {
                                 Log.i("sscscsc", "onResponse: " + name);
                             }
 
-                            production.setText(name.substring(0, name.length() - 1)+"");
+                            production.setText(name.substring(0, name.length() - 1) + "");
 
-                            Log.i("sscscsc", "onResponse: "+name.substring(0, name.length() - 1));
-                            Log.i("sscscsc", "onResponse: "+response.toString());
+                            Log.i("sscscsc", "onResponse: " + name.substring(0, name.length() - 1));
+                            Log.i("sscscsc", "onResponse: " + response.toString());
 
 //                            String a = response.body().getReleaseDate();
 //                            String b = a.substring(0, 4);
 //                            year.setText(b);
 
-                            Log.i("sscscsc", "onResponse: "+response.body().getReleaseDate());
-                            Log.i("sscscsc", "onResponse: "+response.toString());
+                            Log.i("sscscsc", "onResponse: " + response.body().getReleaseDate());
+                            Log.i("sscscsc", "onResponse: " + response.toString());
 
 
                             List<Integer> runtime = response.body().getEpisode_run_time();
                             Log.i("dshfhdbs", "onResponse: " + response.body().getEpisode_run_time().size());
-                            if(runtime.size()>0){
+                            if (runtime.size() > 0) {
                                 int t = response.body().getEpisode_run_time().get(0);
-
                                 int hours = t / 60; //since both are ints, you get an int
                                 int minutes = t % 60;
                                 System.out.printf("%d:%02d", hours, minutes);
@@ -196,14 +294,8 @@ public class InfoFragment extends Fragment {
                                 timing.setText(hours + " hour " + minutes + " minute");
                                 Log.i("dshfhdbs", hours + " hour " + minutes + " minute");
 
-
                             }
-
-
-
-
                         }
-
                     }
 
                     @Override
@@ -220,9 +312,9 @@ public class InfoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
 
-                        if (response.body().getCrew().size()==0){
+                        if (response.body().getCrew().size() == 0) {
                             crewlayout.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             crewlayout.setVisibility(View.VISIBLE);
                             CrewAdapter adapter = new CrewAdapter(getContext(), response.body().getCrew());
                             crew.setAdapter(adapter);
@@ -236,7 +328,7 @@ public class InfoFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Credit> call, Throwable t) {
-                        Log.i("nscssknssks", "onFailure: "+t.getMessage());
+                        Log.i("nscssknssks", "onFailure: " + t.getMessage());
 
                     }
                 });
@@ -260,9 +352,6 @@ public class InfoFragment extends Fragment {
 
                     }
                 });
-
-
-
 
 
     }

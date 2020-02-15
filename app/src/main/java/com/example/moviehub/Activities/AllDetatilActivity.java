@@ -36,8 +36,6 @@ public class AllDetatilActivity extends AppCompatActivity {
 
 
 
-        Log.i("cdccdf", "onCreate: "+s);
-
     }
 
 

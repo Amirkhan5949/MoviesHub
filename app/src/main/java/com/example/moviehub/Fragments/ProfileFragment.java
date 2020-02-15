@@ -23,8 +23,11 @@ import com.example.moviehub.Network.PersonRequest;
 import com.example.moviehub.Network.RetrofitClient;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.ImagesAdapter;
+import com.example.moviehub.model.MovieImages;
 import com.example.moviehub.model.PersonDetail;
 import com.example.moviehub.model.PersonImages;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +38,7 @@ public class ProfileFragment extends Fragment {
     RecyclerView images;
     View view;
     String personid;
-    ImageView fb,twitter,insta,imdb;
+
 
 
 
@@ -46,6 +49,8 @@ public class ProfileFragment extends Fragment {
 
         // Required empty public constructor
     }
+
+
 
 
     @Override
@@ -59,10 +64,6 @@ public class ProfileFragment extends Fragment {
         bio=view.findViewById(R.id.bio);
         images=view.findViewById(R.id.images);
 
-        fb=view.findViewById(R.id.fb);
-        twitter=view.findViewById(R.id.twitter);
-        insta=view.findViewById(R.id.insta);
-        imdb=view.findViewById(R.id.imdb);
 
 
         images.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

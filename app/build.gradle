@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.orhanobut:dialogplus:1.11@aar'
     implementation 'com.bogdwellers:pinchtozoom:0.1'
 
+    implementation 'com.wang.avi:library:2.1.3'
 
 
 

@@ -22,6 +22,7 @@ import com.example.moviehub.Network.MoviesRequest;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.Network.PersonRequest;
 import com.example.moviehub.Network.RetrofitClient;
+import com.example.moviehub.Network.TvShowRequest;
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.SimilarMovieAdapter;
 import com.example.moviehub.model.DiscoverGenre;
@@ -64,33 +65,73 @@ public class MixListFragment extends Fragment {
 
         switch (mixListType){
             case GENRE :
-                getGenerMovie();
+               if (movieOrTvshow==Type.MovieOrTvshow.MOVIE){
+                   getGenerMovie();
+               }else
+                   getGenreTvshow();
                 break;
             case SIMILAR:
-                getSimilarMovie();
-                break;
+                if (movieOrTvshow==Type.MovieOrTvshow.MOVIE)
+                    getSimilarMovie();
+                else
+                    getSimilarTvsgow();
+
+                 break;
             case CREDIT:
                 if(movieOrTvshow==Type.MovieOrTvshow.MOVIE)
                    getCreditMovie();
                 else
                     getCreditTvshow();
+                Log.i("acscsfcs", "getCreditTvshow: "+233);
                 break;
 
-
-
         }
-
-
-
-
-
-
 
 
         return view;
     }
 
+    private void getSimilarTvsgow() {
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(TvShowRequest.class)
+                .getsimilartv(s,NetworkConstraint.key)
+                .enqueue(new Callback<SimilarMovie>() {
+                    @Override
+                    public void onResponse(Call<SimilarMovie> call, Response<SimilarMovie> response) {
+                        SimilarMovieAdapter adapter=new SimilarMovieAdapter(getContext(),response.body().getResults(),  Type.MovieOrTvshow.TVSHOW);
+                        recyclerView.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onFailure(Call<SimilarMovie> call, Throwable t) {
+
+                    }
+                });
+    }
+
+
+    private void getGenreTvshow() {
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(DiscoverRequest.class)
+                .getDiscovertv(NetworkConstraint.key,s)
+                .enqueue(new Callback<DiscoverGenre>() {
+                    @Override
+                    public void onResponse(Call<DiscoverGenre> call, Response<DiscoverGenre> response) {
+                        SimilarMovieAdapter adapter=new SimilarMovieAdapter(getContext(),response.body().getResults(), Type.MovieOrTvshow.TVSHOW);
+                        recyclerView.setAdapter(adapter);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<DiscoverGenre> call, Throwable t) {
+
+                    }
+                });
+    }
+
     private void getCreditTvshow() {
+
+
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(PersonRequest.class)
@@ -111,10 +152,7 @@ public class MixListFragment extends Fragment {
                         credit.addAll(casts);
                         credit.addAll(crews);
 
-
                         recyclerView.setAdapter(new SimilarMovieAdapter(getContext(),credit, movieOrTvshow));
-
-
 
                     }
 
@@ -175,7 +213,7 @@ public class MixListFragment extends Fragment {
                 .enqueue(new Callback<DiscoverGenre>() {
                     @Override
                     public void onResponse(Call<DiscoverGenre> call, Response<DiscoverGenre> response) {
-                        SimilarMovieAdapter adapter=new SimilarMovieAdapter(getContext(),response.body().getResults(), movieOrTvshow);
+                        SimilarMovieAdapter adapter=new SimilarMovieAdapter(getContext(),response.body().getResults(), Type.MovieOrTvshow.MOVIE);
                         recyclerView.setAdapter(adapter);
                     }
 
@@ -187,13 +225,15 @@ public class MixListFragment extends Fragment {
     }
 
     private void getSimilarMovie() {
+        Log.i("cxvdv", "onResponse: "+234);
+
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(MoviesRequest.class)
                 .getsimilarmovie(s,NetworkConstraint.key)
                 .enqueue(new Callback<SimilarMovie>() {
                     @Override
                     public void onResponse(Call<SimilarMovie> call, Response<SimilarMovie> response) {
-                                SimilarMovieAdapter adapter=new SimilarMovieAdapter(getContext(),response.body().getResults(), movieOrTvshow);
+                                SimilarMovieAdapter adapter=new SimilarMovieAdapter(getContext(),response.body().getResults(),  Type.MovieOrTvshow.MOVIE);
                         recyclerView.setAdapter(adapter);
                     }
 
@@ -203,12 +243,5 @@ public class MixListFragment extends Fragment {
                     }
                 });
     }
-
-
-
-
-
-
-
 
 }

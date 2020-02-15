@@ -71,12 +71,6 @@ public class CastFragment extends Fragment {
             getTvshowRequest();
         }
 
-
-
-
-
-
-
         return view;
     }
 
@@ -87,16 +81,12 @@ public class CastFragment extends Fragment {
                 .getCrewRequest(s,NetworkConstraint.key)
                 .enqueue(new Callback<Credit>() {
                     @Override
-                    public void onResponse(Call<Credit> call, Response<Credit> response) {
+                        public void onResponse(Call<Credit> call, Response<Credit> response) {
                         String a= response.body().getId().toString();
                         CastAdapter adapter=new CastAdapter(getContext(),response.body(),type,creditType);
                         castrecyclerView.setAdapter(adapter);
                         Log.i("dsscc", "onResponse: "+response.toString());
                         Log.i("dsscc", "onResponse: "+response.body().getCast());
-
-
-
-
                     }
 
                     @Override
@@ -122,9 +112,7 @@ public class CastFragment extends Fragment {
                         castrecyclerView.setAdapter(adapter);
                         Log.i("dsscc", "onResponse: "+response.body().toString());
                         Log.i("dsscc", "onResponse: "+response.body().getCast());
-
-
-
+                        Log.i("aada", "onResponse: "+a);
 
                     }
 

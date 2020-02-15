@@ -16,13 +16,15 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class ProfileAdapter extends FragmentPagerAdapter {
     private String s;
-    Type.MovieOrTvshow type;
 
-    public ProfileAdapter( String s,@NonNull FragmentManager fm,Type.MovieOrTvshow type) {
+
+    public ProfileAdapter( String s,@NonNull FragmentManager fm) {
         super(fm);
         this.s=s;
-        this.type=type;
-    }
+
+        Log.i("dwrfs", "getItem: "+s);
+
+     }
 
     @NonNull
     @Override
@@ -30,14 +32,14 @@ public class ProfileAdapter extends FragmentPagerAdapter {
         switch(position){
 
             case 0:
-                Log.i("dwrfs", "getItem: "+s);
+
                 return new ProfileFragment(s);
 
             case 1:
-                return new MixListFragment(s,Type.MixListType.CREDIT,type);
+                return new MixListFragment(s,Type.MixListType.CREDIT,Type.MovieOrTvshow.MOVIE);
 
             case 2:
-                return new MixListFragment(s,Type.MixListType.CREDIT,type);
+                return new MixListFragment(s,Type.MixListType.CREDIT,Type.MovieOrTvshow.TVSHOW);
 
 
             default:

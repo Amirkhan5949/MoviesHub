@@ -65,7 +65,9 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
                     public void onClick(View view) {
                         Log.i("dnsdf", "onClick: " + cast.get(position).getId());
                         Intent intent = new Intent(context, ProfileActivity.class);
-                        intent.putExtra("castid", cast.get(position).getId() + "");
+                        intent.putExtra("id", cast.get(position).getId() + "");
+                        intent.putExtra("name",cast.get(position).getName()+"");
+                        intent.putExtra("photo",cast.get(position).getProfilePath()+"");
                         intent.putExtra("type", type);
                         context.startActivity(intent);
                     }
@@ -75,17 +77,19 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
         else {
             Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL + crew.get(position).getProfilePath()).into(holder.circleimg);
             holder.name.setText(crew.get(position).getName());
-            //  holder.nickname.setText(crew.get(position).getCharacter());
+//              holder.nickname.setText(crew.get(position).getCharacter());
 
             holder.linear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.i("dnsdf", "onClick: " + crew.get(position).getId());
+                    Log.i("ffsff", "onClick: " + crew.get(position).getId());
 
                     Intent intent = new Intent(context, ProfileActivity.class);
-                    intent.putExtra("crewid", crew.get(position).getId() + "");
+                    intent.putExtra("id", crew.get(position).getId() + "");
                     intent.putExtra("type", type);
-                    context.startActivity(intent);
+                    intent.putExtra("name",crew.get(position).getName()+"");
+                    intent.putExtra("photo",crew.get(position).getProfilePath()+"");
+                     context.startActivity(intent);
                 }
             });
         }

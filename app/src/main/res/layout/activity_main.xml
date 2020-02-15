@@ -47,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="More"
+                    android:id="@+id/trending"
                     android:textColor="@color/pink"
                     android:textSize="16sp"/>
 
@@ -90,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="More"
+                    android:id="@+id/tvshow"
                     android:textColor="@color/pink"
                     android:textSize="16sp"/>
 
@@ -132,6 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="More"
+                    android:id="@+id/upcomingmovie"
                     android:textColor="@color/pink"
                     android:textSize="16sp"/>
 
@@ -175,6 +178,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="More"
+                    android:id="@+id/popularmovie"
                     android:textColor="@color/pink"
                     android:textSize="16sp"/>
 
@@ -217,6 +221,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="More"
+                    android:id="@+id/topratedmovie"
                     android:textColor="@color/pink"
                     android:textSize="16sp"/>
 
