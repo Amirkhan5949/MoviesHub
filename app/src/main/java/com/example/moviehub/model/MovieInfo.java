@@ -20,6 +20,15 @@ public class MovieInfo {
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
+
+
+    @SerializedName("first_air_date")
+    @Expose
+    private String first_air_date;
+
+
+
+
     @SerializedName("belongs_to_collection")
     @Expose
     private BelongsToCollection belongsToCollection;
@@ -201,6 +210,14 @@ public class MovieInfo {
         return posterPath;
     }
 
+    public String getFirst_air_date() {
+        return first_air_date;
+    }
+
+    public void setFirst_air_date(String first_air_date) {
+        this.first_air_date = first_air_date;
+    }
+
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
@@ -300,6 +317,8 @@ public class MovieInfo {
     public void setVoteCount(Long voteCount) {
         this.voteCount = voteCount;
     }
+
+
 
 
 

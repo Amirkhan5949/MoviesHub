@@ -146,10 +146,16 @@ public class InfoFragment extends Fragment {
                 .enqueue(new Callback<MovieImages>() {
                     @Override
                     public void onResponse(Call<MovieImages> call, Response<MovieImages> response) {
+                        if (response.body()!=null){
+                            layout.setVisibility(View.VISIBLE);
+                        }
 
-                        number.setText(response.body().getData().size()+"");
-                        no.setText(response.body().getBackdrops().size()+"");
-                        Log.i("dwdsffd", "onResponse: "+response.toString()+"");
+                        if (response.body().getData().size()!=0){
+                            number.setText(response.body().getData().size()+"");
+                            no.setText(response.body().getBackdrops().size()+"");
+                            Log.i("dwdsffd", "onResponse: "+response.toString()+"");
+
+                        }
 
                         back.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -251,7 +257,7 @@ public class InfoFragment extends Fragment {
                             }
                             language.setText(response.body().getOriginalLanguage());
                             released.setText(response.body().getStatus());
-//                            runtime.setText(response.body().getRuntime().toString());
+                            runtime.setText(response.body().getEpisode_run_time()+"");
                             date.setText(response.body().getReleaseDate());
 
                             Log.i("sccccccdscsds", "onResponse: " + response.body().getReleaseDate());
@@ -269,14 +275,23 @@ public class InfoFragment extends Fragment {
                                 Log.i("sscscsc", "onResponse: " + name);
                             }
 
-                            production.setText(name.substring(0, name.length() - 1) + "");
 
-                            Log.i("sscscsc", "onResponse: " + name.substring(0, name.length() - 1));
-                            Log.i("sscscsc", "onResponse: " + response.toString());
+                            if (name.length()!=0){
+                                production.setText(name.substring(0, name.length() - 1) + "");
 
-//                            String a = response.body().getReleaseDate();
-//                            String b = a.substring(0, 4);
-//                            year.setText(b);
+                                Log.i("sscscsc", "onResponse: " + name.substring(0, name.length() - 1));
+                                Log.i("sscscsc", "onResponse: " + response.toString());
+
+                            }
+
+                            String a = response.body().getFirst_air_date();
+                            if (a!=null){
+                                String b = a.substring(0, 4);
+                                year.setText(b);
+                                Log.i("ssdefef", "onResponse: "+a);
+
+
+                            }
 
                             Log.i("sscscsc", "onResponse: " + response.body().getReleaseDate());
                             Log.i("sscscsc", "onResponse: " + response.toString());
@@ -341,9 +356,13 @@ public class InfoFragment extends Fragment {
                     public void onResponse(Call<YoutubeConnect> call, Response<YoutubeConnect> response) {
 
                         Log.i("jhjbjh", "onResponse: ");
+                        if (response.body().getResults()!=null){
+                            TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
+                            trailor.setAdapter(adapter);
+                        }else {
+                            trailor.setVisibility(View.GONE);
+                        }
 
-                        TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
-                        trailor.setAdapter(adapter);
 
                     }
 
@@ -398,6 +417,8 @@ public class InfoFragment extends Fragment {
                                 Log.i("adsfs", "onResponse: " + name);
                             }
 
+
+                            if (name.length()!=0)
                             production.setText(name.substring(0, name.length() - 1) + ".");
 
                             String a = response.body().getReleaseDate();
@@ -456,9 +477,12 @@ public class InfoFragment extends Fragment {
 
                         Log.i("jhjbjh", "onResponse: ");
 
-                        TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
-                        trailor.setAdapter(adapter);
-
+                        if (response.body().getResults()!=null){
+                            TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
+                            trailor.setAdapter(adapter);
+                        }else {
+                            trailor.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
