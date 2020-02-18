@@ -89,11 +89,14 @@ public class ReviewFragment extends Fragment {
                 .enqueue(new Callback<Reviews>() {
                     @Override
                     public void onResponse(Call<Reviews> call, Response<Reviews> response) {
-                        Log.i("dsdsfs", "onResponse: "+response.body());
-                        ReviewAdapter  adapter=new ReviewAdapter(getContext(),response.body().getResults());
-                        Log.i("dsdsfs", "onResponse: "+response.body().getResults());
-                        Log.i("dsdsfs", "onResponse: "+response.body());
-                        recyclerView.setAdapter(adapter);
+                        if (response.body()!=null){
+                            Log.i("dsdsfs", "onResponse: "+response.body());
+                            ReviewAdapter  adapter=new ReviewAdapter(getContext(),response.body().getResults());
+                            Log.i("dsdsfs", "onResponse: "+response.body().getResults());
+                            Log.i("dsdsfs", "onResponse: "+response.body());
+                            recyclerView.setAdapter(adapter);
+                        }
+
                     }
 
                     @Override

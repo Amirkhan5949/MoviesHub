@@ -53,10 +53,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         tablayout=findViewById(R.id.tablayout);
         viewPage=findViewById(R.id.viewpage);
-        String a= getIntent().getStringExtra("id");
+       String a= getIntent().getStringExtra("id");
         String nam= getIntent().getStringExtra("name");
         String photo= getIntent().getStringExtra("photo");
         Type.MovieOrTvshow type = (Type.MovieOrTvshow) getIntent().getSerializableExtra("type");
+
+        Log.i("dadsdsw", "onCreate: "+a);
 
         Log.i("ssfsfs", "onCreate: "+name);
         Log.i("ssfsfs", "onCreate: "+photo);

@@ -12,6 +12,11 @@ public class MovieInfo {
     private Boolean adult;
 
 
+    @SerializedName("original_name")
+    @Expose
+    private String original_name;
+
+
     @SerializedName("episode_run_time")
     @Expose
     private List<Integer> episode_run_time;
@@ -208,6 +213,14 @@ public class MovieInfo {
 
     public String getPosterPath() {
         return posterPath;
+    }
+
+    public String getOriginal_name() {
+        return original_name;
+    }
+
+    public void setOriginal_name(String original_name) {
+        this.original_name = original_name;
     }
 
     public String getFirst_air_date() {

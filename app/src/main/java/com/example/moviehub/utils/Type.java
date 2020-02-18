@@ -14,5 +14,9 @@ public class Type{
         CAST,CREW
     }
 
+    public  static enum MoreButton{
+        TRENDINGMOVIES,TRENDINGTVSHOW,UPCOMINGMOVIES,POPULARMOVIES,TOPRAYEDMOVIES,TRENDINGPERSON
+    }
+
 
 }

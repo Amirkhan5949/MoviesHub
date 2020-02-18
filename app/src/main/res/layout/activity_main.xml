@@ -19,6 +19,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ss.com.bannerslider.Slider
+                android:id="@+id/banner_slider1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trending"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:textColor="@color/light_gray"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Person"
+                android:textSize="14dp"/>
+
+            <TextView
+                android:layout_marginRight="20dp"
+                android:gravity="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="More"
+                android:id="@+id/trendingperson"
+                android:textColor="@color/pink"
+                android:textSize="16sp"/>
+
+
+        </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/trendingpersonrecycler">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"

@@ -42,7 +42,7 @@
                     android:layout_height="32dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/birth" />
+                    android:src="@drawable/birthday" />
 
                 <TextView
                     android:id="@+id/birth"

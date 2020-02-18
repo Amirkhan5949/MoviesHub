@@ -2,6 +2,7 @@ package com.example.moviehub.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +24,17 @@ import static java.security.AccessController.*;
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreViewHolder> {
     Context context;
     List<MovieInfo.Genre>list;
-    public GenreAdapter(Context context,List<MovieInfo.Genre>list){
+    Type.MovieOrTvshow type;
+
+
+    public GenreAdapter(Context context,List<MovieInfo.Genre>list, Type.MovieOrTvshow type){
         this.context=context;
         this.list=list;
+        this.type=type;
 
-//        https://api.themoviedb.org/3/discover/movie?api_key=bc19b07e368dad62f3388351b5145758&with_genres=878
 
-    }
+
+     }
     @NonNull
     @Override
     public GenreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,7 +55,8 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreViewHol
                 Intent intent=new Intent(context, MovieCatagoryActivity.class);
                 intent.putExtra("id",a);
                 intent.putExtra("mixlisttype", Type.MixListType.GENRE);
-                intent.putExtra("type", Type.MovieOrTvshow.MOVIE);
+                intent.putExtra("type",type);
+
                 context.startActivity(intent);
              }
         });

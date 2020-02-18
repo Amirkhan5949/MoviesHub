@@ -59,7 +59,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Aamirkhan"
                 android:textColor="@color/light_gray"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
                     android:gravity="end"
                     android:text="Show all"
                     android:textColor="@color/pink"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -118,6 +118,8 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/train"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -127,12 +129,15 @@
                 android:textSize="24sp" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
                 android:id="@+id/trailor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp" />
 
             <View
+                android:visibility="gone"
+                android:id="@+id/view"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:layout_marginTop="20dp"
@@ -277,7 +282,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:text="Fact"
+                android:text="Facts :-"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
@@ -288,7 +293,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Original Title"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/moviename"
@@ -297,7 +302,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="moviename"
                 android:textColor="@color/light_gray"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -312,7 +317,7 @@
                     android:layout_weight="1"
                     android:text="Status"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -320,7 +325,7 @@
                     android:layout_weight="1"
                     android:text="Runtime"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
 
             </LinearLayout>
@@ -339,7 +344,7 @@
                     android:layout_weight="1"
                     android:text="Released"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
 
 
@@ -351,7 +356,7 @@
                     android:layout_marginLeft="5dp"
                     android:text="123"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -369,7 +374,7 @@
                     android:layout_weight="1"
                     android:text="Release Date"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -377,7 +382,7 @@
                     android:layout_weight="1"
                     android:text="Original Language"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
 
             </LinearLayout>
@@ -395,7 +400,7 @@
                     android:layout_weight="1"
                     android:text="Date"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/language"
@@ -405,7 +410,7 @@
                     android:layout_marginLeft="5dp"
                     android:text="Hindi"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -423,7 +428,7 @@
                     android:layout_weight="1"
                     android:text="Budget"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -431,7 +436,7 @@
                     android:layout_weight="1"
                     android:text="Revenue"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
 
             </LinearLayout>
@@ -449,7 +454,7 @@
                     android:layout_weight="1"
                     android:text="inwest"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_marginLeft="5dp"
@@ -459,7 +464,7 @@
                     android:layout_weight="1"
                     android:text="Earn"
                     android:textColor="@color/light_gray"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -477,7 +482,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Production Companies"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_marginBottom="20dp"
@@ -487,7 +492,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="production"
                 android:textColor="@color/light_gray"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
 
 

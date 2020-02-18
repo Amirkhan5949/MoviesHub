@@ -12,7 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.MoviePosterActivity"></activity>
+        <activity android:name=".Activities.ShowMoreActivity">
+
+        </activity>
+        <activity android:name=".Activities.MoreActivity">
+        </activity>
+        <activity android:name=".Activities.MoviePosterActivity" />
         <activity android:name=".Activities.ZoomImageActivity" />
         <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.MovieCatagoryActivity" />
@@ -24,6 +29,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

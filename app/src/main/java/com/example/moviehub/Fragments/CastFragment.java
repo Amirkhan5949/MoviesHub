@@ -80,13 +80,17 @@ public class CastFragment extends Fragment {
                 .create(TvShowRequest.class)
                 .getCrewRequest(s,NetworkConstraint.key)
                 .enqueue(new Callback<Credit>() {
+
                     @Override
                         public void onResponse(Call<Credit> call, Response<Credit> response) {
-                        String a= response.body().getId().toString();
-                        CastAdapter adapter=new CastAdapter(getContext(),response.body(),type,creditType);
-                        castrecyclerView.setAdapter(adapter);
-                        Log.i("dsscc", "onResponse: "+response.toString());
-                        Log.i("dsscc", "onResponse: "+response.body().getCast());
+                        if (response.body()!=null){
+
+                            String a= response.body().getId().toString();
+                            CastAdapter adapter=new CastAdapter(getContext(),response.body(),type,creditType);
+                            castrecyclerView.setAdapter(adapter);
+                            Log.i("dsscc", "onResponse: "+response.toString());
+                            Log.i("dsscc", "onResponse: "+response.body().getCast());
+                        }
                     }
 
                     @Override
@@ -107,12 +111,15 @@ public class CastFragment extends Fragment {
                 .enqueue(new Callback<Credit>() {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
-                        String a= response.body().getId().toString();
-                        CastAdapter adapter=new CastAdapter(getContext(),response.body(),type,creditType);
-                        castrecyclerView.setAdapter(adapter);
-                        Log.i("dsscc", "onResponse: "+response.body().toString());
-                        Log.i("dsscc", "onResponse: "+response.body().getCast());
-                        Log.i("aada", "onResponse: "+a);
+                        if (response.body()!=null){
+                            String a= response.body().getId().toString();
+                            CastAdapter adapter=new CastAdapter(getContext(),response.body(),type,creditType);
+                            castrecyclerView.setAdapter(adapter);
+                            Log.i("dsscc", "onResponse: "+response.body().toString());
+                            Log.i("dsscc", "onResponse: "+response.body().getCast());
+                            Log.i("aada", "onResponse: "+a);
+                        }
+
 
                     }
 

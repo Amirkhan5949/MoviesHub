@@ -48,17 +48,20 @@ import java.util.List;
  */
 public class InfoFragment extends Fragment {
     View view;
+    View viewer;
     RecyclerView genre, crew, trailor;
     ImageView smallimage, largeimage;
-    TextView year, timing, review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
+    TextView year,train, timing, review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
     String s = "";
     Type.MovieOrTvshow type;
     LinearLayout crewlayout,post,back,layout;
 
 
+
     public InfoFragment(String s, Type.MovieOrTvshow type) {
         this.s = s;
         this.type = type;
+
 
 
     }
@@ -75,12 +78,12 @@ public class InfoFragment extends Fragment {
         trailor = view.findViewById(R.id.trailor);
         post = view.findViewById(R.id.post);
         back = view.findViewById(R.id.back);
+        train = view.findViewById(R.id.train);
+        viewer = view.findViewById(R.id.view);
 
 
         genre.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         crew.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-
         trailor.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
@@ -125,15 +128,22 @@ public class InfoFragment extends Fragment {
             }
         });
 
-        if (type == Type.MovieOrTvshow.MOVIE) getmoviepics();
-        else gettvpics();
+        if (type == Type.MovieOrTvshow.MOVIE)
+            getmoviepics();
+        else
+            gettvpics();
 
 
 
 
-            if (type == Type.MovieOrTvshow.MOVIE) getMovie();
-        else getTvShow();
-
+        if (type == Type.MovieOrTvshow.MOVIE) {
+            getMovie();
+            Log.i("dsdddww", "onCreateView: "+type);
+        }
+        else {
+            getTvShow();
+            Log.i("dsdddww", "onCreateView: "+type);
+        }
 
         return view;
     }
@@ -150,10 +160,13 @@ public class InfoFragment extends Fragment {
                             layout.setVisibility(View.VISIBLE);
                         }
 
-                        if (response.body().getData().size()!=0){
-                            number.setText(response.body().getData().size()+"");
-                            no.setText(response.body().getBackdrops().size()+"");
-                            Log.i("dwdsffd", "onResponse: "+response.toString()+"");
+                        if (response.body()!=null){
+                            if (response.body().getData().size()!=0){
+                                number.setText(response.body().getData().size()+"");
+                                no.setText(response.body().getBackdrops().size()+"");
+                                Log.i("dwdsffd", "onResponse: "+response.toString()+"");
+
+                            }
 
                         }
 
@@ -193,40 +206,43 @@ public class InfoFragment extends Fragment {
                 .enqueue(new Callback<MovieImages>() {
                     @Override
                     public void onResponse(Call<MovieImages> call, Response<MovieImages> response) {
-                        if (response.body()==null)
-                            layout.setVisibility(View.GONE);
-                        else
-                            layout.setVisibility(View.VISIBLE);
-                          number.setText(response.body().getData().size()+"");
-                        no.setText(response.body().getBackdrops().size()+"");
+                        if (response.body()!=null){
+                            if (response.body()==null)
+                                layout.setVisibility(View.GONE);
+                            else
+                                layout.setVisibility(View.VISIBLE);
+                            number.setText(response.body().getData().size()+"");
+                            no.setText(response.body().getBackdrops().size()+"");
 
-                        post.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getData()));
-                                startActivity(intent);
-                            }
+                            post.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(getContext(), MoviePosterActivity.class);
+                                    intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getData()));
+                                    startActivity(intent);
+                                }
 
-                        });
+                            });
 
-                        back.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getBackdrops()));
-                                startActivity(intent);
-                                Log.i("cfdffs", "onClick: "+response.body().getBackdrops());
+                            back.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(getContext(), MoviePosterActivity.class);
+                                    intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getBackdrops()));
+                                    startActivity(intent);
+                                    Log.i("cfdffs", "onClick: "+response.body().getBackdrops());
 
-                            }
-                        });
+                                }
+                            });
 
 
 
 
 //                        Log.i("djvknv", "onResponse: "+response.body().getData().size());
-                        Log.i("djvknv", "onResponse: "+response.body() );
-                    }
+                            Log.i("djvknv", "onResponse: "+response.body() );
+                        }
+                        }
+
 
                     @Override
                     public void onFailure(Call<MovieImages> call, Throwable t) {
@@ -248,70 +264,78 @@ public class InfoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<MovieInfo> call, Response<MovieInfo> response) {
                         {
-                            Log.i("dhsgdhsgfv", "onResponse: " + response.toString());
-                            Log.i("dhsgdhsgfv", "onResponse: " + response.body());
-                            review.setText(response.body().getOverview());
+                            if (response.body()!=null){
 
-                            if (type == Type.MovieOrTvshow.TVSHOW) {
-                                moviename.setText(response.body().getOriginalTitle());
-                            }
-                            language.setText(response.body().getOriginalLanguage());
-                            released.setText(response.body().getStatus());
-                            runtime.setText(response.body().getEpisode_run_time()+"");
-                            date.setText(response.body().getReleaseDate());
-
-                            Log.i("sccccccdscsds", "onResponse: " + response.body().getReleaseDate());
-                            Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL + response.body().getPosterPath()).into(smallimage);
-                            Picasso.get().load(NetworkConstraint.Image_URL + response.body().getBackdropPath()).into(largeimage);
-                            Log.i("xaxxxxad", "onResponse: " + response.body().getBackdropPath());
-
-                            GenreAdapter adapter = new GenreAdapter(getContext(), response.body().getGenres());
-                            genre.setAdapter(adapter);
+                                Log.i("dhsgdhsgfv", "onResponse: " + response.toString());
+                                Log.i("dhsgdhsgfv", "onResponse: " + response.body());
+                                review.setText(response.body().getOverview());
 
 
-                            String name = "";
-                            for (MovieInfo.ProductionCompany x : response.body().getProductionCompanies()) {
-                                name = name + x.getName() + ",";
-                                Log.i("sscscsc", "onResponse: " + name);
-                            }
+                                if (type == Type.MovieOrTvshow.TVSHOW) {
+                                    moviename.setText(response.body().getOriginal_name().toString());
+                                }
+                                language.setText(response.body().getOriginalLanguage());
+                                released.setText(response.body().getStatus());
+                                if (response.body().getEpisode_run_time().size()!=0){
+                                    runtime.setText(response.body().getEpisode_run_time().get(0)+"");
+
+                                }
+                                date.setText(response.body().getFirst_air_date());
+
+                                Log.i("sccccccdscsds", "onResponse: " + response.body().getReleaseDate());
+                                Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL + response.body().getPosterPath()).into(smallimage);
+                                Picasso.get().load(NetworkConstraint.Image_URL + response.body().getBackdropPath()).into(largeimage);
+                                Log.i("xaxxxxad", "onResponse: " + response.body().getBackdropPath());
+
+                                GenreAdapter adapter = new GenreAdapter(getContext(), response.body().getGenres(), Type.MovieOrTvshow.TVSHOW);
+                                genre.setAdapter(adapter);
 
 
-                            if (name.length()!=0){
-                                production.setText(name.substring(0, name.length() - 1) + "");
+                                String name = "";
+                                for (MovieInfo.ProductionCompany x : response.body().getProductionCompanies()) {
+                                    name = name + x.getName() + ",";
+                                    Log.i("sscscsc", "onResponse: " + name);
+                                }
 
-                                Log.i("sscscsc", "onResponse: " + name.substring(0, name.length() - 1));
+
+                                if (name.length()!=0){
+                                    production.setText(name.substring(0, name.length() - 1) + "");
+
+                                    Log.i("sscscsc", "onResponse: " + name.substring(0, name.length() - 1));
+                                    Log.i("sscscsc", "onResponse: " + response.toString());
+
+                                }
+
+                                String a = response.body().getFirst_air_date();
+                                if (a!=null){
+                                    String b = a.substring(0, 4);
+                                    year.setText(b);
+                                    Log.i("ssdefef", "onResponse: "+a);
+
+
+                                }
+
+                                Log.i("sscscsc", "onResponse: " + response.body().getReleaseDate());
                                 Log.i("sscscsc", "onResponse: " + response.toString());
 
-                            }
 
-                            String a = response.body().getFirst_air_date();
-                            if (a!=null){
-                                String b = a.substring(0, 4);
-                                year.setText(b);
-                                Log.i("ssdefef", "onResponse: "+a);
+                                List<Integer> runtime = response.body().getEpisode_run_time();
+                                Log.i("dshfhdbs", "onResponse: " + response.body().getEpisode_run_time().size());
+                                if (runtime.size() > 0) {
+                                    int t = response.body().getEpisode_run_time().get(0);
+                                    int hours = t / 60; //since both are ints, you get an int
+                                    int minutes = t % 60;
+                                    System.out.printf("%d:%02d", hours, minutes);
+                                    Log.i("dshfhdbs", "onResponse: " + response.body().getEpisode_run_time().toString());
 
+                                    timing.setText(hours + " hour " + minutes + " minute");
+                                    Log.i("dshfhdbs", hours + " hour " + minutes + " minute");
 
-                            }
-
-                            Log.i("sscscsc", "onResponse: " + response.body().getReleaseDate());
-                            Log.i("sscscsc", "onResponse: " + response.toString());
-
-
-                            List<Integer> runtime = response.body().getEpisode_run_time();
-                            Log.i("dshfhdbs", "onResponse: " + response.body().getEpisode_run_time().size());
-                            if (runtime.size() > 0) {
-                                int t = response.body().getEpisode_run_time().get(0);
-                                int hours = t / 60; //since both are ints, you get an int
-                                int minutes = t % 60;
-                                System.out.printf("%d:%02d", hours, minutes);
-                                Log.i("dshfhdbs", "onResponse: " + response.body().getEpisode_run_time().toString());
-
-                                timing.setText(hours + " hour " + minutes + " minute");
-                                Log.i("dshfhdbs", hours + " hour " + minutes + " minute");
-
+                                }
                             }
                         }
-                    }
+                            }
+
 
                     @Override
                     public void onFailure(Call<MovieInfo> call, Throwable t) {
@@ -327,19 +351,22 @@ public class InfoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
 
-                        if (response.body().getCrew().size() == 0) {
-                            crewlayout.setVisibility(View.GONE);
-                        } else {
-                            crewlayout.setVisibility(View.VISIBLE);
-                            CrewAdapter adapter = new CrewAdapter(getContext(), response.body().getCrew());
-                            crew.setAdapter(adapter);
+                        if (response.body()!=null){
+                            if (response.body().getCrew().size() == 0) {
+                                crewlayout.setVisibility(View.GONE);
+                            } else {
+                                crewlayout.setVisibility(View.VISIBLE);
+                                CrewAdapter adapter = new CrewAdapter(getContext(), response.body().getCrew());
+                                crew.setAdapter(adapter);
+                            }
+
+
+                            Log.i("nscssknssks", "onResponse: " + response.body().getCrew());
+                            Log.i("nscssknssks", "onResponse: " + response.toString());
+
+                        }
                         }
 
-
-                        Log.i("nscssknssks", "onResponse: " + response.body().getCrew());
-                        Log.i("nscssknssks", "onResponse: " + response.toString());
-
-                    }
 
                     @Override
                     public void onFailure(Call<Credit> call, Throwable t) {
@@ -356,11 +383,18 @@ public class InfoFragment extends Fragment {
                     public void onResponse(Call<YoutubeConnect> call, Response<YoutubeConnect> response) {
 
                         Log.i("jhjbjh", "onResponse: ");
-                        if (response.body().getResults()!=null){
-                            TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
-                            trailor.setAdapter(adapter);
-                        }else {
-                            trailor.setVisibility(View.GONE);
+                        if (response.body()!=null&&response.body().getResults().size()!=0){
+                            if (response.body().getResults()!=null){
+                                TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
+                                trailor.setAdapter(adapter);
+                                trailor.setVisibility(View.VISIBLE);
+                                train.setVisibility(View.VISIBLE);
+                                viewer.setVisibility(View.VISIBLE);
+                                Log.i("zzzzcdds", "onResponse: "+response.body().getResults());
+                            }else {
+                                trailor.setVisibility(View.GONE);
+                            }
+
                         }
 
 
@@ -376,6 +410,7 @@ public class InfoFragment extends Fragment {
     }
 
     private void getMovie() {
+
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(MoviesRequest.class)
                 .getmovierequest(s, NetworkConstraint.key)
@@ -384,63 +419,67 @@ public class InfoFragment extends Fragment {
                     public void onResponse(Call<MovieInfo> call, Response<MovieInfo> response) {
                         {
 
-                            Log.i("adadczc", "onResponse: " + response.body().getOverview());
-                            Log.i("adadczc", "onResponse: " + response.body());
-                            review.setText(response.body().getOverview());
+                            if (response.body()!=null){
+                                Log.i("adadczc", "onResponse: " + response.body().getOverview());
+                                Log.i("adadczc", "onResponse: " + response.body());
+                                review.setText(response.body().getOverview());
 
-                            if (type == Type.MovieOrTvshow.MOVIE) {
-                                moviename.setText(response.body().getOriginalTitle());
+                                if (type == Type.MovieOrTvshow.MOVIE) {
+                                    moviename.setText(response.body().getOriginalTitle());
 
-                            } else {
+                                } else {
+
+                                }
+                                language.setText(response.body().getOriginalLanguage());
+                                released.setText(response.body().getStatus());
+                                runtime.setText(response.body().getRuntime().toString());
+                                date.setText(response.body().getReleaseDate());
+                                inwest.setText(response.body().getBudget().toString());
+                                earn.setText(response.body().getRevenue().toString());
+
+
+                                Log.i("sccccccdscsds", "onResponse: " + response.body().getReleaseDate());
+                                Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL + response.body().getPosterPath()).into(smallimage);
+                                Picasso.get().load(NetworkConstraint.Image_URL + response.body().getBackdropPath()).into(largeimage);
+                                Log.i("xaxxxxad", "onResponse: " + response.body().getBackdropPath());
+
+                                GenreAdapter adapter = new GenreAdapter(getContext(), response.body().getGenres(), Type.MovieOrTvshow.MOVIE);
+                                genre.setAdapter(adapter);
+
+
+                                String name = "";
+                                for (MovieInfo.ProductionCompany x : response.body().getProductionCompanies()) {
+                                    name = name + x.getName() + ",";
+                                    Log.i("adsfs", "onResponse: " + name);
+                                }
+
+
+                                if (name.length()!=0)
+                                    production.setText(name.substring(0, name.length() - 1) + ".");
+
+                                String a = response.body().getReleaseDate();
+                                String b = a.substring(0, 4);
+                                year.setText(b);
+
+                                int t = Integer.parseInt(response.body().getRuntime().toString());
+
+
+                                int hours = t / 60; //since both are ints, you get an int
+                                int minutes = t % 60;
+                                System.out.printf("%d:%02d", hours, minutes);
+
+
+                                timing.setText(hours + " hour " + minutes + " minute");
+
+
+                                Log.i("sdssc", "onResponse: " + b);
 
                             }
-                            language.setText(response.body().getOriginalLanguage());
-                            released.setText(response.body().getStatus());
-                            runtime.setText(response.body().getRuntime().toString());
-                            date.setText(response.body().getReleaseDate());
-                            inwest.setText(response.body().getBudget().toString());
-                            earn.setText(response.body().getRevenue().toString());
-
-
-                            Log.i("sccccccdscsds", "onResponse: " + response.body().getReleaseDate());
-                            Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL + response.body().getPosterPath()).into(smallimage);
-                            Picasso.get().load(NetworkConstraint.Image_URL + response.body().getBackdropPath()).into(largeimage);
-                            Log.i("xaxxxxad", "onResponse: " + response.body().getBackdropPath());
-
-                            GenreAdapter adapter = new GenreAdapter(getContext(), response.body().getGenres());
-                            genre.setAdapter(adapter);
-
-
-                            String name = "";
-                            for (MovieInfo.ProductionCompany x : response.body().getProductionCompanies()) {
-                                name = name + x.getName() + ",";
-                                Log.i("adsfs", "onResponse: " + name);
-                            }
-
-
-                            if (name.length()!=0)
-                            production.setText(name.substring(0, name.length() - 1) + ".");
-
-                            String a = response.body().getReleaseDate();
-                            String b = a.substring(0, 4);
-                            year.setText(b);
-
-                            int t = Integer.parseInt(response.body().getRuntime().toString());
-
-
-                            int hours = t / 60; //since both are ints, you get an int
-                            int minutes = t % 60;
-                            System.out.printf("%d:%02d", hours, minutes);
-
-
-                            timing.setText(hours + " hour " + minutes + " minute");
-
-
-                            Log.i("sdssc", "onResponse: " + b);
 
                         }
 
                     }
+
 
                     @Override
                     public void onFailure(Call<MovieInfo> call, Throwable t) {
@@ -458,7 +497,7 @@ public class InfoFragment extends Fragment {
                         CrewAdapter adapter = new CrewAdapter(getContext(), response.body().getCrew());
                         crew.setAdapter(adapter);
 
-                        Log.i("dadada", "onResponse: " + response.body().getCrew());
+                        Log.i("dadada", "onResponse: " + response.body() );
 
                     }
 
@@ -480,6 +519,9 @@ public class InfoFragment extends Fragment {
                         if (response.body().getResults()!=null){
                             TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
                             trailor.setAdapter(adapter);
+                            trailor.setVisibility(View.VISIBLE);
+                            train.setVisibility(View.VISIBLE);
+                            viewer.setVisibility(View.VISIBLE);
                         }else {
                             trailor.setVisibility(View.GONE);
                         }

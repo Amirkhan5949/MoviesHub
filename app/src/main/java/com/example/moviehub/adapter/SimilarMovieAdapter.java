@@ -2,6 +2,7 @@ package com.example.moviehub.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,7 @@ public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapte
             public void onClick(View view) {
                 Intent intent=new Intent(context, AllDetatilActivity.class);
                 intent.putExtra("id",list.get(position).getId()+"");
+                intent.putExtra("type",type);
                 context.startActivity(intent);
             }
         });
@@ -91,4 +93,12 @@ public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapte
             ll=itemView.findViewById(R.id.ll);
         }
     }
+
+
+    public void addAllResult(List<Result> list){
+        this.list.addAll(list);
+        notifyItemRangeInserted(this.list.size() - list.size(),this.list.size());
+        Log.i("ashbdha","saxghvashvx "+(this.list.size() - list.size())+" "+this.list.size() );
+    }
+
 }

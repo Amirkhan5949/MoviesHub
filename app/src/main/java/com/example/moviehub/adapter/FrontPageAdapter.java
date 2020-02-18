@@ -15,6 +15,7 @@ import com.example.moviehub.Activities.AllDetatilActivity;
 import com.example.moviehub.Activities.CelebritiesActivity;
 import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.R;
+import com.example.moviehub.model.Result;
 import com.example.moviehub.model.Trending;
 import com.example.moviehub.utils.Type;
 import com.squareup.picasso.Picasso;
@@ -27,10 +28,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class FrontPageAdapter extends RecyclerView.Adapter<FrontPageAdapter.RecyclerViewHolder> {
     Context  context;
-     List<Trending.Result>list;
+     List<Result>list;
      Type.MovieOrTvshow type;
 
-    public FrontPageAdapter(Context context, List<Trending.Result>list,Type.MovieOrTvshow type){
+    public FrontPageAdapter(Context context, List<Result>list, Type.MovieOrTvshow type){
         this.context=context;
         this.list=list;
         this.type = type;
@@ -70,7 +71,7 @@ public class FrontPageAdapter extends RecyclerView.Adapter<FrontPageAdapter.Recy
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, ""+list.get(position).getId(), Toast.LENGTH_SHORT).show();
+
 
                 Intent intent = new Intent(context, AllDetatilActivity.class);
                 intent.putExtra("id",list.get(position).getId()+"");

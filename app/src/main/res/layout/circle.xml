@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llayout"
+    android:orientation="vertical"
+    android:layout_width="100dp"
+    android:background="@color/background"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+         android:src="@drawable/avni"
+        android:layout_width="96dp"
+        android:layout_height="76dp"
+        android:id="@+id/circleimage"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/trendingname"
+        android:textColor="@color/light_gray"
+        android:layout_marginLeft="20dp"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avani yadav"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="14dp"/>
+
+
+
+</LinearLayout>

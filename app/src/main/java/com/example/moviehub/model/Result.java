@@ -7,15 +7,29 @@ import java.util.List;
 
 public  class Result {
 
+    @SerializedName("name")
+    @Expose
+    private String name;
+
     @SerializedName("adult")
     @Expose
     private Boolean adult;
+
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
+
+    @SerializedName("profile_path")
+    @Expose
+    private String profile_path;
+
+
     @SerializedName("genre_ids")
     @Expose
     private List<Long> genreIds = null;
+
+
+
     @SerializedName("id")
     @Expose
     private Long id;
@@ -25,6 +39,15 @@ public  class Result {
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getOriginal_name() {
         return original_name;
@@ -62,6 +85,9 @@ public  class Result {
     @Expose
     private Double popularity;
 
+
+
+
     public Boolean getAdult() {
         return adult;
     }
@@ -92,6 +118,14 @@ public  class Result {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getProfile_path() {
+        return profile_path;
+    }
+
+    public void setProfile_path(String profile_path) {
+        this.profile_path = profile_path;
     }
 
     public String getOriginalLanguage() {
