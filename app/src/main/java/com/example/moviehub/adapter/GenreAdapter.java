@@ -2,24 +2,20 @@ package com.example.moviehub.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.moviehub.Activities.MovieCatagoryActivity;
+import com.example.moviehub.ui.activities.MovieCatagoryActivity;
 import com.example.moviehub.R;
 import com.example.moviehub.model.MovieInfo;
 import com.example.moviehub.utils.Type;
 
-import java.security.AccessController;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import static java.security.AccessController.*;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreViewHolder> {
     Context context;

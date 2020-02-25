@@ -29,6 +29,20 @@ public  class Result {
     private List<Long> genreIds = null;
 
 
+    @SerializedName("known_for_department")
+    @Expose
+    private String knownForDepartment;
+
+
+    public String getKnownForDepartment() {
+        return knownForDepartment;
+    }
+
+    public void setKnownForDepartment(String knownForDepartment) {
+        this.knownForDepartment = knownForDepartment;
+    }
+
+
 
     @SerializedName("id")
     @Expose

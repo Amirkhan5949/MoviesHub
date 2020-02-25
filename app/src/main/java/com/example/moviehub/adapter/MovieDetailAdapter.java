@@ -1,9 +1,9 @@
 package com.example.moviehub.adapter;
 
-import com.example.moviehub.Fragments.CastFragment;
-import com.example.moviehub.Fragments.InfoFragment;
-import com.example.moviehub.Fragments.ReviewFragment;
-import com.example.moviehub.Fragments.MixListFragment;
+import com.example.moviehub.ui.fragments.CastFragment;
+import com.example.moviehub.ui.fragments.InfoFragment;
+import com.example.moviehub.ui.fragments.ReviewFragment;
+import com.example.moviehub.ui.fragments.MixListFragment;
 import com.example.moviehub.utils.Type;
 
 import androidx.annotation.NonNull;
@@ -35,7 +35,7 @@ public class MovieDetailAdapter extends FragmentPagerAdapter {
                  return new InfoFragment(s,type);
 
              case 1:
-                 return new CastFragment(s,type,Type.Credit.CAST);
+                 return CastFragment.newInstance(s,type,Type.Credit.CAST);
 
              case 2:
                  return new ReviewFragment(s,type);

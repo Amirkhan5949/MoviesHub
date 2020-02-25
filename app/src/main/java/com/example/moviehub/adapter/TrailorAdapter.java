@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.moviehub.Network.NetworkConstraint;
 import com.example.moviehub.R;
 import com.example.moviehub.model.YoutubeConnect;
 import com.squareup.picasso.Picasso;

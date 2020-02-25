@@ -12,25 +12,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.ShowMoreActivity">
+        <activity android:name=".ui.activities.ForMoreActivity">
+
 
         </activity>
-        <activity android:name=".Activities.MoreActivity">
-        </activity>
-        <activity android:name=".Activities.MoviePosterActivity" />
-        <activity android:name=".Activities.ZoomImageActivity" />
-        <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.MovieCatagoryActivity" />
-        <activity android:name=".Activities.CelebritiesActivity" />
-        <activity android:name=".Activities.AllDetatilActivity" />
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".ui.activities.SearchActivity" />
+        <activity android:name=".ui.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".activities.TrendingPersonMoreActivity" />
+        <activity android:name=".ui.activities.MoreActivity" />
+        <activity android:name=".ui.activities.MoviePosterActivity" />
+        <activity android:name=".ui.activities.ZoomImageActivity" />
+        <activity android:name=".ui.activities.ProfileActivity" />
+        <activity android:name=".ui.activities.MovieCatagoryActivity" />
+        <activity android:name=".ui.activities.CelebritiesActivity" />
+        <activity android:name=".ui.activities.AllDetatilActivity" />
+        <activity android:name=".ui.activities.MainActivity" />
     </application>
 
 </manifest>

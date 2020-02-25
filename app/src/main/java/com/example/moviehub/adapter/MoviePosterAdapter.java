@@ -1,7 +1,6 @@
 package com.example.moviehub.adapter;
 
-import com.example.moviehub.Fragments.PhotosFragment;
-import com.example.moviehub.Fragments.ProfileFragment;
+import com.example.moviehub.ui.fragments.PhotosFragment;
 import com.example.moviehub.model.MovieImages;
 
 import java.util.ArrayList;

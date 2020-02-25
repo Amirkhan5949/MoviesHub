@@ -25,6 +25,11 @@ import java.util.List;
         @SerializedName("name")
         @Expose
         private String name;
+
+        @SerializedName("getCharacter")
+        @Expose
+        private String getCharacter;
+
         @SerializedName("also_known_as")
         @Expose
         private List<String> alsoKnownAs = null;
@@ -121,6 +126,14 @@ import java.util.List;
             return popularity;
         }
 
+        public String getGetCharacter() {
+            return getCharacter;
+        }
+
+        public void setGetCharacter(String getCharacter) {
+            this.getCharacter = getCharacter;
+        }
+
         public void setPopularity(Double popularity) {
             this.popularity = popularity;
         }
@@ -165,5 +178,8 @@ import java.util.List;
             this.homepage = homepage;
         }
 
+        public int getCharacter() {
+            return 0;
+        }
     }
 

@@ -7,22 +7,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MoreActivity">
+    tools:context=".ui.activities.MoreActivity">
 
-     <androidx.recyclerview.widget.RecyclerView
-         android:id="@+id/more"
-         android:layout_width="match_parent"
-         android:layout_height="0dp"
-         android:layout_weight="1"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/framel2"/>
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:visibility="gone"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/loadMore"
-        style="@style/AVLoadingIndicatorView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:indicatorColor="@color/white"
-        app:indicatorName="BallBeatIndicator" />
 
 </LinearLayout>

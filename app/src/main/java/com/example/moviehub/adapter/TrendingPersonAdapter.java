@@ -9,12 +9,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.moviehub.Activities.ProfileActivity;
-import com.example.moviehub.Network.NetworkConstraint;
+import com.example.moviehub.ui.activities.ProfileActivity;
+import com.example.moviehub.network.NetworkConstraint;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Result;
-import com.example.moviehub.model.Trending;
-import com.example.moviehub.utils.Type;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

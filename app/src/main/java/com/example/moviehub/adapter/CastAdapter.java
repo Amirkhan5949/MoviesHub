@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.moviehub.Activities.ProfileActivity;
-import com.example.moviehub.Fragments.CastFragment;
-import com.example.moviehub.Network.NetworkConstraint;
+import com.example.moviehub.network.NetworkConstraint;
+import com.example.moviehub.ui.activities.ProfileActivity;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Credit;
 import com.example.moviehub.utils.Type;
@@ -30,8 +29,6 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
     Type.Credit creditType;
     List<Credit.Cast> cast;
     List<Credit.Crew> crew;
-
-
     Type.MovieOrTvshow type;
 
     public CastAdapter(Context context, Credit credit, Type.MovieOrTvshow type, Type.Credit creditType) {
@@ -42,6 +39,9 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
         cast = credit.getCast();
         crew = credit.getCrew();
     }
+
+
+
 
     @NonNull
     @Override
@@ -78,6 +78,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
             Picasso.get().load(NetworkConstraint.IMAGE_BASE_URL + crew.get(position).getProfilePath()).into(holder.circleimg);
             holder.name.setText(crew.get(position).getName());
 //              holder.nickname.setText(crew.get(position).getCharacter());
+              holder.nickname.setVisibility(View.GONE);
 
             holder.linear.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,4 +121,6 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastRecyclerVi
 
         }
     }
+
+
 }

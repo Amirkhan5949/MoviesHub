@@ -7,10 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.moviehub.Activities.ZoomImageActivity;
-import com.example.moviehub.Network.NetworkConstraint;
+import com.example.moviehub.ui.activities.ZoomImageActivity;
+import com.example.moviehub.network.NetworkConstraint;
 import com.example.moviehub.R;
-import com.example.moviehub.model.PersonDetail;
 import com.example.moviehub.model.PersonImages;
 import com.squareup.picasso.Picasso;
 

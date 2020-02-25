@@ -10,12 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.moviehub.Activities.AllDetatilActivity;
-import com.example.moviehub.Fragments.InfoFragment;
-import com.example.moviehub.Network.NetworkConstraint;
+import com.example.moviehub.network.NetworkConstraint;
+import com.example.moviehub.ui.activities.AllDetatilActivity;
 import com.example.moviehub.R;
 import com.example.moviehub.model.Result;
-import com.example.moviehub.model.SimilarMovie;
 import com.example.moviehub.utils.Type;
 import com.squareup.picasso.Picasso;
 

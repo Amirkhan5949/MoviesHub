@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".Fragments.CastFragment">
+    tools:context=".ui.fragments.CastFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

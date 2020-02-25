@@ -2,11 +2,8 @@ package com.example.moviehub.adapter;
 
 import android.util.Log;
 
-import com.example.moviehub.Fragments.CastFragment;
-import com.example.moviehub.Fragments.InfoFragment;
-import com.example.moviehub.Fragments.MixListFragment;
-import com.example.moviehub.Fragments.ProfileFragment;
-import com.example.moviehub.Fragments.ReviewFragment;
+import com.example.moviehub.ui.fragments.MixListFragment;
+import com.example.moviehub.ui.fragments.ProfileFragment;
 import com.example.moviehub.utils.Type;
 
 import androidx.annotation.NonNull;
