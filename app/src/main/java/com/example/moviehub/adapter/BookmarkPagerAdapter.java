@@ -1,67 +1,53 @@
 package com.example.moviehub.adapter;
 
-import android.util.Log;
-
+import com.example.moviehub.ui.fragments.HomeFragment;
 import com.example.moviehub.ui.fragments.MixListFragment;
-import com.example.moviehub.ui.fragments.ProfileFragment;
 import com.example.moviehub.utils.Type;
 
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-public class ProfileAdapter extends FragmentPagerAdapter {
-    private String s;
-
-
-    public ProfileAdapter( String s,@NonNull FragmentManager fm) {
+public class BookmarkPagerAdapter extends FragmentPagerAdapter {
+    public BookmarkPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
-        this.s=s;
-
-        Log.i("dwrfs", "getItem: "+s);
-
-     }
+    }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
         switch(position){
-
             case 0:
-
-                return   ProfileFragment.newInstance (s);
+                return  MixListFragment.newInstance(null, Type.MixListType.BOOKMARK,Type.MovieOrTvshow.MOVIE);
 
             case 1:
-                return   MixListFragment.newInstance (s,Type.MixListType.CREDIT,Type.MovieOrTvshow.MOVIE);
-
-            case 2:
-                return   MixListFragment.newInstance (s,Type.MixListType.CREDIT,Type.MovieOrTvshow.TVSHOW);
+                return   MixListFragment.newInstance(null ,Type.MixListType.BOOKMARK,Type.MovieOrTvshow.MOVIE);
 
 
             default:
                 return null;
-
         }
-
-
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
+    @Nullable
+    @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Info";
+                return "Movie";
             case 1:
-                return "Movies";
-            case 2:
-                return "Tv shows";
+                return "Tv Show";
 
             default:
+
                 return null;
         }
     }

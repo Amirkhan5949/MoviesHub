@@ -5,17 +5,17 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".utils.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/moviehub"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/moviehub"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activities.ForMoreActivity">
-
-
-        </activity>
+        <activity android:name=".ui.activities.BookmarkActivity"></activity>
+        <activity android:name=".ui.activities.AppinfoActivity" />
+        <activity android:name=".ui.activities.ForMoreActivity" />
         <activity android:name=".ui.activities.SearchActivity" />
         <activity android:name=".ui.activities.SplashActivity">
             <intent-filter>
@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.TrendingPersonMoreActivity" />
         <activity android:name=".ui.activities.MoreActivity" />
         <activity android:name=".ui.activities.MoviePosterActivity" />
         <activity android:name=".ui.activities.ZoomImageActivity" />

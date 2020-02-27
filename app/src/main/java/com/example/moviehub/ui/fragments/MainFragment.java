@@ -17,9 +17,7 @@ import com.example.moviehub.R;
 public class MainFragment extends Fragment {
 
 
-    public MainFragment() {
-        // Required empty public constructor
-    }
+
 
 
     @Override

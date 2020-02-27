@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
 import com.example.moviehub.network.NetworkConstraint;
 import com.example.moviehub.R;
+import com.example.moviehub.utils.Type;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -28,20 +29,30 @@ public class PhotosFragment extends Fragment {
     AVLoadingIndicatorView avi;
 
 
-    public PhotosFragment() {
-        // Required empty public constructor
+
+
+
+    public static PhotosFragment newInstance(String filePath) {
+        PhotosFragment f = new PhotosFragment();
+        Bundle args = new Bundle();
+        args.putString("filePath",filePath);
+         f.setArguments(args);
+        return f;
     }
 
-    public PhotosFragment(String filePath) {
-        this.filePath=filePath;
-
-    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        Bundle args = getArguments();
+        if(args!=null){
+            filePath=args.getString("filePath");
+        }
+
+
         view=inflater.inflate(R.layout.fragment_photos2, container, false);
         photos=view.findViewById(R.id.photos);
         avi=view.findViewById(R.id.avi);
@@ -66,6 +77,9 @@ public class PhotosFragment extends Fragment {
 
 
                 });
+
+
+
 
 
         photos.setOnTouchListener(new ImageMatrixTouchHandler(getContext()));

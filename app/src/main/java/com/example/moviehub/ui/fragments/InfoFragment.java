@@ -22,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.moviehub.model.ForBookmark;
+import com.example.moviehub.model.ImageData;
+import com.example.moviehub.room.DatabaseClient;
 import com.example.moviehub.ui.activities.CelebritiesActivity;
 import com.example.moviehub.ui.activities.MoviePosterActivity;
 import com.example.moviehub.network.MoviesPic;
@@ -50,7 +53,7 @@ public class InfoFragment extends Fragment {
     View view;
     View viewer;
     RecyclerView genre, crew, trailor;
-    ImageView smallimage, largeimage;
+    ImageView smallimage, largeimage,bookmark;
     TextView year,train, timing, review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
     String s = "";
     Type.MovieOrTvshow type;
@@ -58,12 +61,14 @@ public class InfoFragment extends Fragment {
 
 
 
-    public InfoFragment(String s, Type.MovieOrTvshow type) {
-        this.s = s;
-        this.type = type;
 
-
-
+    public static InfoFragment newInstance(String s, Type.MovieOrTvshow type) {
+        InfoFragment f = new InfoFragment();
+        Bundle args = new Bundle();
+        args.putString("id", s);
+        args.putSerializable("type", type);
+          f.setArguments(args);
+        return f;
     }
 
 
@@ -80,11 +85,21 @@ public class InfoFragment extends Fragment {
         back = view.findViewById(R.id.back);
         train = view.findViewById(R.id.train);
         viewer = view.findViewById(R.id.view);
+        bookmark = view.findViewById(R.id.bookmark);
 
 
         genre.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         crew.setLayoutManager(new GridLayoutManager(getContext(), 2));
         trailor.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+
+
+        Bundle args = getArguments();
+        if(args!=null){
+            type = (Type.MovieOrTvshow)args.getSerializable("type");
+            s = args.getString("id");
+        }
+
 
 
         smallimage = view.findViewById(R.id.smallimage);
@@ -161,8 +176,8 @@ public class InfoFragment extends Fragment {
                         }
 
                         if (response.body()!=null){
-                            if (response.body().getData().size()!=0){
-                                number.setText(response.body().getData().size()+"");
+                            if (response.body().getImageData().size()!=0){
+                                number.setText(response.body().getImageData().size()+"");
                                 no.setText(response.body().getBackdrops().size()+"");
                                 Log.i("dwdsffd", "onResponse: "+response.toString()+"");
 
@@ -174,7 +189,7 @@ public class InfoFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getBackdrops()));
+                                intent.putExtra("images",(ArrayList<ImageData>) (response.body().getBackdrops()));
                                 startActivity(intent);
                             }
                         });
@@ -184,7 +199,7 @@ public class InfoFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getData()));
+                                intent.putExtra("images",(ArrayList<ImageData>) (response.body().getImageData()));
                                 startActivity(intent);
                             }
                         });
@@ -211,14 +226,14 @@ public class InfoFragment extends Fragment {
                                 layout.setVisibility(View.GONE);
                             else
                                 layout.setVisibility(View.VISIBLE);
-                            number.setText(response.body().getData().size()+"");
+                            number.setText(response.body().getImageData().size()+"");
                             no.setText(response.body().getBackdrops().size()+"");
 
                             post.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                    intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getData()));
+                                    intent.putExtra("images",(ArrayList<ImageData>) (response.body().getImageData()));
                                     startActivity(intent);
                                 }
 
@@ -228,7 +243,7 @@ public class InfoFragment extends Fragment {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                    intent.putExtra("images",(ArrayList<MovieImages.Data>) (response.body().getBackdrops()));
+                                    intent.putExtra("images",(ArrayList<ImageData>) (response.body().getBackdrops()));
                                     startActivity(intent);
                                     Log.i("cfdffs", "onClick: "+response.body().getBackdrops());
 
@@ -253,7 +268,6 @@ public class InfoFragment extends Fragment {
 
 
     }
-
 
     private void getTvShow() {
 
@@ -420,6 +434,23 @@ public class InfoFragment extends Fragment {
                         {
 
                             if (response.body()!=null){
+
+                                bookmark.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                                .getMovieInfoDao()
+                                                .insert(response.body());
+                                        ForBookmark forBookmark = new ForBookmark(response.body().getId(),Type.MovieOrTvshow.MOVIE);
+
+                                        DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                                .getForBookmarkDao()
+                                                .insert(forBookmark);
+
+                                    }
+                                });
+
+
                                 Log.i("adadczc", "onResponse: " + response.body().getOverview());
                                 Log.i("adadczc", "onResponse: " + response.body());
                                 review.setText(response.body().getOverview());

@@ -1,5 +1,6 @@
 package com.example.moviehub.adapter;
 
+import com.example.moviehub.model.ImageData;
 import com.example.moviehub.ui.fragments.PhotosFragment;
 import com.example.moviehub.model.MovieImages;
 
@@ -12,9 +13,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class MoviePosterAdapter extends FragmentPagerAdapter {
 
-    ArrayList<MovieImages.Data> data;
+    ArrayList<ImageData> data;
 
-    public MoviePosterAdapter(@NonNull FragmentManager fm, ArrayList<MovieImages.Data> data) {
+    public MoviePosterAdapter(@NonNull FragmentManager fm, ArrayList<ImageData> data) {
         super(fm);
         this.data = data;
     }
@@ -23,7 +24,7 @@ public class MoviePosterAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        return new PhotosFragment(data.get(position).getFilePath());
+        return   PhotosFragment.newInstance (data.get(position).getFilePath());
 
 
     }

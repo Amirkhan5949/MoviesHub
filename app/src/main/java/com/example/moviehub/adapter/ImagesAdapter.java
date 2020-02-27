@@ -7,12 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.moviehub.model.ImageData;
+import com.example.moviehub.ui.activities.MoviePosterActivity;
 import com.example.moviehub.ui.activities.ZoomImageActivity;
 import com.example.moviehub.network.NetworkConstraint;
 import com.example.moviehub.R;
 import com.example.moviehub.model.PersonImages;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -20,9 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageRecycleView> {
     Context context;
-    List<PersonImages.Profile>list;
+    List<ImageData> list;
 
-    public ImagesAdapter(Context context,  List<PersonImages.Profile>list){
+    public ImagesAdapter(Context context,  List<ImageData>list){
         this.context=context;
         this.list=list;
     }
@@ -38,11 +41,13 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageRecyc
     @Override
     public void onBindViewHolder(@NonNull ImageRecycleView holder, int position) {
         Picasso.get().load(NetworkConstraint.Image_URL+list.get(position).getFilePath()).into(holder.pictures);
-        holder.pictures.setOnClickListener(new View.OnClickListener() {
+
+
+       holder.pictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, ZoomImageActivity.class);
-                intent.putExtra("profile",list.get(position).getFilePath()+"");
+                Intent intent=new Intent(context, MoviePosterActivity.class);
+                intent.putExtra("images",(ArrayList<ImageData>) (list));
                 context.startActivity(intent);
             }
         });

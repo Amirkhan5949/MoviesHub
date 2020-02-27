@@ -36,11 +36,17 @@ public class ReviewFragment extends Fragment {
     Type.MovieOrTvshow type;
 
 
-    public ReviewFragment(String s, Type.MovieOrTvshow type) {
-        this.s=s;
-        this.type=type;
-        // Required empty public constructor
+
+
+    public static ReviewFragment newInstance(String s, Type.MovieOrTvshow type) {
+        ReviewFragment f = new ReviewFragment();
+        Bundle args = new Bundle();
+        args.putString("id", s);
+        args.putSerializable("type", type);
+        f.setArguments(args);
+        return f;
     }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -51,7 +57,14 @@ public class ReviewFragment extends Fragment {
         recyclerView=view.findViewById(R.id.reviewrecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         // Inflate the layout for this fragment
-        
+
+
+
+        Bundle args = getArguments();
+        if(args!=null){
+            type = (Type.MovieOrTvshow)args.getSerializable("type");
+             s = args.getString("id");
+        }
         
         if (type==Type.MovieOrTvshow.MOVIE)
         movieReview();

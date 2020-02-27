@@ -1,10 +1,33 @@
 package com.example.moviehub.model;
 
+import com.example.moviehub.room.typeconverter.BelongsToCollectionConverter;
+import com.example.moviehub.room.typeconverter.GenreConverters;
+import com.example.moviehub.room.typeconverter.IntegerConverter;
+import com.example.moviehub.room.typeconverter.LongConverters;
+import com.example.moviehub.room.typeconverter.ProductionCompanyConverter;
+import com.example.moviehub.room.typeconverter.ProductionCountryConverter;
+import com.example.moviehub.room.typeconverter.SpokenLanguageConverter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+@Entity
+@TypeConverters(
+             {
+                   LongConverters.class,
+                   BelongsToCollectionConverter.class,
+                   GenreConverters.class,
+                   IntegerConverter.class,
+                   ProductionCompanyConverter.class,
+                   ProductionCountryConverter.class,
+                   SpokenLanguageConverter.class
+             }
+        )
 public class MovieInfo {
 
     @SerializedName("adult")
@@ -48,6 +71,7 @@ public class MovieInfo {
     private String homepage;
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private Long id;
     @SerializedName("imdb_id")
     @Expose
@@ -336,7 +360,7 @@ public class MovieInfo {
 
 
 
-    public static   class Genre {
+    public static class Genre {
 
         @SerializedName("id")
         @Expose
@@ -360,9 +384,6 @@ public class MovieInfo {
         public void setName(String name) {
             this.name = name;
         }
-
-
-
 
 
     }
@@ -415,7 +436,6 @@ public class MovieInfo {
         }
 
     }
-
 
     public static class ProductionCompany {
 

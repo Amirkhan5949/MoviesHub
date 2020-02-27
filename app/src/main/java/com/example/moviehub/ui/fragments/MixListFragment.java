@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.moviehub.model.MovieInfo;
 import com.example.moviehub.network.DiscoverRequest;
 import com.example.moviehub.network.MoviesRequest;
 import com.example.moviehub.network.NetworkConstraint;
@@ -29,6 +30,7 @@ import com.example.moviehub.model.DiscoverGenre;
 import com.example.moviehub.model.PersonMovies;
 import com.example.moviehub.model.Result;
 import com.example.moviehub.model.SimilarMovie;
+import com.example.moviehub.room.DatabaseClient;
 import com.example.moviehub.utils.Type;
 
 import java.util.ArrayList;
@@ -45,23 +47,40 @@ public class MixListFragment extends Fragment {
     Type.MixListType mixListType;
     Type.MovieOrTvshow movieOrTvshow;
 
-    public MixListFragment(String s, Type.MixListType mixListType, Type.MovieOrTvshow movieOrTvshow) {
-        this.s = s;
-        this.mixListType = mixListType;
-        this.movieOrTvshow = movieOrTvshow;
+
+
+    public static MixListFragment newInstance(String s, Type.MixListType mixListType, Type.MovieOrTvshow movieOrTvshow) {
+        MixListFragment f = new MixListFragment();
+        Bundle args = new Bundle();
+
+        args.putString("id", s);
+        args.putSerializable("mixListType", mixListType);
+        args.putSerializable("movieOrTvshow", movieOrTvshow);
+        f.setArguments(args);
+        return f;
     }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("csf", "onCreateView: "+435355);
+
         view = inflater.inflate(R.layout.fragment_similar, container, false);
         recyclerView = view.findViewById(R.id.similarmovierecycler);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         // Inflate the layout for this fragment
 
+
+        Bundle args = getArguments();
+        if(args!=null){
+            movieOrTvshow = (Type.MovieOrTvshow)args.getSerializable("movieOrTvshow");
+            mixListType = ( Type.MixListType)args.getSerializable("mixListType");
+            s = args.getString("id");
+        }
 
         switch (mixListType) {
             case GENRE:
@@ -83,13 +102,55 @@ public class MixListFragment extends Fragment {
                     getCreditMovie();
                 else
                     getCreditTvshow();
-                Log.i("acscsfcs", "getCreditTvshow: " + 233);
+            case BOOKMARK:
+                Log.i("csf", "onCreateView: "+223);
+
+                if (movieOrTvshow == Type.MovieOrTvshow.MOVIE){
+                    getBookmarkMovie();
+                }
+
+                else
+                    getBookmarkTvshow();
+
+
                 break;
 
         }
 
 
         return view;
+    }
+
+    private void getBookmarkTvshow() {
+
+    }
+
+    private void getBookmarkMovie() {
+
+        List<MovieInfo> list = DatabaseClient.getInstance(getContext()).getAppDatabase()
+                .getForBookmarkDao()
+                .getAllBookmarkMovieInfo(Type.MovieOrTvshow.MOVIE);
+
+        Log.i("sfdgdf", "getBookmarkMovie: "+list.toString());
+        List<Result> results = new ArrayList<>();
+        for(MovieInfo movieInfo : list){
+            Log.i("sfdgdf", "getBookmarkMovie: "+546464);
+
+            results.add(new Result(movieInfo.getTitle(),
+
+                    movieInfo.getPosterPath(),
+                    movieInfo.getId(),
+                    movieInfo.getOriginalTitle(),
+                    movieInfo.getReleaseDate(),
+                    movieInfo.getVoteAverage()
+            ));
+        }
+        Log.i("sfdgdf", "getBookmarkMovie: "+results.toString());
+        SimilarMovieAdapter adapter = new SimilarMovieAdapter(getContext(), results, Type.MovieOrTvshow.TVSHOW);
+        recyclerView.setAdapter(adapter);
+        Log.i("sfdgdf", "getBookmarkMovie: "+757565);
+
+
     }
 
     private void getSimilarTvsgow() {

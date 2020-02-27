@@ -32,16 +32,16 @@ public class MovieDetailAdapter extends FragmentPagerAdapter {
          switch(position){
 
              case 0:
-                 return new InfoFragment(s,type);
+                 return  InfoFragment.newInstance(s,type);
 
              case 1:
                  return CastFragment.newInstance(s,type,Type.Credit.CAST);
 
              case 2:
-                 return new ReviewFragment(s,type);
+                 return   ReviewFragment.newInstance (s,type);
 
              case 3:
-                 return new MixListFragment(s, Type.MixListType.SIMILAR,type);
+                 return   MixListFragment.newInstance (s, Type.MixListType.SIMILAR,type);
              default:
                  return null;
 

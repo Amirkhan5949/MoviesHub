@@ -37,12 +37,22 @@
                 <TextView
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="2 hrs2mins"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:id="@+id/timing"/>
+
+                <ImageView
+                    android:id="@+id/bookmark"
+                    android:layout_marginRight="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/bookmark"/>
 
             </LinearLayout>
 

@@ -1,11 +1,33 @@
 package com.example.moviehub.model;
 
+import com.example.moviehub.room.typeconverter.LongConverters;
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
-public  class Result {
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+
+@Entity
+@TypeConverters({LongConverters.class})
+public class Result {
+
+    public Result(String name, String posterPath, Long id, String originalTitle, String releaseDate, Double voteAverage) {
+        this.name = name;
+        this.posterPath = posterPath;
+        this.id = id;
+        this.originalTitle = originalTitle;
+        this.releaseDate = releaseDate;
+        this.voteAverage = voteAverage;
+    }
 
     @SerializedName("name")
     @Expose
@@ -26,6 +48,7 @@ public  class Result {
 
     @SerializedName("genre_ids")
     @Expose
+    @TypeConverters(LongConverters.class)
     private List<Long> genreIds = null;
 
 
@@ -44,6 +67,7 @@ public  class Result {
 
 
 
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Long id;
@@ -221,6 +245,10 @@ public  class Result {
     public void setPopularity(Double popularity) {
         this.popularity = popularity;
     }
+
+
+
+
 
 }
 

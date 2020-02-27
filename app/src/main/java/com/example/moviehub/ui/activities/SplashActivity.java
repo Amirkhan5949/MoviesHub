@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toolbar;
 
 import com.example.moviehub.ui.fragments.HomeFragment;
 import com.example.moviehub.ui.fragments.MenuFragment;
@@ -20,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
 
     FrameLayout frameLayout;
     BottomNavigationView bottomNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

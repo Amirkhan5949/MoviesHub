@@ -25,7 +25,7 @@ public class MovieCatagoryActivity extends AppCompatActivity {
         Type.MixListType mixlisttype = (Type.MixListType) getIntent().getSerializableExtra("mixlisttype");
         Type.MovieOrTvshow type = (Type.MovieOrTvshow) getIntent().getSerializableExtra("type");
         Log.i("sfsfsf", "onCreate: "+type);
-        setFragment(new MixListFragment(a,mixlisttype,type));
+        setFragment(MixListFragment.newInstance (a,mixlisttype,type));
 
 
     }

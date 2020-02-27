@@ -18,6 +18,8 @@ android {
         }
     }
 
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,13 +36,16 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
 
-//  network
-
+    //network
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
 
+    //Room
+    implementation "androidx.room:room-runtime:2.2.4"
+    annotationProcessor "androidx.room:room-compiler:2.2.4"
 
-//    others
+
+   //others
     implementation 'com.google.android.material:material:1.2.0-alpha03'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'de.hdodenhof:circleimageview:3.0.2'
@@ -51,6 +56,10 @@ dependencies {
     implementation 'com.ss.bannerslider:bannerslider:2.0.0'
 
     implementation "androidx.paging:paging-runtime:2.1.1"
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+
+
+
 
 
 }

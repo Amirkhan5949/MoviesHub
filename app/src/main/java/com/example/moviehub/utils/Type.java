@@ -3,7 +3,7 @@ package com.example.moviehub.utils;
 
 public class Type{
     public static enum MixListType{
-        SIMILAR,GENRE, CREDIT
+        SIMILAR,GENRE, CREDIT,BOOKMARK
     }
 
     public static enum MovieOrTvshow{

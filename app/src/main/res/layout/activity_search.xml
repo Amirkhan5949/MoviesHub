@@ -28,12 +28,15 @@
           android:orientation="horizontal">
 
           <EditText
-              android:id="@+id/edit"
+               android:id="@+id/edit"
               android:layout_gravity="center_vertical"
               android:layout_width="0dp"
               android:layout_weight="1"
               android:layout_height="wrap_content"
               android:hint="Search...."
+              android:maxLines="1"
+              android:keyboardNavigationCluster="true"
+
               android:textColorHint="@color/light_gray"
               android:textSize="22sp"
               android:layout_marginLeft="10dp"/>

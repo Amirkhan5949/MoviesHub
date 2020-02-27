@@ -1,58 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
-    android:id="@+id/mfrag"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.MenuFragment">
+    tools:context=".ui.activities.AppinfoActivity">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:src="@drawable/avni"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/light_gray"
+        android:text="Movie Hub "
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/light_gray"
+        android:layout_marginTop="4dp"
+        android:text="is created by Amir khan "
+        android:gravity="center_horizontal"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:id="@+id/bookmark"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/bookmark"/>
-
-        <TextView
-            android:layout_marginLeft="20dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_gray"
-            android:textSize="20sp"
-            android:text="Bookmark"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_gray"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="10dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/rate"
+        android:id="@+id/github"
         android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <ImageView
+            android:tint="@color/white"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/rate_review"/>
+            android:src="@drawable/github"/>
 
         <TextView
             android:layout_marginLeft="20dp"
@@ -60,30 +53,52 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
-            android:textSize="20sp"
-            android:text="Rate"/>
+            android:textSize="24sp"
+            android:text="Github"/>
 
     </LinearLayout>
 
-    <View
+
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_gray"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/linkdin"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:tint="@color/white"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/linkdin"/>
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_gray"
+            android:textSize="24sp"
+            android:text="Linkdin"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:id="@+id/share"
-        android:layout_marginTop="30dp"
+        android:id="@+id/fbook"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
+            android:tint="@color/white"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/share"/>
+            android:src="@drawable/fb"/>
 
         <TextView
             android:layout_marginLeft="20dp"
@@ -91,31 +106,24 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
-            android:textSize="20sp"
-            android:text="Share"/>
+            android:textSize="24sp"
+            android:text="Fb"/>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_gray"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:id="@+id/info"
-        android:layout_marginTop="30dp"
+        android:id="@+id/instagram"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
+            android:tint="@color/white"
             android:layout_width="32dp"
             android:layout_height="32dp"
-
-            android:src="@drawable/info"/>
+            android:src="@drawable/github"/>
 
         <TextView
             android:layout_marginLeft="20dp"
@@ -123,17 +131,13 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
-            android:textSize="20sp"
-            android:text="App info"/>
+            android:textSize="24sp"
+            android:text="Instagram"/>
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_gray"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="10dp"/>
+
+
 
 
 
