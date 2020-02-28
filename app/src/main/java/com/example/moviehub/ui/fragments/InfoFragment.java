@@ -98,7 +98,8 @@ public class InfoFragment extends Fragment {
         if(args!=null){
             type = (Type.MovieOrTvshow)args.getSerializable("type");
             s = args.getString("id");
-        }
+            Log.i("fsfsfs", "onCreateView: "+s);
+         }
 
 
 

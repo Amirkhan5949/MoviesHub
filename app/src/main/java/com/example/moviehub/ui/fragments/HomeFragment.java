@@ -1,6 +1,7 @@
 package com.example.moviehub.ui.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ss.com.bannerslider.ImageLoadingService;
 import ss.com.bannerslider.Slider;
+import ss.com.bannerslider.event.OnSlideClickListener;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +25,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
- import com.example.moviehub.ui.activities.ForMoreActivity;
+import com.example.moviehub.adapter.MainSliderAdapter;
+import com.example.moviehub.ui.activities.AllDetatilActivity;
+import com.example.moviehub.ui.activities.ForMoreActivity;
 import com.example.moviehub.ui.activities.MoreActivity;
 import com.example.moviehub.ui.activities.SearchActivity;
  import com.example.moviehub.network.MoviesRequest;
@@ -33,7 +38,9 @@ import com.example.moviehub.R;
 import com.example.moviehub.adapter.FrontPageAdapter;
 import com.example.moviehub.adapter.TrendingPersonAdapter;
 import com.example.moviehub.model.Trending;
+import com.example.moviehub.utils.PicassoImageLoadingService;
 import com.example.moviehub.utils.Type;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,6 +99,15 @@ public class HomeFragment extends Fragment {
 
         toprated.setLayoutManager(new LinearLayoutManager(getContext()));
         toprated.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true));
+
+        Slider.init(new PicassoImageLoadingService(getContext()));
+
+//        banner_slider1.setSelectedSlide(2);
+
+
+
+
+
 
 
 
@@ -228,6 +244,20 @@ public class HomeFragment extends Fragment {
                         Log.i("adadczc", "onResponse: " + response.body());
                         upcoming.setAdapter(new FrontPageAdapter(getContext(), response.body().getResults(), Type.MovieOrTvshow.MOVIE));
 
+                        banner_slider1.setAdapter(new MainSliderAdapter(response.body().getResults()));
+
+                        banner_slider1.setOnSlideClickListener(new OnSlideClickListener() {
+                            @Override
+                            public void onSlideClick(int position) {
+                                //Do what you want
+                                Intent intent=new Intent(getContext(), AllDetatilActivity.class);
+                                intent.putExtra("id",response.body().getResults().get(position).getId()+"");
+                                intent.putExtra("type",Type.MovieOrTvshow.MOVIE);
+                                Log.i("sfsfss", "onSlideClick: "+response.body().getResults().get(position).getId());
+                                startActivity(intent);
+                            }
+                        });
+
                     }
 
                     @Override
@@ -236,6 +266,7 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
+
 
     }
 

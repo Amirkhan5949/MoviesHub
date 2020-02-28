@@ -1,5 +1,7 @@
 package com.example.moviehub.adapter;
 
+import android.util.Log;
+
 import com.example.moviehub.ui.fragments.CastFragment;
 import com.example.moviehub.ui.fragments.InfoFragment;
 import com.example.moviehub.ui.fragments.ReviewFragment;
@@ -17,10 +19,11 @@ public class MovieDetailAdapter extends FragmentPagerAdapter {
      private String s;
      private Type.MovieOrTvshow type;
 
-     public MovieDetailAdapter(String s,@NonNull FragmentManager fm,Type.MovieOrTvshow type) {
+     public MovieDetailAdapter(String s, @NonNull FragmentManager fm, Type.MovieOrTvshow type) {
          super(fm);
          this.s=s;
          this.type = type;
+
      }
 
 

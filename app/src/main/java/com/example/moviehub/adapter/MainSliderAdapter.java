@@ -1,31 +1,29 @@
-//package com.example.moviehub.adapter;
-//
-//import ss.com.bannerslider.adapters.SliderAdapter;
-//import ss.com.bannerslider.viewholder.ImageSlideViewHolder;
-//
-//public class MainSliderAdapter extends SliderAdapter {
-//    private ImageSlideViewHolder viewHolder;
-//
-//    @Override
-//    public int getItemCount() {
-//        return 3;
-//    }
-//
-//    @Override
-//    public void onBindImageSlide(int position, ImageSlideViewHolder imageSlideViewHolder) {
-//
-//        switch (position) {
-//            case 0:
-//
-//                viewHolder.bindImageSlide("https://assets.materialup.com/uploads/dcc07ea4-845a-463b-b5f0-4696574da5ed/preview.jpg");
-//                break;
-//            case 1:
-//                viewHolder.bindImageSlide("https://assets.materialup.com/uploads/20ded50d-cc85-4e72-9ce3-452671cf7a6d/preview.jpg");
-//                break;
-//            case 2:
-//                viewHolder.bindImageSlide("https://assets.materialup.com/uploads/76d63bbc-54a1-450a-a462-d90056be881b/preview.png");
-//                break;
-//        }
-//
-//    }
-//}
+package com.example.moviehub.adapter;
+
+import com.example.moviehub.model.Result;
+import com.example.moviehub.network.NetworkConstraint;
+
+import java.util.List;
+
+import ss.com.bannerslider.adapters.SliderAdapter;
+import ss.com.bannerslider.viewholder.ImageSlideViewHolder;
+
+public class MainSliderAdapter extends SliderAdapter {
+
+    List<Result> results;
+    public MainSliderAdapter(List<Result> results) {
+        this.results=results;
+    }
+
+    @Override
+    public int getItemCount() {
+        return results.size();
+    }
+
+    @Override
+    public void onBindImageSlide(int position, ImageSlideViewHolder imageSlideViewHolder) {
+
+        imageSlideViewHolder.bindImageSlide(NetworkConstraint.Image_Org+results.get(position).getBackdropPath());
+
+     }
+}
