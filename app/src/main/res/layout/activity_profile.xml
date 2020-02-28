@@ -1,109 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:orientation="vertical"
-    android:background="@color/background"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
     tools:context=".ui.activities.ProfileActivity">
 
 
-
-    <ImageView
-        android:id="@+id/fullimage"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:src="@drawable/avni"
-        android:scaleType="centerCrop"/>
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
 
-    <LinearLayout
-         android:layout_width="match_parent"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+            app:contentScrim="?attr/colorPrimary"
+            app:elevation="0dp"
+            app:expandedTitleMarginStart="20dp"
+            app:expandedTitleTextAppearance="@style/ExpandedCollapsedAppBar"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="200">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+
+
+
+
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/fb"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/fb"
+                        android:tint="@color/gray" />
+
+                    <ImageView
+                        android:id="@+id/twitter"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/twitter"
+                        android:tint="@color/gray" />
+
+                    <ImageView
+                        android:id="@+id/insta"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/insta"
+                        android:tint="@color/gray" />
+
+                    <ImageView
+                        android:id="@+id/imdb"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/imdb"
+                        android:tint="@color/gray" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ToolBarStyle"
+                app:elevation="0dp"
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:text="@string/app_name"
+                    android:id="@+id/title_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingRight="12dp"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/background"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:background="@color/colorPrimary"
+                android:id="@+id/tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabTextColor="@color/light_gray" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
     <LinearLayout
-
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:orientation="vertical">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|left">
 
 
-    <LinearLayout
-            android:gravity="bottom"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="96dp"
-                android:layout_height="96dp"
                 android:id="@+id/circleimage"
-                android:src="@drawable/avni"
-                android:layout_marginLeft="40dp"
-                />
-
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/avni" />
 
 
             <TextView
-                android:layout_marginBottom="20dp"
+                android:ellipsize="end"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:maxLines="1"
                 android:text="Avani yadav"
-                android:textSize="20sp"
-                android:layout_marginLeft="10dp"
                 android:textColor="@color/white"
-                android:id="@+id/name"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:tint="@color/gray"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="25dp"
-                android:src="@drawable/fb"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/fb"/>
-
-            <ImageView
-                android:tint="@color/gray"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="25dp"
-                android:src="@drawable/twitter"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/twitter"/>
-
-            <ImageView
-                android:tint="@color/gray"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="25dp"
-                android:src="@drawable/insta"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/insta"/>
-
-            <ImageView
-                android:tint="@color/gray"
-                android:layout_marginRight="10dp"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="25dp"
-                android:src="@drawable/imdb"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/imdb"/>
-
-
+                android:textSize="24sp" />
 
         </LinearLayout>
 
@@ -111,20 +204,7 @@
     </LinearLayout>
 
 
-        <com.google.android.material.tabs.TabLayout
-            android:layout_marginTop="20dp"
-            android:id="@+id/tablayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/light_gray" />
-
-        <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/viewpage"/>
-    </LinearLayout>
 
 
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

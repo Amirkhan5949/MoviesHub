@@ -2,6 +2,7 @@ package com.example.moviehub.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.moviehub.network.Externalids;
@@ -23,6 +25,8 @@ import com.example.moviehub.R;
 import com.example.moviehub.adapter.ProfileAdapter;
 import com.example.moviehub.model.PersonExternalDetail;
 import com.example.moviehub.utils.Type;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     ViewPager viewPage;
     TextView name;
     ImageView fb,twitter,insta,imdb,fullimage,circleimage;
+    TextView title_1;
 
 
 
@@ -43,9 +48,11 @@ public class ProfileActivity extends AppCompatActivity {
         twitter=findViewById(R.id.twitter);
         insta=findViewById(R.id.insta);
         imdb=findViewById(R.id.imdb);
-        fullimage=findViewById(R.id.fullimage);
+
         circleimage=findViewById(R.id.circleimage);
         name=findViewById(R.id.name);
+
+        setUpAppBar1();
 
 
         tablayout=findViewById(R.id.tablayout);
@@ -139,4 +146,77 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void setUpAppBar1() {
+        LinearLayout layout = findViewById(R.id.layout);
+        title_1 = findViewById(R.id.title_1);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.BaseOnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
+                int min_height = ViewCompat.getMinimumHeight(collapsingToolbarLayout) * 2;
+                float scale =  ((float)(min_height + verticalOffset) / min_height);
+
+                layout.setScaleX(scale >= 0? scale : 0f);
+                layout.setScaleY((scale >= 0) ? scale : 0f);
+                layout.setPivotY(200f);
+
+                float f = (float)(Math.abs(verticalOffset / appBarLayout.getTotalScrollRange()));
+
+               if(f>=0.70F&&f<=1){
+                   if(title_1.getVisibility()!= View.VISIBLE){
+                       title_1.setVisibility(View.VISIBLE);
+                   }
+                   title_1.setAlpha(f);
+               }
+
+               else if(f>=0 &&  f<= 0.70){
+                   if(title_1.getVisibility()== View.VISIBLE){
+                      // title_1.setVisibility(View.GONE);
+                   }
+                   title_1.setAlpha(f);
+
+               }
+            }
+        });
+    }
+
+//    private void setUpAppBar() {
+//        ((AppBarLayout)(findViewById(R.id.app_bar_layout) ).addOnOffsetChangedListener(
+//                object : AppBarLayout.OnOffsetChangedListener {
+//            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+//                val min_height: Int = ViewCompat.getMinimumHeight(collapsing_toolbar) * 2
+//                val scale = (min_height + verticalOffset).toFloat() / min_height
+//
+//                layout.setScaleX(if (scale >= 0) scale else 0f)
+//                layout.setScaleY(if (scale >= 0) scale else 0f)
+//                layout.setPivotY(200f)
+//
+//                when (Math.abs(verticalOffset / appBarLayout.totalScrollRange.toFloat())) {
+//                    in 0.70F..1F -> {
+//                        title_1.apply {
+//                            if (visibility != View.VISIBLE)
+//                                visibility = View.VISIBLE
+//
+//                            alpha = (Math.abs(verticalOffset / appBarLayout.totalScrollRange.toFloat()))
+//                            //animate().setDuration(1000).alpha(Math.abs(verticalOffset / appBarLayout.totalScrollRange.toFloat())/0.5f)
+//                        }
+//                    }
+//
+//                    in 0F..0.70F -> {
+//                        title_1.apply {
+//                            if (visibility == View.VISIBLE)
+//                                visibility = View.GONE
+//                            animate().setDuration(0).alpha(Math.abs(verticalOffset / appBarLayout.totalScrollRange.toFloat())/0.5f)
+//                        }
+//                    }
+//
+//                }
+//
+//            }
+//        }
+//        )
+//    }
+
 }
