@@ -2,9 +2,13 @@ package com.example.moviehub.room;
 
 import com.example.moviehub.model.ForBookmark;
 import com.example.moviehub.model.MovieInfo;
+import com.example.moviehub.model.MyList;
+import com.example.moviehub.model.MyListDetail;
 import com.example.moviehub.model.Result;
 import com.example.moviehub.room.dao.ForBookmarkDao;
 import com.example.moviehub.room.dao.MovieInfoDao;
+import com.example.moviehub.room.dao.MyListDao;
+import com.example.moviehub.room.dao.MyListDetailDao;
 import com.example.moviehub.room.dao.ResultDao;
 import com.example.moviehub.room.typeconverter.BelongsToCollectionConverter;
 import com.example.moviehub.room.typeconverter.GenreConverters;
@@ -19,7 +23,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = {Result.class, MovieInfo.class,ForBookmark.class}, version = 1)
+@Database(entities = {Result.class, MovieInfo.class,ForBookmark.class, MyList.class, MyListDetail.class}, version = 1)
 @TypeConverters(
         {
                 LongConverters.class,
@@ -36,5 +40,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ResultDao getResultDao();
     public abstract MovieInfoDao getMovieInfoDao();
     public abstract ForBookmarkDao getForBookmarkDao();
+    public abstract MyListDao getmylistdao();
+    public abstract MyListDetailDao getmylistdetaildao();
 
 }

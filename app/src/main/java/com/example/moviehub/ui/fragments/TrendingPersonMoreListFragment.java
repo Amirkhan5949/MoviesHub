@@ -114,7 +114,7 @@ public class TrendingPersonMoreListFragment extends Fragment {
 
                         trendingloader.setVisibility(View.GONE);
                         isLoading=false;
-                        page= page + 1;
+                        page=   + 1;
 
                     }
 

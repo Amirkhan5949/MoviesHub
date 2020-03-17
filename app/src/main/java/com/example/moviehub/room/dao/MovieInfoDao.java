@@ -25,5 +25,8 @@ public interface MovieInfoDao {
     @Update
     void update(MovieInfo result);
 
+    @Query("SELECT * FROM MovieInfo where MovieInfo.id == (:id)")
+    List<MovieInfo> checkMovieinfo(Long id);
+
 
 }

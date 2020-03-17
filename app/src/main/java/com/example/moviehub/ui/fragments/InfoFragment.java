@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,16 +15,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.moviehub.adapter.listadapter;
 import com.example.moviehub.model.ForBookmark;
 import com.example.moviehub.model.ImageData;
+import com.example.moviehub.model.MyList;
 import com.example.moviehub.room.DatabaseClient;
 import com.example.moviehub.ui.activities.CelebritiesActivity;
 import com.example.moviehub.ui.activities.MoviePosterActivity;
@@ -41,6 +53,8 @@ import com.example.moviehub.model.MovieImages;
 import com.example.moviehub.model.MovieInfo;
 import com.example.moviehub.model.YoutubeConnect;
 import com.example.moviehub.utils.Type;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,11 +67,15 @@ public class InfoFragment extends Fragment {
     View view;
     View viewer;
     RecyclerView genre, crew, trailor;
-    ImageView smallimage, largeimage,bookmark;
+    ImageView smallimage, largeimage,bookmark,list;
     TextView year,train, timing, review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
     String s = "";
     Type.MovieOrTvshow type;
     LinearLayout crewlayout,post,back,layout;
+
+//    MenuItem item;
+    Menu menu;
+    MenuInflater inflater;
 
 
 
@@ -86,6 +104,8 @@ public class InfoFragment extends Fragment {
         train = view.findViewById(R.id.train);
         viewer = view.findViewById(R.id.view);
         bookmark = view.findViewById(R.id.bookmark);
+        list = view.findViewById(R.id.list);
+
 
 
         genre.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -129,6 +149,11 @@ public class InfoFragment extends Fragment {
         crewlayout = view.findViewById(R.id.crewlayout);
         layout = view.findViewById(R.id.layout);
 
+//        onOptionsItemSelected(item);
+
+//        onCreateOptionsMenu(menu,);
+
+
 
         showall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +185,7 @@ public class InfoFragment extends Fragment {
             getTvShow();
             Log.i("dsdddww", "onCreateView: "+type);
         }
+
 
         return view;
     }
@@ -436,18 +462,23 @@ public class InfoFragment extends Fragment {
 
                             if (response.body()!=null){
 
+
+                                setListListener(response.body());
+
                                 bookmark.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
                                         DatabaseClient.getInstance(getContext()).getAppDatabase()
                                                 .getMovieInfoDao()
                                                 .insert(response.body());
+
                                         ForBookmark forBookmark = new ForBookmark(response.body().getId(),Type.MovieOrTvshow.MOVIE);
 
                                         DatabaseClient.getInstance(getContext()).getAppDatabase()
                                                 .getForBookmarkDao()
                                                 .insert(forBookmark);
 
+                                        
                                     }
                                 });
 
@@ -565,6 +596,137 @@ public class InfoFragment extends Fragment {
                     }
                 });
     }
+
+    private void setListListener(MovieInfo body) {
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DialogPlus dialog = DialogPlus.newDialog(getContext())
+                        .setContentHolder(new ViewHolder(R.layout.list))
+                        .setGravity(Gravity.CENTER)
+                        .setMargin(100,0,100,0)
+                        .setCancelable(false)
+                        .setExpanded(true)
+                        .create();
+
+                LinearLayout layoutlist=(LinearLayout)dialog.getHolderView();
+
+                ImageView add=layoutlist.findViewById(R.id.add);
+
+                final DialogPlus dialog1= DialogPlus.newDialog(getContext())
+                        .setContentHolder(new ViewHolder(R.layout.newlist))
+                        .setGravity(Gravity.CENTER)
+                        .setMargin(100,0,100,0)
+                        .setCancelable(false)
+                        .setExpanded(true)
+                        .create();
+
+                LinearLayout listnamelayout=(LinearLayout) dialog1.getHolderView();
+                Button cancel1=listnamelayout.findViewById(R.id.cancel1);
+                Button ok1=listnamelayout.findViewById(R.id.ok1);
+                EditText text=listnamelayout.findViewById(R.id.textname);
+
+                RecyclerView movielist=layoutlist.findViewById(R.id.movielist);
+
+
+                List<MyList>  myLists = DatabaseClient.getInstance(getContext()).getAppDatabase()
+                        .getmylistdao()
+                        .getAll();
+                movielist.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+                movielist.setAdapter(new listadapter(getContext(),myLists,type,body));
+                Log.i("ddadsdsds", "onClick: "+list.getId());
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                dialog1.show();
+
+                            }
+                        },1000);
+
+                    }
+                });
+
+                cancel1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog1.dismiss();
+                    }
+                });
+                ok1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                        DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                .getmylistdao()
+                                .insert(new MyList(text.getText().toString(),1,type));
+
+
+                        Toast.makeText(getContext(), ""+text.getText().toString(), Toast.LENGTH_SHORT).show();
+                        dialog1.dismiss();
+                    }
+                });
+
+
+
+                Button ok=layoutlist.findViewById(R.id.ok);
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+
+            }
+        });
+    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if(item.getItemId() == R.id.bookmark){
+//            item.setChecked(!item.isChecked());
+//            item.setIcon(item.isChecked() ? R.drawable.bookmark : R.drawable.nobookmark);
+//            return true;
+//        }
+//        return false;
+//    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.bookmark, menu);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.bookmark){
+
+
+
+            // i tried this: something like: if(item.getIcon() == (R.drawable.nobookmark){} it doesn't work
+
+
+            item.setIcon(R.drawable.nobookmark);
+
+            return true;
+        }
+
+        return true;
+
+    }
+
 
 
 }

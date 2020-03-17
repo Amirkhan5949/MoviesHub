@@ -47,6 +47,15 @@
                     android:id="@+id/timing"/>
 
                 <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/list"
+                    android:src="@drawable/playlist"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"/>
+
+
+                <ImageView
                     android:id="@+id/bookmark"
                     android:layout_marginRight="12dp"
                     android:layout_gravity="center_vertical"
