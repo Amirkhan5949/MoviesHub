@@ -9,6 +9,7 @@ import androidx.room.Update;
 
 import com.example.moviehub.model.MyList;
 import com.example.moviehub.model.MyListDetail;
+import com.example.moviehub.utils.Type;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ public interface MyListDetailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(MyListDetail list);
 
-    @Delete
-    void delte(MyListDetail list);
+    @Query("DELETE FROM MyListDetail WHERE MyListDetail.mlid == :myListId AND MyListDetail.minfoid = :movieInfoId  ")
+    void delte(Long myListId, Long movieInfoId );
 
     @Update
     void update(MyListDetail list);

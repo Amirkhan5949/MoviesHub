@@ -4,6 +4,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.example.moviehub.utils.Type;
+
 @Entity
         (foreignKeys = {
                 @ForeignKey(entity = MyList.class,
@@ -24,9 +26,11 @@ public class MyListDetail {
 
     long minfoid;
 
-    public MyListDetail(long mlid,long minfoid){
+
+    public  MyListDetail(long mlid,long minfoid){
         this.mlid=mlid;
         this.minfoid=minfoid;
+
     }
 
     public long getMlid() {
@@ -44,6 +48,7 @@ public class MyListDetail {
     public void setMinfoid(long minfoid) {
         this.minfoid = minfoid;
     }
+
 
 
 

@@ -12,11 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.moviehub.R;
 import com.example.moviehub.ui.activities.AppinfoActivity;
 import com.example.moviehub.ui.activities.BookmarkActivity;
+import com.example.moviehub.ui.activities.SearchActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +27,7 @@ public class MenuFragment extends Fragment {
 
     View view;
     LinearLayout bookmark,rate,share,info;
+    ImageView msearch;
 
 
 
@@ -42,6 +45,7 @@ public class MenuFragment extends Fragment {
         rate=view.findViewById(R.id.rate);
         share=view.findViewById(R.id.share);
         info=view.findViewById(R.id.info);
+        msearch = view.findViewById(R.id.msearchicon);
 
         bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +83,14 @@ public class MenuFragment extends Fragment {
             }
         });
 
+
+        msearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

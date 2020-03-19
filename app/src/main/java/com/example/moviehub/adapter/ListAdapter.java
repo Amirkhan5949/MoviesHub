@@ -1,7 +1,6 @@
 package com.example.moviehub.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviehub.R;
-import com.example.moviehub.model.Credit;
 import com.example.moviehub.model.MovieInfo;
 import com.example.moviehub.model.MyList;
 import com.example.moviehub.model.MyListDetail;
@@ -22,7 +20,7 @@ import com.example.moviehub.utils.Type;
 
 import java.util.List;
 
-public class listadapter extends RecyclerView.Adapter<listadapter.listadapterview>{
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.listadapterview>{
     Context context;
     List<MyList>  myLists ;
     Type.MovieOrTvshow type;
@@ -31,7 +29,7 @@ public class listadapter extends RecyclerView.Adapter<listadapter.listadaptervie
 
 
 
-    public listadapter(Context context, List<MyList>  myLists, Type.MovieOrTvshow type, MovieInfo movieInfo){
+    public ListAdapter(Context context, List<MyList>  myLists, Type.MovieOrTvshow type, MovieInfo movieInfo){
         this.context=context;
         this.myLists=myLists;
         this.type=type;
@@ -78,10 +76,16 @@ public class listadapter extends RecyclerView.Adapter<listadapter.listadaptervie
                                 .insert(movieInfo);
 
                     }
-
-                    DatabaseClient.getInstance(context).getAppDatabase(). getmylistdetaildao()
+                     DatabaseClient.getInstance(context).getAppDatabase(). getmylistdetaildao()
                             .insert(new MyListDetail(myLists.get(position).getId(),movieInfo.getId()));
 
+
+
+                }
+                else {
+                    DatabaseClient.getInstance(context).getAppDatabase()
+                            .getmylistdetaildao()
+                            .delte(myLists.get(position).getId(),movieInfo.getId());
                 }
             }
         });

@@ -24,26 +24,20 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        sviewpage=findViewById(R.id.sviewpage);
-        stabLayout=findViewById(R.id.stabLayout);
-        searchicon=findViewById(R.id.searchicon);
-        edit=findViewById(R.id.edit);
+        sviewpage = findViewById(R.id.sviewpage);
+        stabLayout = findViewById(R.id.stabLayout);
+        searchicon = findViewById(R.id.searchicon);
+        edit = findViewById(R.id.edit);
 
 
         searchicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("fgkdfnlgdf", "onClick: ");
-                sviewpage.setAdapter(new SearchAdapteer(getSupportFragmentManager(),edit.getText().toString()));
+                sviewpage.setAdapter(new SearchAdapteer(getSupportFragmentManager(), edit.getText().toString()));
                 sviewpage.setOffscreenPageLimit(0);
                 stabLayout.setupWithViewPager(sviewpage);
             }
         });
-
-
-
-
-
-
     }
 }

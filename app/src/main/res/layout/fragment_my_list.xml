@@ -1,16 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/background"
-    android:id="@+id/mylistfrag"
+    android:background="@color/background"
+     android:id="@+id/mylistfrag"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.MyListFragment">
+    tools:context=".ui.fragments.MyListFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/AppTheme"
+        app:tabSelectedTextColor="@color/white"
+        app:title="MovieHub"
+        app:tabTextColor="@color/light_gray"
+        app:titleTextColor="@color/white"
+        app:theme="@style/ToolBarStyle">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="MovieHub"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/search"
+                android:id="@+id/msearchicon"
+                />                </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_gravity="right"
+        app:tabBackground="@color/background"
+        android:id="@+id/tablayoutmtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tabMode="auto"
+         app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@color/light_gray" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:clickable="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/background"
+        android:id="@+id/viewpagermtv"/>
 
-</FrameLayout>
+</LinearLayout>

@@ -56,8 +56,8 @@
         android:id="@+id/stabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-         app:tabTextColor="@color/light_gray" >
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@color/light_gray" >
 
     </com.google.android.material.tabs.TabLayout>
 

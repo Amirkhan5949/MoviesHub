@@ -6,11 +6,11 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,7 +24,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,7 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.moviehub.adapter.listadapter;
+import com.example.moviehub.adapter.ListAdapter;
 import com.example.moviehub.model.ForBookmark;
 import com.example.moviehub.model.ImageData;
 import com.example.moviehub.model.MyList;
@@ -67,17 +66,11 @@ public class InfoFragment extends Fragment {
     View view;
     View viewer;
     RecyclerView genre, crew, trailor;
-    ImageView smallimage, largeimage,bookmark,list;
-    TextView year,train, timing, review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
+    ImageView smallimage, largeimage, bookmark, list;
+    TextView year, train, timing, review, showall, number, poster, no, backdrops, moviename, released, runtime, date, language, inwest, earn, production;
     String s = "";
     Type.MovieOrTvshow type;
-    LinearLayout crewlayout,post,back,layout;
-
-//    MenuItem item;
-    Menu menu;
-    MenuInflater inflater;
-
-
+    LinearLayout crewlayout, post, back, layout;
 
 
     public static InfoFragment newInstance(String s, Type.MovieOrTvshow type) {
@@ -85,7 +78,7 @@ public class InfoFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString("id", s);
         args.putSerializable("type", type);
-          f.setArguments(args);
+        f.setArguments(args);
         return f;
     }
 
@@ -107,20 +100,17 @@ public class InfoFragment extends Fragment {
         list = view.findViewById(R.id.list);
 
 
-
         genre.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         crew.setLayoutManager(new GridLayoutManager(getContext(), 2));
         trailor.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
-
         Bundle args = getArguments();
-        if(args!=null){
-            type = (Type.MovieOrTvshow)args.getSerializable("type");
+        if (args != null) {
+            type = (Type.MovieOrTvshow) args.getSerializable("type");
             s = args.getString("id");
-            Log.i("fsfsfs", "onCreateView: "+s);
-         }
-
+            Log.i("fsfsfs", "onCreateView: " + s);
+        }
 
 
         smallimage = view.findViewById(R.id.smallimage);
@@ -154,7 +144,6 @@ public class InfoFragment extends Fragment {
 //        onCreateOptionsMenu(menu,);
 
 
-
         showall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,15 +164,12 @@ public class InfoFragment extends Fragment {
             gettvpics();
 
 
-
-
         if (type == Type.MovieOrTvshow.MOVIE) {
             getMovie();
-            Log.i("dsdddww", "onCreateView: "+type);
-        }
-        else {
+            Log.i("dsdddww", "onCreateView: " + type);
+        } else {
             getTvShow();
-            Log.i("dsdddww", "onCreateView: "+type);
+            Log.i("dsdddww", "onCreateView: " + type);
         }
 
 
@@ -191,22 +177,22 @@ public class InfoFragment extends Fragment {
     }
 
 
-    private void gettvpics(){
+    private void gettvpics() {
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(MoviesPic.class)
-                .getTvpic(s,NetworkConstraint.key)
+                .getTvpic(s, NetworkConstraint.key)
                 .enqueue(new Callback<MovieImages>() {
                     @Override
                     public void onResponse(Call<MovieImages> call, Response<MovieImages> response) {
-                        if (response.body()!=null){
+                        if (response.body() != null) {
                             layout.setVisibility(View.VISIBLE);
                         }
 
-                        if (response.body()!=null){
-                            if (response.body().getImageData().size()!=0){
-                                number.setText(response.body().getImageData().size()+"");
-                                no.setText(response.body().getBackdrops().size()+"");
-                                Log.i("dwdsffd", "onResponse: "+response.toString()+"");
+                        if (response.body() != null) {
+                            if (response.body().getImageData().size() != 0) {
+                                number.setText(response.body().getImageData().size() + "");
+                                no.setText(response.body().getBackdrops().size() + "");
+                                Log.i("dwdsffd", "onResponse: " + response.toString() + "");
 
                             }
 
@@ -216,7 +202,7 @@ public class InfoFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                intent.putExtra("images",(ArrayList<ImageData>) (response.body().getBackdrops()));
+                                intent.putExtra("images", (ArrayList<ImageData>) (response.body().getBackdrops()));
                                 startActivity(intent);
                             }
                         });
@@ -226,7 +212,7 @@ public class InfoFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                intent.putExtra("images",(ArrayList<ImageData>) (response.body().getImageData()));
+                                intent.putExtra("images", (ArrayList<ImageData>) (response.body().getImageData()));
                                 startActivity(intent);
                             }
                         });
@@ -235,32 +221,32 @@ public class InfoFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<MovieImages> call, Throwable t) {
-                        Log.i("dwdsffd", "onResponse: "+t.toString()+"");
+                        Log.i("dwdsffd", "onResponse: " + t.toString() + "");
                     }
                 });
     }
 
-    private void getmoviepics(){
+    private void getmoviepics() {
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(MoviesPic.class)
-                .getMoviespic(s,NetworkConstraint.key)
+                .getMoviespic(s, NetworkConstraint.key)
                 .enqueue(new Callback<MovieImages>() {
                     @Override
                     public void onResponse(Call<MovieImages> call, Response<MovieImages> response) {
-                        if (response.body()!=null){
-                            if (response.body()==null)
+                        if (response.body() != null) {
+                            if (response.body() == null)
                                 layout.setVisibility(View.GONE);
                             else
                                 layout.setVisibility(View.VISIBLE);
-                            number.setText(response.body().getImageData().size()+"");
-                            no.setText(response.body().getBackdrops().size()+"");
+                            number.setText(response.body().getImageData().size() + "");
+                            no.setText(response.body().getBackdrops().size() + "");
 
                             post.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                    intent.putExtra("images",(ArrayList<ImageData>) (response.body().getImageData()));
+                                    intent.putExtra("images", (ArrayList<ImageData>) (response.body().getImageData()));
                                     startActivity(intent);
                                 }
 
@@ -270,25 +256,23 @@ public class InfoFragment extends Fragment {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(getContext(), MoviePosterActivity.class);
-                                    intent.putExtra("images",(ArrayList<ImageData>) (response.body().getBackdrops()));
+                                    intent.putExtra("images", (ArrayList<ImageData>) (response.body().getBackdrops()));
                                     startActivity(intent);
-                                    Log.i("cfdffs", "onClick: "+response.body().getBackdrops());
+                                    Log.i("cfdffs", "onClick: " + response.body().getBackdrops());
 
                                 }
                             });
 
 
-
-
 //                        Log.i("djvknv", "onResponse: "+response.body().getData().size());
-                            Log.i("djvknv", "onResponse: "+response.body() );
+                            Log.i("djvknv", "onResponse: " + response.body());
                         }
-                        }
+                    }
 
 
                     @Override
                     public void onFailure(Call<MovieImages> call, Throwable t) {
-                        Log.i("scdd", "onFailure: "+t.getMessage());
+                        Log.i("scdd", "onFailure: " + t.getMessage());
 
                     }
                 });
@@ -305,7 +289,9 @@ public class InfoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<MovieInfo> call, Response<MovieInfo> response) {
                         {
-                            if (response.body()!=null){
+                            if (response.body() != null) {
+
+                                setListListener(response.body());
 
                                 Log.i("dhsgdhsgfv", "onResponse: " + response.toString());
                                 Log.i("dhsgdhsgfv", "onResponse: " + response.body());
@@ -317,8 +303,8 @@ public class InfoFragment extends Fragment {
                                 }
                                 language.setText(response.body().getOriginalLanguage());
                                 released.setText(response.body().getStatus());
-                                if (response.body().getEpisode_run_time().size()!=0){
-                                    runtime.setText(response.body().getEpisode_run_time().get(0)+"");
+                                if (response.body().getEpisode_run_time().size() != 0) {
+                                    runtime.setText(response.body().getEpisode_run_time().get(0) + "");
 
                                 }
                                 date.setText(response.body().getFirst_air_date());
@@ -339,7 +325,7 @@ public class InfoFragment extends Fragment {
                                 }
 
 
-                                if (name.length()!=0){
+                                if (name.length() != 0) {
                                     production.setText(name.substring(0, name.length() - 1) + "");
 
                                     Log.i("sscscsc", "onResponse: " + name.substring(0, name.length() - 1));
@@ -348,10 +334,10 @@ public class InfoFragment extends Fragment {
                                 }
 
                                 String a = response.body().getFirst_air_date();
-                                if (a!=null){
+                                if (a != null) {
                                     String b = a.substring(0, 4);
                                     year.setText(b);
-                                    Log.i("ssdefef", "onResponse: "+a);
+                                    Log.i("ssdefef", "onResponse: " + a);
 
 
                                 }
@@ -375,7 +361,23 @@ public class InfoFragment extends Fragment {
                                 }
                             }
                         }
+
+                        bookmark.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                        .getMovieInfoDao()
+                                        .insert(response.body());
+
+                                ForBookmark forBookmark = new ForBookmark(response.body().getId(), Type.MovieOrTvshow.TVSHOW);
+
+                                DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                        .getForBookmarkDao()
+                                        .insert(forBookmark);
                             }
+                        });
+
+                    }
 
 
                     @Override
@@ -392,7 +394,7 @@ public class InfoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
 
-                        if (response.body()!=null){
+                        if (response.body() != null) {
                             if (response.body().getCrew().size() == 0) {
                                 crewlayout.setVisibility(View.GONE);
                             } else {
@@ -406,7 +408,7 @@ public class InfoFragment extends Fragment {
                             Log.i("nscssknssks", "onResponse: " + response.toString());
 
                         }
-                        }
+                    }
 
 
                     @Override
@@ -424,15 +426,15 @@ public class InfoFragment extends Fragment {
                     public void onResponse(Call<YoutubeConnect> call, Response<YoutubeConnect> response) {
 
                         Log.i("jhjbjh", "onResponse: ");
-                        if (response.body()!=null&&response.body().getResults().size()!=0){
-                            if (response.body().getResults()!=null){
+                        if (response.body() != null && response.body().getResults().size() != 0) {
+                            if (response.body().getResults() != null) {
                                 TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
                                 trailor.setAdapter(adapter);
                                 trailor.setVisibility(View.VISIBLE);
                                 train.setVisibility(View.VISIBLE);
                                 viewer.setVisibility(View.VISIBLE);
-                                Log.i("zzzzcdds", "onResponse: "+response.body().getResults());
-                            }else {
+                                Log.i("zzzzcdds", "onResponse: " + response.body().getResults());
+                            } else {
                                 trailor.setVisibility(View.GONE);
                             }
 
@@ -446,8 +448,6 @@ public class InfoFragment extends Fragment {
 
                     }
                 });
-
-
     }
 
     private void getMovie() {
@@ -460,7 +460,7 @@ public class InfoFragment extends Fragment {
                     public void onResponse(Call<MovieInfo> call, Response<MovieInfo> response) {
                         {
 
-                            if (response.body()!=null){
+                            if (response.body() != null) {
 
 
                                 setListListener(response.body());
@@ -472,13 +472,11 @@ public class InfoFragment extends Fragment {
                                                 .getMovieInfoDao()
                                                 .insert(response.body());
 
-                                        ForBookmark forBookmark = new ForBookmark(response.body().getId(),Type.MovieOrTvshow.MOVIE);
+                                        ForBookmark forBookmark = new ForBookmark(response.body().getId(), Type.MovieOrTvshow.MOVIE);
 
                                         DatabaseClient.getInstance(getContext()).getAppDatabase()
                                                 .getForBookmarkDao()
                                                 .insert(forBookmark);
-
-                                        
                                     }
                                 });
 
@@ -517,7 +515,7 @@ public class InfoFragment extends Fragment {
                                 }
 
 
-                                if (name.length()!=0)
+                                if (name.length() != 0)
                                     production.setText(name.substring(0, name.length() - 1) + ".");
 
                                 String a = response.body().getReleaseDate();
@@ -560,7 +558,7 @@ public class InfoFragment extends Fragment {
                         CrewAdapter adapter = new CrewAdapter(getContext(), response.body().getCrew());
                         crew.setAdapter(adapter);
 
-                        Log.i("dadada", "onResponse: " + response.body() );
+                        Log.i("dadada", "onResponse: " + response.body());
 
                     }
 
@@ -579,13 +577,13 @@ public class InfoFragment extends Fragment {
 
                         Log.i("jhjbjh", "onResponse: ");
 
-                        if (response.body().getResults()!=null){
+                        if (response.body().getResults() != null) {
                             TrailorAdapter adapter = new TrailorAdapter(getContext(), response.body().getResults());
                             trailor.setAdapter(adapter);
                             trailor.setVisibility(View.VISIBLE);
                             train.setVisibility(View.VISIBLE);
                             viewer.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             trailor.setVisibility(View.GONE);
                         }
                     }
@@ -604,39 +602,39 @@ public class InfoFragment extends Fragment {
                 final DialogPlus dialog = DialogPlus.newDialog(getContext())
                         .setContentHolder(new ViewHolder(R.layout.list))
                         .setGravity(Gravity.CENTER)
-                        .setMargin(100,0,100,0)
+                        .setMargin(100, 0, 100, 0)
                         .setCancelable(false)
-                        .setExpanded(true)
+                        .setExpanded(false)
                         .create();
 
-                LinearLayout layoutlist=(LinearLayout)dialog.getHolderView();
+                LinearLayout layoutlist = (LinearLayout) dialog.getHolderView();
 
-                ImageView add=layoutlist.findViewById(R.id.add);
+                ImageView add = layoutlist.findViewById(R.id.add);
 
-                final DialogPlus dialog1= DialogPlus.newDialog(getContext())
+                final DialogPlus dialog1 = DialogPlus.newDialog(getContext())
                         .setContentHolder(new ViewHolder(R.layout.newlist))
                         .setGravity(Gravity.CENTER)
-                        .setMargin(100,0,100,0)
+                        .setMargin(100, 0, 100, 0)
                         .setCancelable(false)
-                        .setExpanded(true)
+                        .setExpanded(false)
                         .create();
 
-                LinearLayout listnamelayout=(LinearLayout) dialog1.getHolderView();
-                Button cancel1=listnamelayout.findViewById(R.id.cancel1);
-                Button ok1=listnamelayout.findViewById(R.id.ok1);
-                EditText text=listnamelayout.findViewById(R.id.textname);
+                LinearLayout listnamelayout = (LinearLayout) dialog1.getHolderView();
+                Button cancel1 = listnamelayout.findViewById(R.id.cancel1);
+                Button ok1 = listnamelayout.findViewById(R.id.ok1);
+                EditText text = listnamelayout.findViewById(R.id.textname);
 
-                RecyclerView movielist=layoutlist.findViewById(R.id.movielist);
+                RecyclerView movielist = layoutlist.findViewById(R.id.movielist);
 
 
-                List<MyList>  myLists = DatabaseClient.getInstance(getContext()).getAppDatabase()
+                List<MyList> myLists = DatabaseClient.getInstance(getContext()).getAppDatabase()
                         .getmylistdao()
-                        .getAll();
+                        .getAll(type);
                 movielist.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-                movielist.setAdapter(new listadapter(getContext(),myLists,type,body));
-                Log.i("ddadsdsds", "onClick: "+list.getId());
+                movielist.setAdapter(new ListAdapter(getContext(), myLists, type, body));
+                Log.i("ddadsdsds", "onClick: " + list.getId());
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -648,7 +646,7 @@ public class InfoFragment extends Fragment {
                                 dialog1.show();
 
                             }
-                        },1000);
+                        }, 1000);
 
                     }
                 });
@@ -662,21 +660,16 @@ public class InfoFragment extends Fragment {
                 ok1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
                         DatabaseClient.getInstance(getContext()).getAppDatabase()
                                 .getmylistdao()
-                                .insert(new MyList(text.getText().toString(),1,type));
-
-
-                        Toast.makeText(getContext(), ""+text.getText().toString(), Toast.LENGTH_SHORT).show();
+                                .insert(new MyList(text.getText().toString(), 1, type));
+                        Toast.makeText(getContext(), "" + text.getText().toString(), Toast.LENGTH_SHORT).show();
                         dialog1.dismiss();
                     }
                 });
 
 
-
-                Button ok=layoutlist.findViewById(R.id.ok);
+                Button ok = layoutlist.findViewById(R.id.ok);
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -689,16 +682,6 @@ public class InfoFragment extends Fragment {
         });
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if(item.getItemId() == R.id.bookmark){
-//            item.setChecked(!item.isChecked());
-//            item.setIcon(item.isChecked() ? R.drawable.bookmark : R.drawable.nobookmark);
-//            return true;
-//        }
-//        return false;
-//    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -707,16 +690,13 @@ public class InfoFragment extends Fragment {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.bookmark){
-
+        if (item.getItemId() == R.id.bookmark) {
 
 
             // i tried this: something like: if(item.getIcon() == (R.drawable.nobookmark){} it doesn't work
-
 
             item.setIcon(R.drawable.nobookmark);
 
@@ -726,7 +706,4 @@ public class InfoFragment extends Fragment {
         return true;
 
     }
-
-
-
 }

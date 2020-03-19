@@ -9,14 +9,15 @@ import androidx.room.Update;
 
 import com.example.moviehub.model.MyList;
 import com.example.moviehub.model.MyList;
+import com.example.moviehub.utils.Type;
 
 import java.util.List;
 
 @Dao
 public interface MyListDao {
 
-    @Query("SELECT * FROM MyList")
-    List<MyList> getAll();
+    @Query("SELECT * FROM MyList WHERE MyList.type = :type")
+    List<MyList> getAll(Type.MovieOrTvshow type);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(MyList list);

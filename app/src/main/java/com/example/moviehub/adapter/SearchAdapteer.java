@@ -12,10 +12,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 public class SearchAdapteer extends FragmentStatePagerAdapter {
 
     String s;
-
-
-
-
     public SearchAdapteer(@NonNull FragmentManager fm,String s) {
         super(fm);
         this.s = s;
