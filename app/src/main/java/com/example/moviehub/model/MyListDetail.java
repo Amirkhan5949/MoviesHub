@@ -3,9 +3,13 @@ package com.example.moviehub.model;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.moviehub.room.typeconverter.MTvConverter;
 import com.example.moviehub.utils.Type;
 
+@TypeConverters({MTvConverter.class
+})
 @Entity
         (foreignKeys = {
                 @ForeignKey(entity = MyList.class,
@@ -26,10 +30,14 @@ public class MyListDetail {
 
     long minfoid;
 
+    Type.MovieOrTvshow type;
 
-    public  MyListDetail(long mlid,long minfoid){
+
+
+    public  MyListDetail(long mlid,long minfoid,Type.MovieOrTvshow type){
         this.mlid=mlid;
         this.minfoid=minfoid;
+        this.type=type;
 
     }
 
@@ -50,9 +58,6 @@ public class MyListDetail {
     }
 
 
-
-
-
     public long getId() {
         return id;
     }
@@ -60,4 +65,16 @@ public class MyListDetail {
     public void setId(long id) {
         this.id = id;
     }
+
+
+    @TypeConverters({MTvConverter.class})
+    public Type.MovieOrTvshow getType() {
+        return type;
+    }
+
+    public void setType(Type.MovieOrTvshow type) {
+        this.type = type;
+    }
 }
+
+

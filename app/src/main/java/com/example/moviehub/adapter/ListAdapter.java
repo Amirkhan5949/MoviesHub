@@ -1,6 +1,7 @@
 package com.example.moviehub.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,8 +77,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.listadaptervie
                                 .insert(movieInfo);
 
                     }
+
                      DatabaseClient.getInstance(context).getAppDatabase(). getmylistdetaildao()
-                            .insert(new MyListDetail(myLists.get(position).getId(),movieInfo.getId()));
+                            .insert(new MyListDetail(myLists.get(position).getId(),movieInfo.getId(), type));
+                    Log.i("cscscsc", "onCheckedChanged: "+type);
 
 
 

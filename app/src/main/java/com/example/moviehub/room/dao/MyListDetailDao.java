@@ -22,6 +22,9 @@ public interface MyListDetailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(MyListDetail list);
 
+
+
+
     @Query("DELETE FROM MyListDetail WHERE MyListDetail.mlid == :myListId AND MyListDetail.minfoid = :movieInfoId  ")
     void delte(Long myListId, Long movieInfoId );
 

@@ -1,6 +1,7 @@
 package com.example.moviehub.room.dao;
 
 import com.example.moviehub.model.MovieInfo;
+import com.example.moviehub.utils.Type;
 
 import java.util.List;
 
@@ -27,6 +28,9 @@ public interface MovieInfoDao {
 
     @Query("SELECT * FROM MovieInfo where MovieInfo.id == (:id)")
     List<MovieInfo> checkMovieinfo(Long id);
+
+    @Query("Select * FROM  MovieInfo INNER JOIN MyListDetail ON  MyListDetail.minfoid==MovieInfo.id  Where MyListDetail.type==:type AND mlid==:mylistid ")
+    List<MovieInfo> getdetail(Type.MovieOrTvshow type, long mylistid);
 
 
 }

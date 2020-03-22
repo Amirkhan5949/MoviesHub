@@ -22,9 +22,11 @@ public class MovieCatagoryActivity extends AppCompatActivity {
         frameLayout=findViewById(R.id.framelayout);
 
         String a=getIntent().getStringExtra("id");
+        Log.i("ddgg", "onCreate: "+a);
         Type.MixListType mixlisttype = (Type.MixListType) getIntent().getSerializableExtra("mixlisttype");
+        Log.i("sfsfsf", "onCreate: "+mixlisttype);
         Type.MovieOrTvshow type = (Type.MovieOrTvshow) getIntent().getSerializableExtra("type");
-        Log.i("sfsfsf", "onCreate: "+type);
+
         setFragment(MixListFragment.newInstance (a,mixlisttype,type));
 
 

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.moviehub.model.MovieInfo;
+import com.example.moviehub.model.MyListDetail;
 import com.example.moviehub.network.DiscoverRequest;
 import com.example.moviehub.network.MoviesRequest;
 import com.example.moviehub.network.NetworkConstraint;
@@ -81,7 +82,7 @@ public class MixListFragment extends Fragment {
             mixListType = ( Type.MixListType)args.getSerializable("mixListType");
             s = args.getString("id");
         }
-
+        Log.i("csccsz", "onCreateView: "+mixListType);
         switch (mixListType) {
             case GENRE:
                 if (movieOrTvshow == Type.MovieOrTvshow.MOVIE) {
@@ -112,6 +113,18 @@ public class MixListFragment extends Fragment {
                 else
                     getBookmarkTvshow();
 
+            case MOVIE_lIST:
+                Log.i("fdfddv", "onCreateView: "+movieOrTvshow);
+                if (movieOrTvshow==Type.MovieOrTvshow.MOVIE){
+                    Log.i("fdfddv", "onCreateView: "+3546);
+                    Log.i("ssffdf", "getMovieList: "+s);
+                    getMovieList();
+                }
+                else {
+                getTvShowList();
+            }
+
+
 
                 break;
 
@@ -119,6 +132,55 @@ public class MixListFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void getTvShowList() {
+        List<MovieInfo> list =DatabaseClient.getInstance(getContext()).getAppDatabase()
+                .getMovieInfoDao()
+                .getdetail(Type.MovieOrTvshow.TVSHOW,Long.parseLong(s));
+        Log.i("idhudhfudhf", "tv: "+list);
+
+        List<Result> results = new ArrayList<>();
+        for(MovieInfo movieInfo : list){
+            Log.i("sfdgdf", "getBookmarkMovie: "+546464);
+
+            Log.i("dgdggd", "getMovieList: "+results);
+            results.add(new Result(movieInfo.getTitle(),
+
+                    movieInfo.getPosterPath(),
+                    movieInfo.getId(),
+                    movieInfo.getOriginalTitle(),
+                    movieInfo.getReleaseDate(),
+                    movieInfo.getVoteAverage()
+            ));
+        }
+        SimilarMovieAdapter adapter = new SimilarMovieAdapter(getContext(), results, Type.MovieOrTvshow.TVSHOW);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void getMovieList() {
+        List<MovieInfo> list =DatabaseClient.getInstance(getContext()).getAppDatabase()
+                .getMovieInfoDao()
+                .getdetail(Type.MovieOrTvshow.MOVIE,Long.parseLong(s));
+        Log.i("fdddv", "getMovieList: "+list);
+
+        List<Result> results = new ArrayList<>();
+        for(MovieInfo movieInfo : list){
+            Log.i("sfdgdf", "getBookmarkMovie: "+546464);
+
+            Log.i("dgdggd", "getMovieList: "+results);
+            results.add(new Result(movieInfo.getTitle(),
+
+                    movieInfo.getPosterPath(),
+                    movieInfo.getId(),
+                    movieInfo.getOriginalTitle(),
+                    movieInfo.getReleaseDate(),
+                    movieInfo.getVoteAverage()
+            ));
+        }
+        SimilarMovieAdapter adapter = new SimilarMovieAdapter(getContext(), results, Type.MovieOrTvshow.MOVIE);
+        recyclerView.setAdapter(adapter);
+
     }
 
     private void getBookmarkTvshow() {
