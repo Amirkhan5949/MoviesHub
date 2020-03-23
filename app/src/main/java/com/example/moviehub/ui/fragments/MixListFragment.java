@@ -48,8 +48,6 @@ public class MixListFragment extends Fragment {
     Type.MixListType mixListType;
     Type.MovieOrTvshow movieOrTvshow;
 
-
-
     public static MixListFragment newInstance(String s, Type.MixListType mixListType, Type.MovieOrTvshow movieOrTvshow) {
         MixListFragment f = new MixListFragment();
         Bundle args = new Bundle();
@@ -60,8 +58,6 @@ public class MixListFragment extends Fragment {
         f.setArguments(args);
         return f;
     }
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -103,15 +99,19 @@ public class MixListFragment extends Fragment {
                     getCreditMovie();
                 else
                     getCreditTvshow();
+                break;
             case BOOKMARK:
-                Log.i("csf", "onCreateView: "+223);
+                Log.i("csf", "onCreateView: "+235);
 
                 if (movieOrTvshow == Type.MovieOrTvshow.MOVIE){
                     getBookmarkMovie();
                 }
 
-                else
+                else{
+                    Log.i("csf", "onCreateView: "+235);
                     getBookmarkTvshow();
+                }
+                break;
 
             case MOVIE_lIST:
                 Log.i("fdfddv", "onCreateView: "+movieOrTvshow);
@@ -123,9 +123,6 @@ public class MixListFragment extends Fragment {
                 else {
                 getTvShowList();
             }
-
-
-
                 break;
 
         }
@@ -184,6 +181,31 @@ public class MixListFragment extends Fragment {
     }
 
     private void getBookmarkTvshow() {
+        Log.i("sdgdgdd", "getBookmarkTvshow: "+2424);
+
+        List<MovieInfo> list = DatabaseClient.getInstance(getContext()).getAppDatabase()
+                .getForBookmarkDao()
+                .getAllBookmarkMovieInfo(Type.MovieOrTvshow.TVSHOW);
+
+        Log.i("dsfd", "gettvshow: "+list.toString());
+        List<Result> results = new ArrayList<>();
+        for(MovieInfo movieInfo : list){
+            Log.i("fhjgjgj", "tvshow: "+234);
+
+            results.add(new Result(movieInfo.getTitle(),
+
+                    movieInfo.getPosterPath(),
+                    movieInfo.getId(),
+                    movieInfo.getOriginalTitle(),
+                    movieInfo.getReleaseDate(),
+                    movieInfo.getVoteAverage()
+            ));
+        }
+        Log.i("sfdgdf", "getBookmarkMovie: "+results.toString());
+        SimilarMovieAdapter adapter = new SimilarMovieAdapter(getContext(), results, Type.MovieOrTvshow.TVSHOW);
+        recyclerView.setAdapter(adapter);
+        Log.i("sfdgdf", "getBookmarkMovie: "+757565);
+
 
     }
 
@@ -208,7 +230,7 @@ public class MixListFragment extends Fragment {
             ));
         }
         Log.i("sfdgdf", "getBookmarkMovie: "+results.toString());
-        SimilarMovieAdapter adapter = new SimilarMovieAdapter(getContext(), results, Type.MovieOrTvshow.TVSHOW);
+        SimilarMovieAdapter adapter = new SimilarMovieAdapter(getContext(), results, Type.MovieOrTvshow.MOVIE);
         recyclerView.setAdapter(adapter);
         Log.i("sfdgdf", "getBookmarkMovie: "+757565);
 

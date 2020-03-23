@@ -28,8 +28,6 @@ public class MovieCatagoryActivity extends AppCompatActivity {
         Type.MovieOrTvshow type = (Type.MovieOrTvshow) getIntent().getSerializableExtra("type");
 
         setFragment(MixListFragment.newInstance (a,mixlisttype,type));
-
-
     }
     protected void setFragment(Fragment fragment) {
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();

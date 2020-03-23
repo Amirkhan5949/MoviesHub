@@ -19,6 +19,7 @@ import com.example.moviehub.R;
 import com.example.moviehub.ui.activities.AppinfoActivity;
 import com.example.moviehub.ui.activities.BookmarkActivity;
 import com.example.moviehub.ui.activities.SearchActivity;
+import com.example.moviehub.utils.Type;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +53,9 @@ public class MenuFragment extends Fragment {
             public void onClick(View view) {
                 Log.i("cvdgdg", "onClick: "+3435);
                 Intent intent=new Intent(getContext(), BookmarkActivity.class);
-                startActivity(intent);
+                intent.putExtra("mixlisttype", Type.MixListType.BOOKMARK);
+
+                 startActivity(intent);
             }
         });
 

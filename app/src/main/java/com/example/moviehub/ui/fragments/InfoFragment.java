@@ -472,7 +472,7 @@ public class InfoFragment extends Fragment {
                                                 .getMovieInfoDao()
                                                 .insert(response.body());
 
-                                        ForBookmark forBookmark = new ForBookmark(response.body().getId(), Type.MovieOrTvshow.MOVIE);
+                                        ForBookmark forBookmark = new ForBookmark(response.body().getId(),type);
 
                                         DatabaseClient.getInstance(getContext()).getAppDatabase()
                                                 .getForBookmarkDao()

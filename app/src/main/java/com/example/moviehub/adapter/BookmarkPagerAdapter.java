@@ -1,6 +1,5 @@
 package com.example.moviehub.adapter;
 
-import com.example.moviehub.ui.fragments.HomeFragment;
 import com.example.moviehub.ui.fragments.MixListFragment;
 import com.example.moviehub.utils.Type;
 
@@ -12,8 +11,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class BookmarkPagerAdapter extends FragmentPagerAdapter {
-    public BookmarkPagerAdapter(@NonNull FragmentManager fm) {
+    Type.MixListType mixListType;
+    Type.MovieOrTvshow type;
+    String s="";
+    public BookmarkPagerAdapter(@NonNull FragmentManager fm,Type.MixListType mixListType) {
         super(fm);
+        this.mixListType=mixListType;
+        this.type=type;
     }
 
     @NonNull
@@ -21,11 +25,10 @@ public class BookmarkPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch(position){
             case 0:
-                return  MixListFragment.newInstance(null, Type.MixListType.BOOKMARK,Type.MovieOrTvshow.MOVIE);
+                return   MixListFragment.newInstance(s,mixListType,Type.MovieOrTvshow.MOVIE);
 
             case 1:
-                return   MixListFragment.newInstance(null ,Type.MixListType.BOOKMARK,Type.MovieOrTvshow.MOVIE);
-
+                return   MixListFragment.newInstance(s,mixListType,Type.MovieOrTvshow.TVSHOW);
 
             default:
                 return null;

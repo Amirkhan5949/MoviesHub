@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:id="@+id/bookmark"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -73,8 +73,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
-            android:textSize="20sp"
-            android:text="Bookmark"/>
+            android:textSize="16sp"
+            android:text="Bookmarks"/>
 
     </LinearLayout>
 
@@ -104,7 +104,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="Rate"/>
 
     </LinearLayout>
@@ -135,7 +135,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="Share"/>
 
     </LinearLayout>
@@ -167,7 +167,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="App info"/>
 
     </LinearLayout>
