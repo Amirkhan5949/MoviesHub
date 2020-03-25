@@ -25,8 +25,10 @@ import java.util.List;
 public class MovieFragment extends Fragment {
     RecyclerView recyclermovie;
     View view;
+    Type.MovieOrTvshow type;
 
-    public MovieFragment() {
+    public MovieFragment(Type.MovieOrTvshow type) {
+        this.type=type;
         // Required empty public constructor
     }
 
@@ -40,7 +42,7 @@ public class MovieFragment extends Fragment {
         recyclermovie.setLayoutManager(new LinearLayoutManager(getContext()));
         List<MyList> myLists = DatabaseClient.getInstance(getContext()).getAppDatabase()
                 .getmylistdao()
-                .getAll(Type.MovieOrTvshow.MOVIE);
+                .getAll(type);
 
         Log.i("dsvhch", "onCreateView: "+myLists.toString());
 

@@ -6,18 +6,20 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toolbar;
 
 import com.example.moviehub.R;
 import com.example.moviehub.adapter.MovieDetailAdapter;
-import com.example.moviehub.adapter.MyListAdapter;
-import com.example.moviehub.ui.activities.SearchActivity;
+ import com.example.moviehub.ui.activities.SearchActivity;
+import com.example.moviehub.utils.Type;
 import com.google.android.material.tabs.TabLayout;
 
 /**
@@ -26,7 +28,7 @@ import com.google.android.material.tabs.TabLayout;
 public class MyListFragment extends Fragment {
 
     TabLayout tablayoumtv;
-    ViewPager viewPagermtv;
+    FrameLayout framelistmtv;
     ImageView msearch;
     View view;
     private FragmentManager supportFragmentManager;
@@ -43,11 +45,37 @@ public class MyListFragment extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_my_list, container, false);
         tablayoumtv=view.findViewById(R.id.tablayoutmtv);
-        viewPagermtv=view.findViewById(R.id.viewpagermtv);
+        framelistmtv=view.findViewById(R.id.framelistmtv);
         msearch = view.findViewById(R.id.msearchicon);
 
-        viewPagermtv.setAdapter(new MyListAdapter(getFragmentManager()));
-        tablayoumtv.setupWithViewPager(viewPagermtv);
+        tablayoumtv.addTab(tablayoumtv.newTab().setText("Movie"));
+        tablayoumtv.addTab(tablayoumtv.newTab().setText("Tv Show"));
+
+        tablayoumtv.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0 : setFragment(new MovieFragment(Type.MovieOrTvshow.MOVIE));
+                    break;
+                    case 1 : setFragment(new MovieFragment(Type.MovieOrTvshow.TVSHOW));
+                    break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
+
 
         msearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +86,12 @@ public class MyListFragment extends Fragment {
         });
 
         return view;
+    }
+
+    protected void setFragment(Fragment fragment) {
+        FragmentTransaction t = getChildFragmentManager().beginTransaction();
+        t.replace(R.id.framelistmtv, fragment);
+        t.commit();
     }
 
 }

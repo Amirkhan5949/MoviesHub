@@ -22,8 +22,8 @@ public interface  ForBookmarkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ForBookmark bookmark);
 
-    @Delete
-    void delte(ForBookmark bookmark);
+    @Query("DELETE  FROM ForBookmark WHERE ForBookmark.minfo==(:mid)")
+    void delte( long mid);
 
     @Update
     void update(ForBookmark bookmark);
@@ -31,4 +31,6 @@ public interface  ForBookmarkDao {
     @Query("SELECT * FROM MovieInfo INNER JOIN ForBookmark ON MovieInfo.id == ForBookmark.minfo WHERE ForBookmark.type == (:type)")
     List<MovieInfo> getAllBookmarkMovieInfo(Type.MovieOrTvshow type);
 
+    @Query("SELECT * FROM ForBookmark WHERE ForBookmark.minfo==(:mid) ")
+    List<ForBookmark> getbookmarklist(long mid);
 }

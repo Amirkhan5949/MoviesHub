@@ -11,7 +11,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="match_parent"
         android:layout_height="256dp"
-        android:src="@drawable/avni"
+        android:src="@drawable/aamir"
         android:layout_marginTop="50dp"/>
 
     <TextView

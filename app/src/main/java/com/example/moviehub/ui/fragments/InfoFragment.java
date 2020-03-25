@@ -2,6 +2,8 @@ package com.example.moviehub.ui.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -365,17 +367,48 @@ public class InfoFragment extends Fragment {
                         bookmark.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                DatabaseClient.getInstance(getContext()).getAppDatabase()
-                                        .getMovieInfoDao()
-                                        .insert(response.body());
 
-                                ForBookmark forBookmark = new ForBookmark(response.body().getId(), Type.MovieOrTvshow.TVSHOW);
-
-                                DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                List<ForBookmark> lists= DatabaseClient.getInstance(getContext()).getAppDatabase()
                                         .getForBookmarkDao()
-                                        .insert(forBookmark);
+                                        .getbookmarklist(response.body().getId());
+                                if (lists.size()!=0){
+                                    bookmark.setImageResource(R.drawable.nobookmark );
+                                    bookmark.setVisibility(View.VISIBLE);
+                                    DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                            .getForBookmarkDao()
+                                            .delte(response.body().getId());
+                                }
+                                else{
+                                    bookmark.setImageResource(R.drawable.bookmark );
+                                    bookmark.setVisibility(View.VISIBLE);
+
+
+                                    List<MovieInfo>list=DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                            .getMovieInfoDao()
+                                            .checkMovieinfo(response.body().getId());
+
+                                    if (list.size()==0){
+                                        DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                                .getMovieInfoDao()
+                                                .insert(response.body());
+                                    }
+                                    ForBookmark forBookmark = new ForBookmark(response.body().getId(), Type.MovieOrTvshow.TVSHOW);
+
+                                    DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                            .getForBookmarkDao()
+                                            .insert(forBookmark);
+                                }
+
                             }
                         });
+
+                        List<ForBookmark> lists= DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                .getForBookmarkDao()
+                                .getbookmarklist(response.body().getId());
+                        if (lists.size()!=0){
+                            bookmark.setImageResource(R.drawable.bookmark );
+                            bookmark.setVisibility(View.VISIBLE);
+                        }else bookmark.setVisibility(view.VISIBLE);
 
                     }
 
@@ -468,21 +501,58 @@ public class InfoFragment extends Fragment {
                                 bookmark.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        DatabaseClient.getInstance(getContext()).getAppDatabase()
-                                                .getMovieInfoDao()
-                                                .insert(response.body());
 
-                                        ForBookmark forBookmark = new ForBookmark(response.body().getId(),type);
 
-                                        DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                        List<ForBookmark> lists= DatabaseClient.getInstance(getContext()).getAppDatabase()
                                                 .getForBookmarkDao()
-                                                .insert(forBookmark);
+                                                .getbookmarklist(response.body().getId());
+
+                                        if (lists.size()!=0){
+                                             DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                                    .getForBookmarkDao()
+                                                    .delte(response.body().getId());
+                                             bookmark.setImageResource(R.drawable.nobookmark);
+                                             bookmark.setVisibility(View.VISIBLE);
+                                        }
+                                        else{
+                                            Log.i("sffdfvx", "onClick: "+24343);
+
+                                            bookmark.setImageResource(R.drawable.bookmark );
+                                            bookmark.setVisibility(View.VISIBLE);
+
+                                            List<MovieInfo>list=DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                                    .getMovieInfoDao()
+                                                    .checkMovieinfo(response.body().getId());
+
+                                            if (list.size()==0){
+                                                DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                                        .getMovieInfoDao()
+                                                        .insert(response.body());
+                                            }
+
+                                            ForBookmark forBookmark = new ForBookmark(response.body().getId(),type);
+
+                                            DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                                    .getForBookmarkDao()
+                                                    .insert(forBookmark);
+
+                                        }
+
+
                                     }
                                 });
 
 
-                                Log.i("adadczc", "onResponse: " + response.body().getOverview());
-                                Log.i("adadczc", "onResponse: " + response.body());
+                                List<ForBookmark> lists= DatabaseClient.getInstance(getContext()).getAppDatabase()
+                                        .getForBookmarkDao()
+                                        .getbookmarklist(response.body().getId());
+                                if (lists.size()!=0){
+                                    bookmark.setImageResource(R.drawable.bookmark );
+                                    bookmark.setVisibility(View.VISIBLE);
+                                }else bookmark.setVisibility(view.VISIBLE);
+
+
+                                 Log.i("adadczc", "onResponse: " + response.body());
                                 review.setText(response.body().getOverview());
 
                                 if (type == Type.MovieOrTvshow.MOVIE) {
@@ -497,6 +567,7 @@ public class InfoFragment extends Fragment {
                                 date.setText(response.body().getReleaseDate());
                                 inwest.setText(response.body().getBudget().toString());
                                 earn.setText(response.body().getRevenue().toString());
+
 
 
                                 Log.i("sccccccdscsds", "onResponse: " + response.body().getReleaseDate());
@@ -555,10 +626,14 @@ public class InfoFragment extends Fragment {
                 .enqueue(new Callback<Credit>() {
                     @Override
                     public void onResponse(Call<Credit> call, Response<Credit> response) {
-                        CrewAdapter adapter = new CrewAdapter(getContext(), response.body().getCrew());
-                        crew.setAdapter(adapter);
+                        if (response.body().getCrew()!=null){
+                            CrewAdapter adapter = new CrewAdapter(getContext(), response.body().getCrew());
+                            Log.i("ssfsfsfs", "onResponse: "+response.body().getCrew());
+                            crew.setAdapter(adapter);
 
-                        Log.i("dadada", "onResponse: " + response.body());
+                            Log.i("dadada", "onResponse: " + response.body());
+
+                        }
 
                     }
 
@@ -706,4 +781,5 @@ public class InfoFragment extends Fragment {
         return true;
 
     }
+
 }

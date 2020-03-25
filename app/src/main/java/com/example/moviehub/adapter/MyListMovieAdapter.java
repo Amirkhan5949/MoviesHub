@@ -78,6 +78,4 @@ public class MyListMovieAdapter extends RecyclerView.Adapter<MyListMovieAdapter.
             listlayout=itemView.findViewById(R.id.listlayout);
         }
     }
-
-
 }

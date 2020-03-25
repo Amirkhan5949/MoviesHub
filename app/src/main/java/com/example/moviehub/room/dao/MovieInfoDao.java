@@ -33,4 +33,6 @@ public interface MovieInfoDao {
     List<MovieInfo> getdetail(Type.MovieOrTvshow type, long mylistid);
 
 
+
+
 }

@@ -62,11 +62,9 @@
          app:tabSelectedTextColor="@color/colorAccent"
         app:tabTextColor="@color/light_gray" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:clickable="false"
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
-        android:id="@+id/viewpagermtv"/>
-
+        android:id="@+id/framelistmtv"/>
 </LinearLayout>

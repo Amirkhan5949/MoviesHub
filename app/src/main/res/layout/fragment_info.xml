@@ -61,7 +61,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/bookmark"/>
+                    android:visibility="gone"
+                    android:src="@drawable/nobookmark"/>
 
             </LinearLayout>
 
