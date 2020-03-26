@@ -1,19 +1,14 @@
 package com.example.moviehub.model;
 
-import com.example.moviehub.room.typeconverter.LongConverters;
-import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
+
+import com.example.moviehub.room.typeconverter.LongConverters;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 
 @Entity
@@ -32,6 +27,23 @@ public class Result {
     @SerializedName("name")
     @Expose
     private String name;
+
+    public void setFile_path(String file_path) {
+        this.file_path = file_path;
+    }
+
+    public String getFile_path() {
+        return file_path;
+    }
+
+    public void setFilef_path(String file_path) {
+        this.file_path = file_path;
+    }
+
+    @SerializedName("file_path")
+    @Expose
+    private String file_path;
+
 
     @SerializedName("adult")
     @Expose

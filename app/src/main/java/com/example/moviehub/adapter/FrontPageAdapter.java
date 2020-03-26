@@ -10,23 +10,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.moviehub.ui.activities.AllDetatilActivity;
-import com.example.moviehub.network.NetworkConstraint;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.moviehub.R;
 import com.example.moviehub.model.Result;
+import com.example.moviehub.network.NetworkConstraint;
+import com.example.moviehub.ui.activities.AllDetatilActivity;
 import com.example.moviehub.utils.Type;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class FrontPageAdapter extends RecyclerView.Adapter<FrontPageAdapter.RecyclerViewHolder> {
     Context  context;
      List<Result>list;
      Type.MovieOrTvshow type;
+
 
     public FrontPageAdapter(Context context, List<Result>list, Type.MovieOrTvshow type){
         this.context=context;

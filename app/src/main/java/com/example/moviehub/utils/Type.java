@@ -19,4 +19,9 @@ public class Type{
     }
 
 
+    public  static enum UpcomingOrPersonImage{
+        UPCOMINGMOVIE,PERSON_IMAGES
+    }
+
+
 }

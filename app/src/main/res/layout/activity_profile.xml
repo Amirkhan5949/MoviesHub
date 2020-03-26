@@ -34,21 +34,37 @@
                 android:orientation="vertical">
 
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:gravity="bottom"
                     android:orientation="horizontal">
 
 
+                    <ss.com.bannerslider.Slider
+                        android:id="@+id/banner_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        app:slider_interval="5000"
+                        app:slider_loopSlides="true"
+                        app:slider_defaultBanner="1"
+                        app:slider_hideIndicators="true"
+
+                        />
+
+
+
+                   <FrameLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="250dp"
+                       android:background="@drawable/imagesslider"/>
 
 
 
 
 
 
-
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_marginBottom="20dp"

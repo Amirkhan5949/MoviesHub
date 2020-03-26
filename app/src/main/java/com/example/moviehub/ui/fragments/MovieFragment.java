@@ -46,7 +46,7 @@ public class MovieFragment extends Fragment {
 
         Log.i("dsvhch", "onCreateView: "+myLists.toString());
 
-        recyclermovie.setAdapter(new MyListMovieAdapter(getContext(),myLists,Type.MovieOrTvshow.MOVIE));
+        recyclermovie.setAdapter(new MyListMovieAdapter(getContext(),myLists,type));
         return view;
     }
 }

@@ -1,13 +1,5 @@
 package com.example.moviehub.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.viewpager.widget.ViewPager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,17 +10,30 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.moviehub.network.Externalids;
-import com.example.moviehub.network.NetworkConstraint;
-import com.example.moviehub.network.RetrofitClient;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.moviehub.R;
+import com.example.moviehub.adapter.MainSliderAdapter;
 import com.example.moviehub.adapter.ProfileAdapter;
 import com.example.moviehub.model.PersonExternalDetail;
+import com.example.moviehub.model.PersonMoviesPic;
+import com.example.moviehub.network.Externalids;
+import com.example.moviehub.network.NetworkConstraint;
+import com.example.moviehub.network.PersonRequest;
+import com.example.moviehub.network.RetrofitClient;
 import com.example.moviehub.utils.Type;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import ss.com.bannerslider.Slider;
 
 public class ProfileActivity extends AppCompatActivity {
     TabLayout tablayout;
@@ -36,6 +41,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextView name;
     ImageView fb,twitter,insta,imdb,fullimage,circleimage;
     TextView title_1;
+    Slider banner_slider;
+
 
 
 
@@ -51,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         circleimage=findViewById(R.id.circleimage);
         name=findViewById(R.id.name);
+        banner_slider=findViewById(R.id.banner_slider);
 
         setUpAppBar1();
 
@@ -75,7 +83,27 @@ public class ProfileActivity extends AppCompatActivity {
         viewPage.setAdapter(new ProfileAdapter(a,getSupportFragmentManager()));
         tablayout.setupWithViewPager(viewPage);
 
-        Log.i("scsfs", "onCreate: "+a);
+
+        RetrofitClient.getClient(NetworkConstraint.BASE_URL)
+                .create(PersonRequest.class)
+                .getPersonmoviesimages(a,NetworkConstraint.key)
+                .enqueue(new Callback<PersonMoviesPic>() {
+                    @Override
+                    public void onResponse(Call<PersonMoviesPic> call, Response<PersonMoviesPic> response) {
+                        Log.i("sdhcsdgh", "onFailure: "+response.toString());
+                        if (response.body().getResults()!=null){
+                            banner_slider.setAdapter(new MainSliderAdapter(response.body().getResults(),Type.UpcomingOrPersonImage.PERSON_IMAGES));
+                        }
+
+//                        https://api.themoviedb.org/person/12835/tagged_images?api_key=bc19b07e368dad62f3388351b5145758
+//                        https://api.themoviedb.org/person/12835/tagged_images?api_key=bc19b07e368dad62f3388351b5145758
+                    }
+
+                    @Override
+                    public void onFailure(Call<PersonMoviesPic> call, Throwable t) {
+                        Log.i("sdhcsdgh", "onFailure: "+t.toString());
+                    }
+                });
 
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
