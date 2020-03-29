@@ -3,7 +3,6 @@ package com.example.moviehub.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.List;
 
 public  class MovieImages {
@@ -11,6 +10,27 @@ public  class MovieImages {
     @SerializedName("id")
     @Expose
     private Long id;
+
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public List<ImageData> getData() {
+        return data;
+    }
+
+    public void setData(List<ImageData> data) {
+        this.data = data;
+    }
+
+    @SerializedName("backdrop_path")
+    @Expose
+    private String backdropPath;
+
     @SerializedName("backdrops")
     @Expose
     private List<ImageData> backdrops = null;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:background="@color/background"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,16 +9,115 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.AllDetatilActivity">
 
-    <com.google.android.material.tabs.TabLayout
-        app:tabSelectedTextColor="@color/colorAccent"
-        app:tabTextColor="@color/light_gray"
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tab"/>
+        android:id="@+id/app_bar_layout1"
+        app:elevation="0dp">
 
-    <androidx.viewpager.widget.ViewPager
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+            app:contentScrim="?attr/colorPrimary"
+            app:elevation="0dp"
+            app:expandedTitleMarginStart="20dp"
+            app:expandedTitleTextAppearance="@style/ExpandedCollapsedAppBar"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="200">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <ss.com.bannerslider.Slider
+                        android:id="@+id/banner_sliderinfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        app:slider_interval="5000"
+                        app:slider_loopSlides="true"
+                        app:slider_defaultBanner="1"
+                        app:slider_hideIndicators="true"
+
+                        />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="@drawable/imagesslider"/>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarinfo"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ToolBarStyle"
+                app:elevation="0dp"
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:text="@string/app_name"
+                    android:id="@+id/title_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingRight="12dp"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollinfo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/viewpager"/>
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <com.google.android.material.tabs.TabLayout
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tab"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:nestedScrollingEnabled="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewpager"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

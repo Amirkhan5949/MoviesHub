@@ -2,21 +2,8 @@ package com.example.moviehub.ui.fragments;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,26 +20,32 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.moviehub.R;
+import com.example.moviehub.adapter.CrewAdapter;
+import com.example.moviehub.adapter.GenreAdapter;
 import com.example.moviehub.adapter.ListAdapter;
+import com.example.moviehub.adapter.TrailorAdapter;
+import com.example.moviehub.model.Credit;
 import com.example.moviehub.model.ForBookmark;
 import com.example.moviehub.model.ImageData;
+import com.example.moviehub.model.MovieImages;
+import com.example.moviehub.model.MovieInfo;
 import com.example.moviehub.model.MyList;
-import com.example.moviehub.room.DatabaseClient;
-import com.example.moviehub.ui.activities.CelebritiesActivity;
-import com.example.moviehub.ui.activities.MoviePosterActivity;
+import com.example.moviehub.model.YoutubeConnect;
 import com.example.moviehub.network.MoviesPic;
 import com.example.moviehub.network.MoviesRequest;
 import com.example.moviehub.network.NetworkConstraint;
 import com.example.moviehub.network.RetrofitClient;
 import com.example.moviehub.network.TvShowRequest;
-import com.example.moviehub.R;
-import com.example.moviehub.adapter.CrewAdapter;
-import com.example.moviehub.adapter.GenreAdapter;
-import com.example.moviehub.adapter.TrailorAdapter;
-import com.example.moviehub.model.Credit;
-import com.example.moviehub.model.MovieImages;
-import com.example.moviehub.model.MovieInfo;
-import com.example.moviehub.model.YoutubeConnect;
+import com.example.moviehub.room.DatabaseClient;
+import com.example.moviehub.ui.activities.CelebritiesActivity;
+import com.example.moviehub.ui.activities.MoviePosterActivity;
 import com.example.moviehub.utils.Type;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -60,6 +53,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import ss.com.bannerslider.Slider;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,6 +71,7 @@ public class InfoFragment extends Fragment {
     String s = "";
     Type.MovieOrTvshow type;
     LinearLayout crewlayout, post, back, layout;
+    Slider banner_sliderinfo;
 
 
     public static InfoFragment newInstance(String s, Type.MovieOrTvshow type) {

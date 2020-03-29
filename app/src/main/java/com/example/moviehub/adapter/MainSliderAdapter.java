@@ -26,6 +26,8 @@ public class MainSliderAdapter extends SliderAdapter {
 
     @Override
     public void onBindImageSlide(int position, ImageSlideViewHolder imageSlideViewHolder) {
+
+
         if (upcomingmovieorpersonimage==Type.UpcomingOrPersonImage.UPCOMINGMOVIE){
             imageSlideViewHolder.bindImageSlide(NetworkConstraint.Image_URL+results.get(position).getBackdropPath());
         }else {

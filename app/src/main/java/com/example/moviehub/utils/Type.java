@@ -20,7 +20,7 @@ public class Type{
 
 
     public  static enum UpcomingOrPersonImage{
-        UPCOMINGMOVIE,PERSON_IMAGES
+        UPCOMINGMOVIE,PERSON_IMAGES,BACKDROPIMAGE
     }
 
 

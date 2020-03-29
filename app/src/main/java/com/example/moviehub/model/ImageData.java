@@ -31,6 +31,18 @@ public class ImageData implements Serializable {
     @Expose
     private Long width;
 
+    @SerializedName("original_title")
+    @Expose
+    private String originalTitle;
+
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
     public Double getAspectRatio() {
         return aspectRatio;
     }
