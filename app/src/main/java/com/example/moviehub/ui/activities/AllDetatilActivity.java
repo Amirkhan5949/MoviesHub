@@ -3,10 +3,11 @@ package com.example.moviehub.ui.activities;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.appcompat.R;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.moviehub.R;
 import com.example.moviehub.adapter.InfoSliderAdapter;
 import com.example.moviehub.adapter.MovieDetailAdapter;
 import com.example.moviehub.model.MovieImages;
@@ -14,6 +15,7 @@ import com.example.moviehub.network.MoviesPic;
 import com.example.moviehub.network.NetworkConstraint;
 import com.example.moviehub.network.RetrofitClient;
 import com.example.moviehub.utils.Type;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 
 import retrofit2.Call;
@@ -27,6 +29,7 @@ public class AllDetatilActivity extends AppCompatActivity {
     ViewPager viewpager;
     Type.MovieOrTvshow type;
     Slider  banner_sliderinfo;
+    CollapsingToolbarLayout collapsing_toolbar1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +39,15 @@ public class AllDetatilActivity extends AppCompatActivity {
         String s=getIntent().getStringExtra("id");
         Log.i("sscffdf", "onCreate: "+s);
         Type.MovieOrTvshow type = (Type.MovieOrTvshow) getIntent().getSerializableExtra("type");
+        String name=getIntent().getStringExtra("name");
+        Log.i("sfscxcc", "onCreate: "+name);
 
         tab=findViewById(R.id.tab);
         viewpager =findViewById(R.id.viewpager );
         banner_sliderinfo =findViewById(R.id.banner_sliderinfo );
+        collapsing_toolbar1 =findViewById(R.id.collapsing_toolbar1 );
+
+        collapsing_toolbar1.setTitle(name);
 
         RetrofitClient.getClient(NetworkConstraint.BASE_URL)
                 .create(MoviesPic.class)

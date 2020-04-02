@@ -31,6 +31,7 @@ public class SplashActivity extends AppCompatActivity {
         frameLayout=findViewById(R.id.frame);
         bottomNavigationView=findViewById(R.id.bottom);
 
+        replace(new HomeFragment());
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

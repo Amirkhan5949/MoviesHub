@@ -140,10 +140,6 @@ public class InfoFragment extends Fragment {
         crewlayout = view.findViewById(R.id.crewlayout);
         layout = view.findViewById(R.id.layout);
 
-//        onOptionsItemSelected(item);
-
-//        onCreateOptionsMenu(menu,);
-
 
         showall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -505,6 +501,7 @@ public class InfoFragment extends Fragment {
                                         List<ForBookmark> lists= DatabaseClient.getInstance(getContext()).getAppDatabase()
                                                 .getForBookmarkDao()
                                                 .getbookmarklist(response.body().getId());
+                                        Log.i("dsdsd", "onClick: "+lists);
 
                                         if (lists.size()!=0){
                                              DatabaseClient.getInstance(getContext()).getAppDatabase()
@@ -528,6 +525,9 @@ public class InfoFragment extends Fragment {
                                                         .getMovieInfoDao()
                                                         .insert(response.body());
                                             }
+
+
+
 
                                             ForBookmark forBookmark = new ForBookmark(response.body().getId(),type);
 
@@ -610,8 +610,6 @@ public class InfoFragment extends Fragment {
                         }
 
                     }
-
-
                     @Override
                     public void onFailure(Call<MovieInfo> call, Throwable t) {
                         Log.i("adadczc", "onFailure: " + t.getMessage());
@@ -701,12 +699,18 @@ public class InfoFragment extends Fragment {
                 RecyclerView movielist = layoutlist.findViewById(R.id.movielist);
 
 
+
+
+
+
                 List<MyList> myLists = DatabaseClient.getInstance(getContext()).getAppDatabase()
                         .getmylistdao()
                         .getAll(type);
+
+
+
+
                 movielist.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
                 movielist.setAdapter(new ListAdapter(getContext(), myLists, type, body));
                 Log.i("ddadsdsds", "onClick: " + list.getId());
                 add.setOnClickListener(new View.OnClickListener() {
@@ -736,13 +740,13 @@ public class InfoFragment extends Fragment {
                     public void onClick(View v) {
                         DatabaseClient.getInstance(getContext()).getAppDatabase()
                                 .getmylistdao()
-                                .insert(new MyList(text.getText().toString(), 1, type));
+                                .insert(new MyList(text.getText().toString(), 0, type));
                         Toast.makeText(getContext(), "" + text.getText().toString(), Toast.LENGTH_SHORT).show();
                         dialog1.dismiss();
                     }
+
+
                 });
-
-
                 Button ok = layoutlist.findViewById(R.id.ok);
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override

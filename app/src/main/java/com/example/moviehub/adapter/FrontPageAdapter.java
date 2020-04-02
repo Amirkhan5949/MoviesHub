@@ -74,17 +74,21 @@ public class FrontPageAdapter extends RecyclerView.Adapter<FrontPageAdapter.Recy
                 Intent intent = new Intent(context, AllDetatilActivity.class);
                 intent.putExtra("id",list.get(position).getId()+"");
                 intent.putExtra("type",type);
+                if (list.get(position).getTitle()==null){
+                    intent.putExtra("name",list.get(position).getName()+"");
+                }else if (list.get(position).getTitle()!=null){
+                    intent.putExtra("name",list.get(position).getTitle()+"");
+                }else if (list.get(position).getOriginal_name()==null){
+                    intent.putExtra("name",list.get(position).getOriginalTitle()+"");
+                }
+                else if (list.get(position).getOriginal_name()!=null){
+                    intent.putExtra("name",list.get(position).getOriginal_name()+"");
+
+                }
                 context.startActivity(intent);
-
-
-
 
             }
         });
-
-
-
-
 
     }
 

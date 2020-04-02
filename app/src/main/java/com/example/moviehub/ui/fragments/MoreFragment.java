@@ -70,7 +70,7 @@ public class MoreFragment extends Fragment {
         Bundle args = getArguments();
         if(args!=null){
             type = (Type.MoreButton)args.getSerializable("type");
-            query = args.getString("query");
+            query = args.getString("query")+" ";
         }
 
 
@@ -339,9 +339,11 @@ public class MoreFragment extends Fragment {
                             Log.i("sfsfdz", "onResponse: "+ response.toString());
 
                         if (page == 1) {
+                            Log.i("vsfsfs", "onResponse: "+response.body().toString());
                             adpter = new SimilarMovieAdapter(getContext(),response.body().getResults(), Type.MovieOrTvshow.MOVIE);
                             recyclerView.setAdapter(adpter);
                         } else {
+                            Log.i("lknnk", "onResponse: "+response.body().toString());
                             adpter.addAllResult(response.body().getResults());
                         }
 
@@ -390,15 +392,4 @@ public class MoreFragment extends Fragment {
                     }
                 });
     }
-
-
-
-
 }
-
-
-
-
-
-
-

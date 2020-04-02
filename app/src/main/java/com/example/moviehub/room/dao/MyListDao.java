@@ -27,4 +27,8 @@ public interface MyListDao {
 
     @Update
     void update(MyList list);
+
+
+    @Query("SELECT * FROM MyList WHERE MyList.id=:id")
+    List<MyList> getdata(Long id);
 }

@@ -28,6 +28,7 @@ public class SearchActivity extends AppCompatActivity {
         stabLayout = findViewById(R.id.stabLayout);
         searchicon = findViewById(R.id.searchicon);
         edit = findViewById(R.id.edit);
+        sviewpage.setAdapter(new SearchAdapteer(getSupportFragmentManager(), edit.getText().toString()));
 
 
         searchicon.setOnClickListener(new View.OnClickListener() {

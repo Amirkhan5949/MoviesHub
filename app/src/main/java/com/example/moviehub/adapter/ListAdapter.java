@@ -2,6 +2,7 @@ package com.example.moviehub.adapter;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.listadaptervie
 
 
 
+
+
         holder.listname.setText(myLists.get(position).getName());
 
         holder.listcheck.setOnCheckedChangeListener(null);
@@ -70,6 +73,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.listadaptervie
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+
+                    List<MyList> list = DatabaseClient.getInstance(context).getAppDatabase()
+                            .getmylistdao()
+                            .getdata(myLists.get(position).getId());
+
+                    MyList myList = list.get(0);
+                    myList.setSize(myList.getSize()+1);
+
+
+                     DatabaseClient.getInstance(context).getAppDatabase()
+                            .getmylistdao()
+                            .update(myList);
+
+                    Log.i("ccfscf", "onCheckedChanged: "+myList);
 
                     if(!isMyMovieinfotAlready){
                         DatabaseClient.getInstance(context).getAppDatabase()
@@ -89,6 +106,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.listadaptervie
                     DatabaseClient.getInstance(context).getAppDatabase()
                             .getmylistdetaildao()
                             .delte(myLists.get(position).getId(),movieInfo.getId());
+
+                    List<MyList> list = DatabaseClient.getInstance(context).getAppDatabase()
+                            .getmylistdao()
+                            .getdata(myLists.get(position).getId());
+
+                    MyList myList = list.get(0);
+                    myList.setSize(myList.getSize()-1);
+
+                    DatabaseClient.getInstance(context).getAppDatabase()
+                            .getmylistdao()
+                            .update(myList);
+
                 }
             }
         });

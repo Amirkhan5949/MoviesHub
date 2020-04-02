@@ -67,7 +67,17 @@ public class SimilarMovieAdapter extends RecyclerView.Adapter<SimilarMovieAdapte
                 Intent intent=new Intent(context, AllDetatilActivity.class);
                 intent.putExtra("id",list.get(position).getId()+"");
                 intent.putExtra("type",type);
-                context.startActivity(intent);
+                if (list.get(position).getTitle()==null){
+                    intent.putExtra("name",list.get(position).getName()+"");
+                }else if (list.get(position).getTitle()!=null){
+                    intent.putExtra("name",list.get(position).getTitle()+"");
+                }else if (list.get(position).getOriginal_name()==null){
+                    intent.putExtra("name",list.get(position).getOriginalTitle()+"");
+                }
+                else if (list.get(position).getOriginal_name()!=null){
+                    intent.putExtra("name",list.get(position).getOriginal_name()+"");
+
+                }                 context.startActivity(intent);
             }
         });
 

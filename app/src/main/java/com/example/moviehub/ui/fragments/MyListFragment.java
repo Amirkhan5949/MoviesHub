@@ -51,6 +51,7 @@ public class MyListFragment extends Fragment {
         tablayoumtv.addTab(tablayoumtv.newTab().setText("Movie"));
         tablayoumtv.addTab(tablayoumtv.newTab().setText("Tv Show"));
 
+        setFragment(new MovieFragment(Type.MovieOrTvshow.MOVIE));
         tablayoumtv.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

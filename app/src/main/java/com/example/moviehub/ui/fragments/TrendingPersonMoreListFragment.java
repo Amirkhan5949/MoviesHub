@@ -71,7 +71,7 @@ public class TrendingPersonMoreListFragment extends Fragment {
         Bundle args = getArguments();
         if(args!=null){
             type = (Type.MoreButton)args.getSerializable("type");
-            query = args.getString("query");
+            query = args.getString("query")+" ";
         }
 
 
@@ -109,12 +109,13 @@ public class TrendingPersonMoreListFragment extends Fragment {
                             adpter=new TrendingPersonListAdapter(getContext(),response.body().getResults());
                             trendingrecycler.setAdapter(adpter);
                         }else {
+                            Log.i("defdfdf", "onResponse: "+2324);
                             adpter.addAllResult(response.body().getResults());
                         }
 
                         trendingloader.setVisibility(View.GONE);
                         isLoading=false;
-                        page=   + 1;
+                        page=   page+ 1;
 
                     }
 
@@ -180,12 +181,12 @@ public class TrendingPersonMoreListFragment extends Fragment {
                         Log.i("sfsfdz", "onResponse: "+ response.body());
                         Log.i("sfsfdz", "onResponse: "+ response.toString());
 
-
-
                         if (page == 1) {
+                            Log.i("fsfvfs", "onResponse: "+123);
                             adaptr = new TrendingPersonListAdapter(getContext(),response.body().getResults());
                             trendingrecycler.setAdapter(adaptr);
                         } else {
+                            Log.i("fsfvfs", "onResponse: "+123);
                             adaptr.addAllResult(response.body().getResults());
                         }
 
@@ -202,7 +203,4 @@ public class TrendingPersonMoreListFragment extends Fragment {
                     }
                 });
     }
-
-
-
 }
