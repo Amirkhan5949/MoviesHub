@@ -5,6 +5,11 @@ MovieHub gives you the overview of Movies TV shows & Actors from the largest com
 
 In this project, I will use Android with  Retrofit, Pagination,  RoomDataBase, ,Coordinater Layout & Android JetPack.
 
+# Demo of Movie Stack App 
+
+  <img width="200px"   src="https://github.com/mayankkasera/Movie-Stack/blob/master/media/moviestack.gif"></br>
+
+
 App Features: 
 
 * Discover trending Movies, TV shows & Persons.
